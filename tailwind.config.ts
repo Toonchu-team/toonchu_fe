@@ -8,6 +8,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        nanumsquare: ["var(--font-nanumsquare)", "sans-serif"],
+        lemonada: ["var(--font-lemonada)", "cursive"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
