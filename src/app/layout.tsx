@@ -17,11 +17,6 @@ const nanumsquare = localFont({
       weight: "700",
     },
     {
-      /* font-extrabold */
-      path: "../../public/fonts/NanumSquareNeo-dEb.ttf",
-      weight: "800",
-    },
-    {
       /* font-black */
       path: "../../public/fonts/NanumSquareNeo-eHv.ttf",
       weight: "900",
@@ -33,14 +28,7 @@ const nanumsquare = localFont({
 const lemonada = Lemonada({
   subsets: ["latin"],
   variable: "--font-lemonada",
-  weight: ["300", "400", "500", "600", "700"],
-  /* 
-  "300" -> font-light
-  "400" -> font-normal
-  "500" -> font-medium
-  "600" -> font-semibold
-  "700" -> font-bold (Toonchu 영어 로고)
-  */
+  weight: ["700"], // Toonchu 영어 로고
 });
 
 export const metadata: Metadata = {
