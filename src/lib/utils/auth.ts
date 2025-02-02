@@ -3,7 +3,7 @@ export const getGoogleLoginUrl = () => {
   const redirectUri = encodeURIComponent(
     `${window.location.origin}/auth/callback/google`
   );
-  return `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
+  return `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`;
 };
 
 export const getKakaoLoginUrl = () => {
