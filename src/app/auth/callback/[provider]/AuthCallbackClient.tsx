@@ -2,14 +2,22 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { User } from "@/lib/types/auth";
+import useAuthStore from "@/stores/authStore";
 
-export default function AuthCallbackClient({ user }: { user: any }) {
+interface AuthCallbackClientProps {
+  user: User | null;
+}
+
+export default function AuthCallbackClient({ user }: AuthCallbackClientProps) {
   const router = useRouter();
+  const { login } = useAuthStore();
   useEffect(() => {
-    console.log(user);
-    // 유저 정보 전역 상태에 저장
-    router.push("/");
-  }, [user, router]);
+    if (user) {
+      login(user);
+      router.push("/profile"); // 추후 "/"로 수정, 현재는 profile 데이터 연동 테스트 중
+    }
+  }, [user, router, login]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">

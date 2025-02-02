@@ -29,8 +29,8 @@ export default async function AuthCallbackPage({
       throw new Error("인증에 실패하였습니다.");
     }
 
-    const userData = await response.json();
-    return <AuthCallbackClient user={userData} />;
+    const data = await response.json();
+    return <AuthCallbackClient user={data.user} />;
   } catch (error) {
     console.error(error);
     return <div>인증에 실패하였습니다.</div>; // 추후 에러 페이지 생성
