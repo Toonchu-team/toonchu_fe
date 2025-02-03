@@ -2,8 +2,8 @@ import React from "react";
 
 const Tags = ({ tag }: { tag: string }) => {
   return (
-    <div className="inline-block border border-1-main-grey rounded-md sm:rounded-lg px-1.5 py-0.5 sm:px-2 sm:py-1 cursor-pointer hover:bg-bg-yellow-01">
-      <p className="text-main-text text-[8px] sm:text-base">#{tag}</p>
+    <div className="border-1-main-grey inline-block cursor-pointer rounded-md border px-1.5 py-0.5 hover:bg-bg-yellow-01 sm:rounded-lg sm:px-2 sm:py-1">
+      <p className="text-[8px] text-main-text sm:text-base">#{tag}</p>
     </div>
   );
 };
