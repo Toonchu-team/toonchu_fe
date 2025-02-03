@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Badges from "../badge/Badges";
 import Tags from "../tag/Tags";
+import { Heart } from "lucide-react";
 
 const WebtoonCard = () => {
   // 임시 데이터
@@ -31,7 +32,8 @@ const WebtoonCard = () => {
         height={257}
         className="rounded-bl-2xl rounded-tl-2xl"
       />
-      <div className="border-1 flex w-80 flex-col rounded-br-2xl rounded-tr-2xl border bg-white">
+      <div className="border-1 relative flex w-80 flex-col rounded-br-2xl rounded-tr-2xl border bg-white">
+        <Heart className="absolute right-16 top-2" />
         <Image
           src="/naverSquare.png"
           alt="naverLogo"
@@ -42,7 +44,6 @@ const WebtoonCard = () => {
         <div className="flex flex-col gap-3 p-4">
           <div className="flex flex-wrap gap-1">
             {badges.map((badge, index) => {
-              console.log(badge);
               return <Badges key={index} badge={badge} />;
             })}
           </div>
