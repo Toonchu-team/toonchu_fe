@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    font-family: "nanumsquare";
+  }
+}
+
 /* 스크롤바 커스텀 */
 /* ::-webkit-scrollbar {
   width: 4px;
