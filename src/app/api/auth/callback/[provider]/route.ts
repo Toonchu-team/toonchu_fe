@@ -21,17 +21,15 @@ export async function GET(
   // Mock 데이터 : 백엔드 반환값 다시 확인 필요 (USER-001(2/1 API명세서 기준))
   const mockUser = {
     id: 1,
-    name: "NAME",
     nick_name: "USERNAME",
     email: "mock_user@example.com",
     profile_image: "https://picsum.photos/300/300",
+    // profile_image: null, // 이미지 플레이스홀더 테스트 용
     provider,
-    provider_id: "123456789",
   };
 
   const mockResponse = {
     access_token: "mock_access_token",
-    expires_in: 3600,
     user: mockUser,
   };
 
