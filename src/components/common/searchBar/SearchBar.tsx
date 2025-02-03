@@ -32,7 +32,7 @@ const SearchBar = () => {
       >
         <Search color="#FFF" width={20} />
       </button>
-      <div className="flex w-[820px] items-center justify-around px-5">
+      <div className="flex w-[820px] items-center justify-around pl-5">
         <div className="relative flex h-8 w-[150px] items-center justify-center">
           <div
             className="relative flex w-36 cursor-pointer text-main-text"
@@ -93,7 +93,7 @@ const SearchBar = () => {
           />
           {searchTerm && (
             <X
-              className={`${clearIconClass} right-0`}
+              className={`${clearIconClass} right-2`}
               width={15}
               onClick={() => setSearchTerm("")}
             />
