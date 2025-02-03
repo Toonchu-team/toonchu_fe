@@ -1,11 +1,30 @@
+@import "normalize.css"; /* ✅ Tailwind보다 위에 배치 */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "normalize.css"; /* Normalize.css */
-
 @layer base {
-  * {
-    font: inherit;
+  body {
+    font-family: "nanumsquare";
   }
 }
+
+/* 스크롤바 커스텀 */
+/* ::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eae9e9;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c6c6c6;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9f9f9f;
+} */
