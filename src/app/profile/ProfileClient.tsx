@@ -37,6 +37,7 @@ export default function ProfileClient() {
                 alt="프로필 이미지"
                 width={100}
                 height={100}
+                priority
               />
               <h2>{user.nick_name}</h2>
               <p>{user.email}</p>

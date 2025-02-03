@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { provider: string } }
+  { params: paramsPromise }: { params: Promise<{ provider: string }> }
 ) {
-  const { provider } = params;
+  const { provider } = await paramsPromise;
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
 
