@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   title: "Toonchu",
   description:
     "삼색고양이 '태그'가 좋아하는 웹툰츄르, 웹툰츄르를 추천해주는 무료웹툰추천사이트. 캐릭터, 장르,소재 등 다양한 분류의 태그로 작품들을 찾아줍니다.",
+  icons: {
+    icon: "/images/brand-character/favicon.png",
+  },
 };
 
 export default function RootLayout({
