@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params: paramsPromise }: { params: Promise<{ provider: string }> }
+  { params: paramsPromise }: { params: Promise<{ provider: string }> },
 ) {
   const { provider } = await paramsPromise;
   const { searchParams } = new URL(request.url);
@@ -11,7 +11,7 @@ export async function GET(
   if (!code) {
     return NextResponse.json(
       { error: "Authorization code를 찾을 수 없습니다." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -23,8 +23,8 @@ export async function GET(
     id: 1,
     nick_name: "USERNAME",
     email: "mock_user@example.com",
-    profile_image: "https://picsum.photos/300/300",
-    // profile_image: null, // 이미지 플레이스홀더 테스트 용
+    // profile_image: "https://picsum.photos/300/300",
+    profile_image: null, // 이미지 플레이스홀더 테스트 용
     provider,
   };
 

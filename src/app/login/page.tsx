@@ -4,7 +4,7 @@ import NaverLoginButton from "@/components/auth/NaverLoginButton";
 
 export default function Register() {
   return (
-    <div className="w-full h-screen bg-slate-300">
+    <div className="h-screen w-full bg-slate-300">
       <h1>로그인/회원가입</h1>
       <GoogleLoginButton />
       <NaverLoginButton />

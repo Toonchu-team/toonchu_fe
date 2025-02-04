@@ -10,9 +10,9 @@ const config: Config = {
   theme: {
     extend: {
       padding: {
-        mobile: "1rem",
-        tablet: "2rem",
-        desktop: "25rem",
+        mobile: "1rem", // 16px
+        tablet: "2rem", // 32px
+        desktop: "25rem", // 400px
       },
       fontFamily: {
         nanumsquare: ["var(--font-nanumsquare)", "sans-serif"],
