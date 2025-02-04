@@ -10,6 +10,12 @@
   }
 }
 
+@layer components {
+  .nav-item {
+    @apply flex h-full flex-shrink-0 cursor-pointer items-center px-7 hover:bg-bg-yellow-01/60;
+  }
+}
+
 /* 스크롤바 커스텀 */
 /* ::-webkit-scrollbar {
   width: 4px;
