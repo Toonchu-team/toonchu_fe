@@ -4,13 +4,15 @@ import useAuthStore from "@/stores/authStore";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon, LogInIcon } from "lucide-react";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
 export default function ProfileMenu() {
   const { user, login, logout } = useAuthStore();
   const [isDropdown, setIsDropdown] = useState(false);
   const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
@@ -28,6 +30,16 @@ export default function ProfileMenu() {
     setIsDropdown(false);
     router.push("/profile");
   };
+
+  const handleLogout = () => {
+    setIsDropdown(false);
+    logout();
+  };
+
+  useOutsideClick({
+    ref: dropdownRef as RefObject<HTMLElement>,
+    callback: () => setIsDropdown(false),
+  });
 
   return user ? (
     <div className="relative flex items-center gap-2">
@@ -55,16 +67,22 @@ export default function ProfileMenu() {
         )}
       </button>
       {isDropdown && (
-        <div className="absolute left-16 top-10 w-28 overflow-hidden rounded-md border-[1px] border-main-text shadow-sm shadow-main-grey">
+        <div
+          ref={dropdownRef}
+          className="absolute left-16 top-10 w-28 overflow-hidden rounded-md border-[1px] border-main-text bg-white shadow-sm shadow-main-grey"
+        >
           <button
             onClick={handleClickProfile}
             className="flex h-10 w-full cursor-pointer items-center justify-center hover:bg-bg-yellow-01/60"
           >
             프로필
           </button>
-          <p className="flex h-10 w-full cursor-pointer items-center justify-center hover:bg-bg-yellow-01/60">
+          <button
+            onClick={handleLogout}
+            className="flex h-10 w-full cursor-pointer items-center justify-center hover:bg-bg-yellow-01/60"
+          >
             로그아웃
-          </p>
+          </button>
         </div>
       )}
     </div>

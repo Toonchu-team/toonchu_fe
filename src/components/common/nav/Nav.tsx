@@ -15,7 +15,7 @@ export default function Nav() {
       </h1>
       <ul className="flex h-full flex-1">
         <NavItem path={"/tag-search"} linkText="태그별 검색" />
-        <NavItem path={"/day-search"} linkText="요일별 검색" />
+        <NavItem path={"/day-search"} linkText="연재별 검색" />
         <NavItem path={"/my-box"} linkText="내 상자" />
       </ul>
       <ProfileMenu />
