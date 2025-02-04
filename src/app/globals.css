@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    min-width: 320px;
+  }
   body {
     font-family: "nanumsquare";
   }

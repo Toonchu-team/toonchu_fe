@@ -52,7 +52,7 @@ export default function ProfileMenu() {
           height={32}
         />
       </Link>
-      <span>{nickName}</span>
+      <p>{nickName}</p>
       <button onClick={handleDropdown}>
         {isDropdown ? (
           <ChevronUpIcon
