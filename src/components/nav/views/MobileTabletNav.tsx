@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import BottomSlideUpMenu from "../../BottomSlideUpMenu";
+import BottomSlideUpMenu from "../../common/BottomSlideUpMenu";
 
 export default function MobileTabletNav() {
   const [padding, setPadding] = useState("px-4");

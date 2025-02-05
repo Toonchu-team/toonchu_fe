@@ -47,7 +47,7 @@ export default function BottomSlideUpMenu({
           exit="closed"
           ref={menuRef}
         >
-          <div className="my-6 h-2 w-1/2 rounded-full bg-bg-yellow-01">
+          <div className="my-6 h-2 w-1/3 rounded-full bg-bg-yellow-01">
             {/* 상단 구분선 */}
           </div>
           {children}
