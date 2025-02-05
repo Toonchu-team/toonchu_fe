@@ -7,9 +7,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { RefObject, useRef, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon, LogInIcon } from "lucide-react";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import useProfileStore from "@/stores/profileStore";
 
 export default function ProfileMenu() {
   const { user, login, logout } = useAuthStore();
+  const setIsEditing = useProfileStore((state) => state.setIsEditing);
+
   const [isDropdown, setIsDropdown] = useState(false);
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -28,6 +31,7 @@ export default function ProfileMenu() {
 
   const handleClickProfile = () => {
     setIsDropdown(false);
+    setIsEditing(false);
     router.push("/profile");
   };
 
@@ -50,6 +54,7 @@ export default function ProfileMenu() {
           className="h-8 w-8 rounded-full"
           width={32}
           height={32}
+          onClick={() => setIsEditing(false)}
         />
       </Link>
       <p>{nickName}</p>
