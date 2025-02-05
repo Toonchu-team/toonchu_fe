@@ -1,24 +1,44 @@
-import Link from "next/link";
-import ProfileMenu from "./ProfileMenu";
-import NavItem from "./NavItem";
+// "use client";
+
+// import useResponsive from "@/hooks/useResponsive";
+// import DesktopNav from "./views/DesktopNav";
+// import MobileTabletNav from "./views/MobileTabletNav";
+// import { useEffect, useState } from "react";
+
+// // export default function Nav() {
+// //   const { isDesktop } = useResponsive();
+
+// //   return <>{isDesktop ? <DesktopNav /> : <MobileTabletNav />}</>;
+// // }
+
+// export default function Nav() {
+//   const [isMobile, setIsMobile] = useState(false);
+//   const { isDesktop } = useResponsive();
+
+//   useEffect(() => {
+//     setIsMobile(!isDesktop);
+//   }, [isDesktop]);
+
+//   return isMobile ? <MobileTabletNav /> : <DesktopNav />;
+// }
+
+"use client";
+
+import dynamic from "next/dynamic";
+import useResponsive from "@/hooks/useResponsive";
+
+const DynamicMobileTabletNav = dynamic(
+  () => import("./views/MobileTabletNav"),
+  {
+    ssr: false,
+  },
+);
+const DynamicDesktopNav = dynamic(() => import("./views/DesktopNav"), {
+  ssr: false,
+});
 
 export default function Nav() {
-  return (
-    <nav className="flex h-[60px] w-full items-center justify-between gap-7 px-10 font-bold text-main-text">
-      <h1>
-        <Link
-          href={"/"}
-          className="h-[60px] bg-gradient-to-r from-main-grey to-main-yellow bg-clip-text font-lemonada text-3xl text-transparent"
-        >
-          Toonchu
-        </Link>
-      </h1>
-      <ul className="flex h-full flex-1">
-        <NavItem path={"/tag-search"} linkText="태그별 검색" />
-        <NavItem path={"/day-search"} linkText="연재별 검색" />
-        <NavItem path={"/my-box"} linkText="내 상자" />
-      </ul>
-      <ProfileMenu />
-    </nav>
-  );
+  const { isDesktop } = useResponsive();
+
+  return isDesktop ? <DynamicDesktopNav /> : <DynamicMobileTabletNav />;
 }
