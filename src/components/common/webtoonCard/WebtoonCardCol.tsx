@@ -25,10 +25,9 @@ const WebtoonCardCol = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   // 태블릿 뷰: 0.75로 축소
-  // 모바일 뷰: 0.6으로 축소
 
   return (
-    <div className="relative flex h-[391px] w-[300px] scale-[0.65] flex-col overflow-hidden lg:scale-100">
+    <div className="relative flex h-[391px] w-[300px] flex-col overflow-hidden">
       <Image
         src="/image.png"
         alt=""
@@ -63,7 +62,7 @@ const WebtoonCardCol = () => {
             </p>
             <p className="text-sm text-main-text">구아진</p>
           </div>
-          <div className="flex h-20 flex-wrap justify-center gap-1 overflow-y-auto scrollbar-hide">
+          <div className="flex h-[72px] flex-wrap justify-center gap-1 overflow-y-auto scrollbar-hide">
             {tags.map((tag, index) => {
               return <Tags key={index} tag={tag} col={false} />;
             })}

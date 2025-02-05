@@ -26,9 +26,9 @@ const WebtoonCard = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   // 태블릿 뷰: 0.7 축소
-  // 모바일 뷰
+
   return (
-    <div className="flex h-[257px] w-[500px] origin-left scale-[0.7] drop-shadow-xl lg:scale-100">
+    <div className="flex h-[257px] w-[540px] drop-shadow-xl">
       <Image
         src="/image.png"
         alt=""
@@ -36,7 +36,7 @@ const WebtoonCard = () => {
         height={257}
         className="rounded-bl-2xl rounded-tl-2xl"
       />
-      <div className="border-1 relative flex w-80 flex-col rounded-br-2xl rounded-tr-2xl border bg-white">
+      <div className="border-1 relative flex w-[360px] flex-col rounded-br-2xl rounded-tr-2xl border bg-white">
         <Heart
           className="absolute right-16 top-3 cursor-pointer"
           size={30}
