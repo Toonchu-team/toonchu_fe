@@ -12,7 +12,13 @@ export default function Header() {
               다양한 태그로 웹툰을 소개합니다. <br /> 지금 바로 탐험해 보세요!
             </p>
           </div>
-          <Image src="/mockup.png" alt="mockup" width={370} height={400} />
+          <Image
+            src="/mockup.png"
+            alt="mockup"
+            width={370}
+            height={400}
+            className="drop-shadow-2xl"
+          />
           <div
             className={`border-1-main-grey absolute bottom-48 right-64 inline-block rounded-xl border bg-bg-yellow-01 px-2 py-1`}
           >
