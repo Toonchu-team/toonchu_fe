@@ -7,11 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import BottomSlideUpMenu from "../../common/BottomSlideUpMenu";
+import BottomSlideUpMenu from "@/components/common/BottomSlideUpMenu";
+import useProfileStore from "@/stores/profileStore";
 
 export default function MobileTabletNav() {
   const [padding, setPadding] = useState("px-4");
   const { user } = useAuthStore();
+  const setIsEditing = useProfileStore((state) => state.setIsEditing);
   const { isTablet } = useResponsive();
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function MobileTabletNav() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
   const toggleMenu = (e: React.MouseEvent) => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -60,6 +63,7 @@ export default function MobileTabletNav() {
               className="h-8 w-8 rounded-full"
               width={32}
               height={32}
+              onClick={() => setIsEditing(false)}
             />
           </Link>
         ) : (
