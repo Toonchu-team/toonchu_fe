@@ -11,12 +11,11 @@ export default function MyBox() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* 프로필 섹션 */}
+      {/* 프로필 박스 섹션 */}
       <section className="h-[180px]">
 
         <div className="h-1/2 bg-[#DEB887]">
           <div className="mx-auto flex max-w-4xl items-center gap-6 px-4 pt-[30px]">
-            {/* 프로필 이미지 */}
             <div className="relative h-[130px] w-[130px] overflow-hidden rounded-full border-4 border-white bg-white">
               <Image
                 src={'/images/brand-character/default-profile.png'}
