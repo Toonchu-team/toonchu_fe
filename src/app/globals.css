@@ -19,8 +19,17 @@
   }
 }
 
+.swiper-pagination-bullet:hover {
+  background: #ffd795;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #efc071; /* 활성 불릿 색상 */
+}
+
 /* 스크롤바 커스텀 */
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 4px;
 }
 
@@ -36,4 +45,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #9f9f9f;
-} */
+}
