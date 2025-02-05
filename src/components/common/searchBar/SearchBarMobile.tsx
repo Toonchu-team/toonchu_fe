@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { X, Search, ChevronDown } from "lucide-react";
 
-const SearchBar = () => {
+const SearchBarMoblie = () => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const providers = ["전체", "네이버", "카카오", "카카오페이지"];
   const [provider, setProvider] = useState<string>("전체");
@@ -12,16 +12,15 @@ const SearchBar = () => {
   const apiUrl = "api/webtoon/search";
 
   // TailwindCSS
-  const inputClass = "pl-3 focus:outline-none text-main-text";
-  const containerClass = "flex justify-start items-center relative border-l-2";
+  const inputClass = "pl-2 focus:outline-none text-main-text";
+  const containerClass =
+    "flex justify-start items-center relative border-l-[1px]";
   const clearIconClass = "absolute cursor-pointer text-main-text";
 
-  // 태블릿 뷰: scale-75
-
   return (
-    <div className="border-1 flex h-10 w-[870px] scale-75 flex-col justify-center rounded-3xl border bg-white px-1 lg:scale-100">
+    <div className="border-1 relative flex h-6 w-[340px] origin-left flex-col justify-center rounded-xl border px-1">
       <button
-        className="fixed flex h-8 w-9 items-center justify-center self-end rounded-r-3xl bg-main-yellow pr-1"
+        className="absolute flex h-4 w-5 items-center justify-center self-end rounded-r-xl bg-main-yellow pr-0.5"
         onClick={() => {
           const queryString = `provider=${provider}${searchTag && `&tag=${searchTag}`}${searchTerm && `&term=${searchTerm}`}`;
           console.log(`${apiUrl}?${queryString}`); // 확인용
@@ -32,25 +31,25 @@ const SearchBar = () => {
           setSearchTerm("");
         }}
       >
-        <Search color="#FFF" width={20} />
+        <Search color="#FFF" size={12} />
       </button>
-      <div className="flex w-[820px] items-center justify-around pl-5">
-        <div className="relative flex h-8 w-[150px] items-center justify-center">
+      <div className="flex items-center gap-1 pl-1">
+        <div className="relative flex h-5 w-[70px] items-center justify-center">
           <div
-            className="relative flex w-36 cursor-pointer text-main-text"
+            className="relative flex w-[70px] cursor-pointer text-main-text"
             onClick={() => {
               setOpenDropdown((prev) => !prev);
             }}
           >
-            <p>{provider}</p>
+            <p className="text-[10px]">{provider}</p>
             <ChevronDown
-              className="absolute right-1"
+              className="absolute right-0 top-0.5"
               color="#6a6a6a"
-              width={20}
+              size={12}
             />
           </div>
           {openDropdown && (
-            <div className="border-1 absolute top-10 flex h-32 w-36 cursor-pointer flex-col rounded-xl border bg-white">
+            <div className="border-1 absolute top-6 flex h-24 w-20 cursor-pointer flex-col border">
               {providers.map((provider, index) => {
                 return (
                   <div
@@ -61,42 +60,42 @@ const SearchBar = () => {
                       setOpenDropdown(false);
                     }}
                   >
-                    <p className="text-main-text">{provider}</p>
+                    <p className="text-[10px] text-main-text">{provider}</p>
                   </div>
                 );
               })}
             </div>
           )}
         </div>
-        <div className={`${containerClass} h-8 w-[230px]`}>
+        <div className={`${containerClass} h-4 w-[110px]`}>
           <input
             type="text"
-            className={`${inputClass} w-[85%]`}
+            className={`${inputClass} w-[85%] text-[10px]`}
             placeholder="태그를 입력하라냥"
             value={searchTag}
             onChange={(e) => setSearchTag(e.target.value)}
           />
           {searchTag && (
             <X
-              className={`${clearIconClass} right-2`}
-              width={15}
+              className={`${clearIconClass} right-0`}
+              size={11}
               onClick={() => setSearchTag("")}
             />
           )}
         </div>
 
-        <div className={`${containerClass} h-8 w-[400px]`}>
+        <div className={`${containerClass} h-4 w-[115px]`}>
           <input
             type="text"
-            className={`${inputClass} w-[95%]`}
+            className={`${inputClass} w-[85%] text-[10px]`}
             placeholder="검색어를 입력하라냥"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           {searchTerm && (
             <X
-              className={`${clearIconClass} right-2`}
-              width={15}
+              className={`${clearIconClass} right-0`}
+              width={11}
               onClick={() => setSearchTerm("")}
             />
           )}
@@ -106,4 +105,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default SearchBarMoblie;
