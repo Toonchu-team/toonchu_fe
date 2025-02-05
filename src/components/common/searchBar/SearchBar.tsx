@@ -19,7 +19,7 @@ const SearchBar = () => {
   // 태블릿 뷰: scale-75
 
   return (
-    <div className="border-1 flex h-10 w-[870px] origin-left scale-75 flex-col justify-center rounded-3xl border px-1 lg:scale-100">
+    <div className="border-1 flex h-10 w-[870px] scale-75 flex-col justify-center rounded-3xl border bg-white px-1 lg:scale-100">
       <button
         className="fixed flex h-8 w-9 items-center justify-center self-end rounded-r-3xl bg-main-yellow pr-1"
         onClick={() => {
@@ -50,7 +50,7 @@ const SearchBar = () => {
             />
           </div>
           {openDropdown && (
-            <div className="border-1 absolute top-10 flex h-32 w-36 cursor-pointer flex-col border">
+            <div className="border-1 absolute top-10 flex h-32 w-36 cursor-pointer flex-col rounded-xl border bg-white">
               {providers.map((provider, index) => {
                 return (
                   <div
