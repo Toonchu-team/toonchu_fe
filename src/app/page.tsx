@@ -35,7 +35,7 @@ export default function Main() {
             "xl:h-auto xl:scale-100",
           )}
         >
-          <p className="text-xl text-main-text">인기 웹툰</p>
+          <p className="text-xl text-black">인기 웹툰</p>
 
           <div className="relative w-full">
             <Swiper
@@ -97,7 +97,7 @@ export default function Main() {
             "xl:h-auto xl:scale-100",
           )}
         >
-          <p className="text-xl text-main-text">웹툰 목록</p>
+          <p className="text-xl text-black">웹툰 목록</p>
           <div className="flex flex-wrap gap-x-10 gap-y-7">
             {[...Array(10)].map((_, i) => (
               <WebtoonCard key={i} />
