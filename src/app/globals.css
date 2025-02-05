@@ -19,6 +19,12 @@
   }
 }
 
+@layer utilities {
+  .heightWithoutNav {
+    height: calc(100vh - 80px);
+  }
+}
+
 /* 스크롤바 커스텀 */
 /* ::-webkit-scrollbar {
   width: 4px;
