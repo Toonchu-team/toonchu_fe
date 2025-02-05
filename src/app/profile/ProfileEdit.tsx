@@ -14,6 +14,7 @@ export default function ProfileEdit() {
 
   const router = useRouter();
 
+  // /profile/page.tsx에서 Protected Route로 처리 예정
   if (!user) {
     router.push("/login");
     return;
