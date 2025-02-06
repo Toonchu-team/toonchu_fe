@@ -65,7 +65,7 @@ const WebtoonCardMobile = () => {
             </p>
             <p className="text-[10px] text-main-text">구아진</p>
           </div>
-          <div className="flex h-[50px] flex-wrap gap-1 overflow-y-auto scrollbar-hide">
+          <div className="flex h-[50px] flex-wrap gap-1 overflow-y-auto">
             {tags.map((tag, index) => {
               return <Tags key={index} tag={tag} col={true} />;
             })}

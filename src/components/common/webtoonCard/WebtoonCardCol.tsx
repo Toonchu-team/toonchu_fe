@@ -62,7 +62,7 @@ const WebtoonCardCol = () => {
             </p>
             <p className="text-sm text-main-text">구아진</p>
           </div>
-          <div className="flex h-[72px] flex-wrap justify-center gap-1 overflow-y-auto scrollbar-hide">
+          <div className="flex h-[72px] flex-wrap justify-center gap-1 overflow-y-auto">
             {tags.map((tag, index) => {
               return <Tags key={index} tag={tag} col={false} />;
             })}

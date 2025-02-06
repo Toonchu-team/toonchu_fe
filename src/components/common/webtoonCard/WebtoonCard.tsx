@@ -65,7 +65,7 @@ const WebtoonCard = () => {
               <p className="line-clamp-2 text-lg">미래의 골동품 가게</p>
               <p className="text-sm text-main-text">구아진</p>
             </div>
-            <div className="flex h-[100px] flex-wrap gap-1 overflow-y-auto scrollbar-hide">
+            <div className="flex h-[100px] flex-wrap gap-1 overflow-y-auto">
               {tags.map((tag, index) => (
                 <Tags key={index} tag={tag} col={false} />
               ))}
