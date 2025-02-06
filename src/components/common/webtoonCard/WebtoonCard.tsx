@@ -28,7 +28,7 @@ const WebtoonCard = () => {
   // 태블릿 뷰: 0.7 축소
 
   return (
-    <div className="flex h-[257px] w-[540px] drop-shadow-xl">
+    <div className="flex h-[257px] w-[540px] drop-shadow-xl transition-transform duration-300 hover:scale-105">
       <Image
         src="/image.png"
         alt=""
