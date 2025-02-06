@@ -18,7 +18,7 @@ const SearchBarMoblie = () => {
   const clearIconClass = "absolute cursor-pointer text-main-text";
 
   return (
-    <div className="border-1 relative flex h-6 w-[340px] origin-left flex-col justify-center rounded-xl border px-1">
+    <div className="border-1 relative flex h-6 w-[350px] flex-grow origin-left flex-col justify-center rounded-xl border bg-white px-1">
       <button
         className="absolute flex h-4 w-5 items-center justify-center self-end rounded-r-xl bg-main-yellow pr-0.5"
         onClick={() => {
@@ -49,7 +49,7 @@ const SearchBarMoblie = () => {
             />
           </div>
           {openDropdown && (
-            <div className="border-1 absolute top-6 flex h-24 w-20 cursor-pointer flex-col border">
+            <div className="border-1 absolute top-6 flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
               {providers.map((provider, index) => {
                 return (
                   <div
