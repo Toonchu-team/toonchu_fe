@@ -27,7 +27,7 @@ const WebtoonCardCol = () => {
   // 태블릿 뷰: 0.75로 축소
 
   return (
-    <div className="relative flex h-[391px] w-[300px] flex-col overflow-hidden">
+    <div className="relative flex h-auto w-[300px] flex-col overflow-hidden">
       <Image
         src="/image.png"
         alt=""
