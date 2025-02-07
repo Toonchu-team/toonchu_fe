@@ -4,14 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.swiper-pagination-bullet:hover {
-  @apply bg-[#ffd795] opacity-100;
-}
-
-.swiper-pagination-bullet-active {
-  @apply bg-[#efc071];
-}
-
 @layer base {
   html {
     min-width: 320px;
@@ -47,4 +39,77 @@
   .heightWithoutNav {
     height: calc(100vh - 80px);
   }
+}
+
+/* 기본 Swiper 네비게이션 버튼 커스텀 */
+.swiper-button-prev,
+.swiper-button-next {
+  position: fixed !important;
+  transform: translateY(-50%);
+  z-index: 10 !important;
+  top: 70% !important;
+  color: #efc071 !important;
+}
+
+.swiper-button-prev {
+  left: -50px !important;
+}
+
+.swiper-button-next {
+  right: -50px !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: gray !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #efc071 !important;
+}
+
+@media (max-width: 540px) {
+  .swiper-button-prev {
+    left: 30px !important;
+  }
+
+  .swiper-button-next {
+    right: 30px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .swiper-button-prev {
+    left: -30px !important;
+  }
+
+  .swiper-button-next {
+    right: -30px !important;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 35px !important;
+  }
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: #ffd795 !important;
+}
+
+.swiper-button-disabled {
+  opacity: 0.3 !important;
 }

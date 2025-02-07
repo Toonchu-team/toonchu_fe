@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        mobile: { max: "768px" },
+        tablet: { min: "769px" },
+      },
       padding: {
         mobile: "1rem", // 16px
         tablet: "2rem", // 32px

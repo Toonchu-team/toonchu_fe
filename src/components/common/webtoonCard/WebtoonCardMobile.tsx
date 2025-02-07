@@ -27,7 +27,7 @@ const WebtoonCardMobile = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   return (
-    <div className="flex h-[120px] w-[350px] drop-shadow-lg">
+    <div className="flex h-[120px] min-w-[320px] max-w-[672x] drop-shadow-lg">
       <Image
         src="/image.png"
         alt=""
@@ -35,7 +35,7 @@ const WebtoonCardMobile = () => {
         height={86}
         className="rounded-bl-xl rounded-tl-xl"
       />
-      <div className="border-1 flex w-80 flex-col rounded-br-xl rounded-tr-xl border bg-white">
+      <div className="border-1 min-w-68 flex max-w-[580px] flex-col rounded-br-xl rounded-tr-xl border bg-white">
         <Heart
           className="absolute right-10 top-2 cursor-pointer"
           size={17}
@@ -65,7 +65,7 @@ const WebtoonCardMobile = () => {
             </p>
             <p className="text-[10px] text-main-text">구아진</p>
           </div>
-          <div className="flex h-[50px] flex-wrap gap-1 overflow-y-auto scrollbar-hide">
+          <div className="flex h-[50px] flex-wrap gap-1 overflow-y-auto">
             {tags.map((tag, index) => {
               return <Tags key={index} tag={tag} col={true} />;
             })}
