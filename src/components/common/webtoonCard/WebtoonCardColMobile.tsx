@@ -17,8 +17,10 @@ const WebtoonCardCol = () => {
     "현대물",
     "현대물",
     "현대물",
-    "현대물",
-    "현대물",
+    "2019_지상최대공모전",
+    "2019_지상최대공모전",
+    "2019_지상최대공모전",
+    "2019_지상최대공모전",
     "2019_지상최대공모전",
   ];
 
@@ -27,18 +29,18 @@ const WebtoonCardCol = () => {
   // 태블릿 뷰: 0.75로 축소
 
   return (
-    <div className="relative flex h-auto w-[300px] flex-col overflow-hidden">
+    <div className="relative flex h-auto w-[180px] flex-col overflow-hidden">
       <Image
         src="/image.png"
         alt=""
-        width={300}
-        height={216}
-        className="h-[216px] rounded-xl object-cover"
+        width={180}
+        height={129}
+        className="h-[129px] rounded-md object-cover"
       />
-      <div className="absolute right-0 h-10 w-10 rounded-tr-xl bg-[#968E82] bg-opacity-70">
+      <div className="absolute right-0 h-6 w-6 rounded-tr-md bg-[#968E82] bg-opacity-70">
         <Heart
-          className="absolute right-1.5 top-1.5 cursor-pointer"
-          size={30}
+          className="absolute right-1 top-1 cursor-pointer"
+          size={18}
           stroke={`${isFavorite ? "#FF8B8B" : "white"}`}
           strokeWidth={1.5}
           fill={`${isFavorite ? "#FF8B8B" : "none"}`}
@@ -50,21 +52,21 @@ const WebtoonCardCol = () => {
       <Image
         src="/naverSquare.png"
         alt="naverLogo"
-        width={40}
-        height={40}
-        className="absolute left-0 rounded-tl-xl"
+        width={24}
+        height={24}
+        className="absolute left-0 rounded-tl-md"
       />
-      <div className="flex w-[300px] flex-col rounded-br-xl rounded-tr-xl bg-white">
-        <div className="relative flex flex-col items-center gap-4 p-2">
+      <div className="flex w-[180px] flex-col rounded-br-md rounded-tr-md bg-white">
+        <div className="relative flex flex-col items-center gap-2 p-1">
           <div className="flex w-[85%] flex-col items-center gap-1 pt-2">
-            <p className="line-clamp-2 text-center text-lg">
+            <p className="line-clamp-2 text-center text-[11px]">
               미래의 골동품 가게
             </p>
-            <p className="text-sm text-main-text">구아진</p>
+            <p className="text-[9px] text-main-text">구아진</p>
           </div>
-          <div className="flex h-[72px] flex-wrap justify-center gap-1 overflow-y-auto">
+          <div className="flex h-[55px] flex-wrap justify-center gap-1 overflow-y-auto">
             {tags.map((tag, index) => {
-              return <Tags key={index} tag={tag} col={false} />;
+              return <Tags key={index} tag={tag} col={true} />;
             })}
           </div>
         </div>

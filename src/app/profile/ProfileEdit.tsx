@@ -62,7 +62,6 @@ export default function ProfileEdit() {
           alt="프로필 이미지"
           width={120}
           height={120}
-          priority
         />
         <label
           htmlFor="profile-image"

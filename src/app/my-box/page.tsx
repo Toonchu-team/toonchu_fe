@@ -3,6 +3,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import useAuthStore from '@/stores/authStore';
+import dynamic from 'next/dynamic';
+
+const FavoritesList = dynamic(() => import('@/components/myBox/FavoritesList'), {
+  ssr: false,
+});
 
 export default function MyBox() {
   const { user } = useAuthStore();
@@ -12,10 +17,10 @@ export default function MyBox() {
   return (
     <main className="min-h-screen bg-white">
       {/* 프로필 박스 섹션 */}
-      <section className="h-[170px]">
+      <section className="h-[180px]">
         {/* 상단 영역 */}
         <div className="h-2/3 bg-[#DEB887]">
-          <div className="mx-auto flex max-w-4xl translate-y-[43%] items-center gap-6 px-4">
+          <div className="mx-auto flex max-w-4xl translate-y-[48%] items-center gap-6 px-4">
             <div className="relative h-[120px] w-[120px] overflow-hidden rounded-full border-4 border-white bg-white">
               <Image
                 src={'/images/brand-character/default-profile.png'}
@@ -30,7 +35,7 @@ export default function MyBox() {
               <p className="text-xl font-bold text-white">
                 NICKNAME(@123456789)
               </p>
-              <p className="text-[#DEB887]">
+              <p className="font-bold text-[#DEB887]">
                 {'nickname@gmail.com'}
               </p>
             </div>
@@ -58,8 +63,11 @@ export default function MyBox() {
           ))}
         </div>
 
-        <div className="mt-8 min-h-[400px] px-4">
-          <div>{tabs[activeTab]}</div>
+        <div className="mt-8 flex min-h-[400px] justify-center px-4">
+          {activeTab === 0 && <FavoritesList />}
+          {activeTab === 1 && <div>최근 본 목록</div>}
+          {activeTab === 2 && <div>작품 등록</div>}
+          {activeTab === 3 && <div>등록 신청한 작품</div>}
         </div>
       </section>
     </main>

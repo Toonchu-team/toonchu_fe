@@ -1,11 +1,16 @@
 import Image from "next/image";
-import SearchBar from "./searchBar/SearchBar";
+import ResponsiveSearchBar from "./searchBar/ResponsiveSearchBar";
+import { BreakpointType } from "@/stores/breakptStore";
 
-export default function Header() {
+export default function Header({
+  initialBreakpoint,
+}: {
+  initialBreakpoint: BreakpointType;
+}) {
   return (
-    <header className="h-[800px] w-full">
-      <div className="flex h-[480px] w-full justify-center bg-white">
-        <div className="relative flex w-[750px] scale-75 items-center justify-center gap-20 lg:scale-100">
+    <header className="h-[420px] w-full sm:h-[630px] lg:h-[800px]">
+      <div className="flex h-[230px] w-full justify-center bg-white sm:h-[350px] lg:h-[480px]">
+        <div className="relative flex w-[750px] scale-[45%] items-center justify-center sm:scale-75 sm:gap-5 lg:scale-100 lg:gap-20">
           <div className="flex flex-col items-center gap-5">
             <p className="font-[lemonada] text-7xl">ToonChu</p>
             <p className="text-center">
@@ -19,25 +24,27 @@ export default function Header() {
             height={400}
             className="drop-shadow-2xl"
           />
-          <div
-            className={`border-1-main-grey absolute bottom-48 right-64 inline-block rounded-xl border bg-bg-yellow-01 px-2 py-1`}
+          {/* <div
+            className={`border-1-main-grey absolute bottom-36 right-64 inline-block rounded-xl border bg-bg-yellow-01 px-2 py-1 lg:bottom-48`}
           >
             <p className={`text-xs text-main-text`}>태그별 검색</p>
           </div>
           <div
-            className={`border-1-main-grey absolute bottom-8 right-12 inline-block rounded-xl border bg-bg-yellow-01 px-2 py-1`}
+            className={`border-1-main-grey absolute bottom-[-20px] right-12 inline-block rounded-xl border bg-bg-yellow-01 px-2 py-1 lg:bottom-8`}
           >
             <p className={`text-xs text-main-text`}>작품 등록</p>
-          </div>
+          </div> */}
         </div>
       </div>
-      <div className="flex h-[180px] w-full flex-col items-center justify-center gap-4 bg-bg-yellow-01">
-        <SearchBar />
+      <div className="flex h-[120px] w-full flex-col items-center justify-center gap-4 bg-bg-yellow-01 sm:h-[180px]">
+        <div>
+          <ResponsiveSearchBar initialBreakpoint={initialBreakpoint} />
+        </div>
         <p className="text-xs text-main-text lg:text-sm">
           🔍 검색해 보세요! 🔍
         </p>
       </div>
-      <div className="h-24 w-full bg-gradient-to-t from-white to-bg-yellow-01"></div>
+      <div className="h-16 w-full bg-gradient-to-t from-white to-bg-yellow-01 lg:h-24"></div>
     </header>
   );
 }

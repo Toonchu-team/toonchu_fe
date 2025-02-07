@@ -33,58 +33,83 @@
   .nav-item {
     @apply flex h-full flex-shrink-0 cursor-pointer items-center px-7 hover:bg-bg-yellow-01/60;
   }
-
-  .swiper-pagination-bullet:hover {
-    @apply bg-[#ffd795] opacity-100;
-  }
-
-  .swiper-pagination-bullet-active {
-    @apply bg-[#efc071];
-  }
 }
 
 @layer utilities {
   .heightWithoutNav {
     height: calc(100vh - 80px);
   }
+}
 
-  /* 데스크탑 전용 (기본) */
-  .desktop-only {
-    @apply block;
-  }
-  .tablet-only,
-  .mobile-only {
-    @apply hidden;
+/* 기본 Swiper 네비게이션 버튼 커스텀 */
+.swiper-button-prev,
+.swiper-button-next {
+  position: fixed !important;
+  transform: translateY(-50%);
+  z-index: 10 !important;
+  top: 70% !important;
+  color: #efc071 !important;
+}
+
+.swiper-button-prev {
+  left: -50px !important;
+}
+
+.swiper-button-next {
+  right: -50px !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: gray !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #efc071 !important;
+}
+
+@media (max-width: 540px) {
+  .swiper-button-prev {
+    left: 30px !important;
   }
 
-  /* 태블릿 (max-width: 1024px) */
-  @media (max-width: 1024px) {
-    .desktop-only,
-    .mobile-only {
-      @apply hidden;
-    }
-    .tablet-only {
-      @apply block;
-    }
-  }
-
-  /* 모바일 (max-width: 768px) */
-  @media (max-width: 768px) {
-    .desktop-only,
-    .tablet-only {
-      @apply hidden;
-    }
-    .mobile-only {
-      @apply block;
-    }
+  .swiper-button-next {
+    right: 30px !important;
   }
 }
 
-/* 
+@media (max-width: 768px) {
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+  }
+}
 
-<!-- 다른 컴포넌트에서도 사용 가능 -->
-<div class="desktop-only">데스크탑에서만 보이는 콘텐츠</div>
-<div class="tablet-only">태블릿에서만 보이는 콘텐츠</div>
-<div class="mobile-only">모바일에서만 보이는 콘텐츠</div>
+@media (min-width: 768px) {
+  .swiper-button-prev {
+    left: -30px !important;
+  }
 
-*/
+  .swiper-button-next {
+    right: -30px !important;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 35px !important;
+  }
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: #ffd795 !important;
+}
+
+.swiper-button-disabled {
+  opacity: 0.3 !important;
+}

@@ -1,12 +1,11 @@
 "use client";
 
-import useResponsive from "@/hooks/useResponsive";
 import useAuthStore from "@/stores/authStore";
 import { AlignJustifyIcon, LogInIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BottomSlideUpMenu from "@/components/common/BottomSlideUpMenu";
 import useProfileStore from "@/stores/profileStore";
 
@@ -14,11 +13,6 @@ export default function MobileTabletNav() {
   const [padding, setPadding] = useState("px-4");
   const { user } = useAuthStore();
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
-  const { isTablet } = useResponsive();
-
-  useEffect(() => {
-    setPadding(isTablet ? "px-8" : "px-4");
-  }, [isTablet]);
 
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
@@ -39,7 +33,7 @@ export default function MobileTabletNav() {
   return (
     <>
       <nav
-        className={`${padding} flex h-[60px] w-full items-center justify-between gap-7 px-4 font-bold text-main-text`}
+        className={`${padding} flex h-[60px] w-full items-center justify-between gap-7 px-4 font-bold text-main-text md:px-8`}
       >
         <button onClick={toggleMenu} className="flex items-center">
           <AlignJustifyIcon
