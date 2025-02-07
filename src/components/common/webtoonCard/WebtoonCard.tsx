@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import clsx from "clsx";
 import Badges from "../badge/Badges";
 import Tags from "../tag/Tags";
 import { Heart } from "lucide-react";
@@ -25,47 +26,71 @@ const WebtoonCard = () => {
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  // 태블릿 뷰: 0.7 축소
-
   return (
-    <div className="flex h-[257px] w-[540px] drop-shadow-xl transition-transform duration-300 hover:scale-105">
+    <div
+      className={clsx(
+        "flex transition-transform duration-300 hover:scale-105",
+        "h-[257px] w-[540px] drop-shadow-xl",
+      )}
+    >
+      {/* 웹툰 이미지 */}
       <Image
         src="/image.png"
-        alt=""
+        alt="웹툰 이미지"
         width={180}
         height={257}
         className="rounded-bl-2xl rounded-tl-2xl"
       />
-      <div className="border-1 relative flex w-[360px] flex-col rounded-br-2xl rounded-tr-2xl border bg-white">
+
+      {/* 카드 컨테이너 */}
+      <div
+        className={clsx(
+          "relative flex flex-col border bg-white",
+          "w-[360px] rounded-r-2xl",
+        )}
+      >
+        {/* 즐겨찾기 버튼 */}
         <Heart
           className="absolute right-16 top-3 cursor-pointer"
           size={30}
-          stroke={`${isFavorite ? "#FF8B8B" : "#968E82"}`}
+          stroke={isFavorite ? "#FF8B8B" : "#968E82"}
           strokeWidth={1.5}
-          fill={`${isFavorite ? "#FF8B8B" : "none"}`}
-          onClick={() => {
-            setIsFavorite((prev) => !prev);
-          }}
+          fill={isFavorite ? "#FF8B8B" : "none"}
+          onClick={() => setIsFavorite((prev) => !prev)}
         />
+
+        {/* 배급사 로고 */}
         <Image
           src="/naverSquare.png"
-          alt="naverLogo"
+          alt="네이버 로고"
           width={50}
           height={50}
           className="fixed self-end rounded-tr-2xl"
         />
+
+        {/* 콘텐츠 */}
         <div className="flex flex-col gap-3 p-4">
+          {/* 배지 */}
           <div className="flex flex-wrap gap-1">
-            {badges.map((badge, index) => {
-              return <Badges key={index} badge={badge} />;
-            })}
+            {badges.map((badge, index) => (
+              <Badges key={index} badge={badge} />
+            ))}
           </div>
+
+          {/* 웹툰 정보 */}
           <div className="flex flex-col gap-1.5">
             <div className="min-h-20">
               <p className="line-clamp-2 text-lg">미래의 골동품 가게</p>
               <p className="text-sm text-main-text">구아진</p>
             </div>
-            <div className="flex h-[100px] flex-wrap gap-1 overflow-y-auto">
+
+            {/* 태그 */}
+            <div
+              className={clsx(
+                "flex flex-wrap gap-1 overflow-y-auto",
+                "h-[100px]",
+              )}
+            >
               {tags.map((tag, index) => (
                 <Tags key={index} tag={tag} col={false} />
               ))}

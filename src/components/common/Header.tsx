@@ -1,4 +1,5 @@
 import Image from "next/image";
+import clsx from "clsx";
 import ResponsiveSearchBar from "./searchBar/ResponsiveSearchBar";
 import { BreakpointType } from "@/stores/breakptStore";
 
@@ -8,35 +9,50 @@ export default function Header({
   initialBreakpoint: BreakpointType;
 }) {
   return (
-    <header className="h-[420px] w-full sm:h-[630px] lg:h-[800px]">
-      <div className="flex h-[230px] w-full justify-center bg-white sm:h-[350px] lg:h-[480px]">
-        <div className="relative flex w-[750px] scale-[45%] items-center justify-center sm:scale-75 sm:gap-5 lg:scale-100 lg:gap-20">
+    <header className={clsx("w-full", "h-[420px] sm:h-[630px] lg:h-[800px]")}>
+      {/* 상단 영역 */}
+      <div
+        className={clsx(
+          "flex w-full justify-center bg-white",
+          "h-[230px] sm:h-[350px] lg:h-[480px]",
+        )}
+      >
+        <div
+          className={clsx(
+            "relative flex items-center justify-center",
+            "w-[750px] scale-[45%] sm:scale-75 lg:scale-100",
+            "sm:gap-5 lg:gap-20", // 반응형 간격 조정
+          )}
+        >
+          {/* 로고 & 텍스트 */}
           <div className="flex flex-col items-center gap-5">
             <p className="font-[lemonada] text-7xl">ToonChu</p>
             <p className="text-center">
               다양한 태그로 웹툰을 소개합니다. <br /> 지금 바로 탐험해 보세요!
             </p>
           </div>
+
+          {/* 이미지 */}
           <Image
             src="/mockup.png"
             alt="mockup"
             width={370}
             height={400}
             className="drop-shadow-2xl"
+            style={{ width: "auto", height: "auto" }} // Next.js가 크기 변경을 감지하지 않도록 설정
+            priority // Next.js가 이 이미지를 최우선으로 로드하도록
           />
-          {/* <div
-            className={`border-1-main-grey absolute bottom-36 right-64 inline-block rounded-xl border bg-bg-yellow-01 px-2 py-1 lg:bottom-48`}
-          >
-            <p className={`text-xs text-main-text`}>태그별 검색</p>
-          </div>
-          <div
-            className={`border-1-main-grey absolute bottom-[-20px] right-12 inline-block rounded-xl border bg-bg-yellow-01 px-2 py-1 lg:bottom-8`}
-          >
-            <p className={`text-xs text-main-text`}>작품 등록</p>
-          </div> */}
         </div>
       </div>
-      <div className="flex h-[120px] w-full flex-col items-center justify-center gap-4 bg-bg-yellow-01 sm:h-[180px]">
+
+      {/* 검색창 영역 */}
+      <div
+        className={clsx(
+          "flex flex-col items-center justify-center gap-4", // 중앙 정렬 및 간격 설정
+          "w-full bg-bg-yellow-01", // 배경색 적용
+          "h-[120px] sm:h-[180px]", // 반응형 높이 조정
+        )}
+      >
         <div>
           <ResponsiveSearchBar initialBreakpoint={initialBreakpoint} />
         </div>
@@ -44,6 +60,8 @@ export default function Header({
           🔍 검색해 보세요! 🔍
         </p>
       </div>
+
+      {/* 그라데이션 영역 */}
       <div className="h-16 w-full bg-gradient-to-t from-white to-bg-yellow-01 lg:h-24"></div>
     </header>
   );
