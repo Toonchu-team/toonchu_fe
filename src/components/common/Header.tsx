@@ -1,8 +1,12 @@
 import Image from "next/image";
-import SearchBar from "./searchBar/SearchBar";
-import SearchBarMoblie from "./searchBar/SearchBarMobile";
+import ResponsiveSearchBar from "./searchBar/ResponsiveSearchBar";
+import { BreakpointType } from "@/stores/breakptStore";
 
-export default function Header() {
+export default function Header({
+  initialBreakpoint,
+}: {
+  initialBreakpoint: BreakpointType;
+}) {
   return (
     <header className="h-[420px] w-full sm:h-[630px] lg:h-[800px]">
       <div className="flex h-[230px] w-full justify-center bg-white sm:h-[350px] lg:h-[480px]">
@@ -33,11 +37,8 @@ export default function Header() {
         </div>
       </div>
       <div className="flex h-[120px] w-full flex-col items-center justify-center gap-4 bg-bg-yellow-01 sm:h-[180px]">
-        <div className="desktop-tablet-only">
-          <SearchBar />
-        </div>
-        <div className="mobile-only">
-          <SearchBarMoblie />
+        <div>
+          <ResponsiveSearchBar initialBreakpoint={initialBreakpoint} />
         </div>
         <p className="text-xs text-main-text lg:text-sm">
           🔍 검색해 보세요! 🔍
