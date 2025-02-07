@@ -40,7 +40,6 @@ export default function ProfileDefault() {
         alt="프로필 이미지"
         width={120}
         height={120}
-        priority
       />
       <section className="flex flex-col items-center">
         <h3 className="font-bold">{user.nick_name}</h3>
