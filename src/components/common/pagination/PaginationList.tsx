@@ -39,6 +39,7 @@ const PaginationList: React.FC<PaginationsProps> = ({ children }) => {
         onChange={handleChange}
         sx={{
           "& .MuiPaginationItem-root": {
+            fontFamily: "var(--font-nanumsquare)",
             color: "#6A6A6A", // 기본 페이지 텍스트 색상: main-text
             fontSize: { xs: "12px", md: "16px" },
             margin: "0 2px",
