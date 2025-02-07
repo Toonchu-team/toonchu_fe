@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import "./globals.css";
 import { Lemonada } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
 import Nav from "@/components/nav/Nav";
 
 const nanumsquare = localFont({
