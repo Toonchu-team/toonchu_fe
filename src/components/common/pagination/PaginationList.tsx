@@ -3,23 +3,26 @@ import { Pagination, ThemeProvider } from "@mui/material";
 import theme from "./theme";
 
 interface PaginationsProps {
-  children: ReactNode;
+  children: ReactNode; // children으로 컴포넌트 받을 예정
 }
 
 // ✅ 더미 데이터 (1920개의 아이템)
 const allItems = Array.from({ length: 1920 }, (_, i) => `Item ${i + 1}`);
 
 const PaginationList: React.FC<PaginationsProps> = ({ children }) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); // 현재 페이지
   const itemsPerPage = 8; // 한 페이지에 보여줄 개수
 
+  // 더미데이터가 현재 배열이므로 인덱스 사용
+  // 페이지 1 → startIndex = 0, endIndex = 8 → Item 1 ~ Item 8
+  // 페이지 2 → startIndex = 8, endIndex = 16 → Item 9 ~ Item 16
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedItems = allItems.slice(startIndex, endIndex);
 
   // 페이지 변경 핸들러
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+    setPage(value); // 클릭된 페이지를 현재 페이지로 업데이트
   };
 
   return (
@@ -27,14 +30,14 @@ const PaginationList: React.FC<PaginationsProps> = ({ children }) => {
       {/* 현재 페이지의 데이터 렌더링 */}
       {displayedItems.map((item, index) => (
         <div key={index}>
-          {item}
+          {item} {/* 임시 */}
           {children}
         </div>
       ))}
 
       {/* ✅ 페이지네이션 UI */}
       <Pagination
-        count={Math.ceil(allItems.length / itemsPerPage)} // 전체 페이지 개수
+        count={Math.ceil(allItems.length / itemsPerPage)} // 전체 페이지 개수 (전체 아이템 / 페이지 당 아이템)
         page={page}
         onChange={handleChange}
         sx={{
