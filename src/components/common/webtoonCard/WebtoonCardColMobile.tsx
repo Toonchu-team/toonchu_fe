@@ -65,12 +65,7 @@ const WebtoonCardCol = () => {
       />
 
       {/* 카드 컨텐츠 */}
-      <div
-        className={clsx(
-          "flex flex-col bg-white",
-          "w-[180px] rounded-br-md rounded-tr-md", // 둥근 모서리 설정
-        )}
-      >
+      <div className={clsx("flex flex-col bg-white", "w-[180px] rounded-r-md")}>
         <div className="relative flex flex-col items-center gap-2 p-1">
           {/* 제목 및 작가 */}
           <div className="flex w-[85%] flex-col items-center gap-1 pt-2">
@@ -84,7 +79,7 @@ const WebtoonCardCol = () => {
           <div
             className={clsx(
               "flex flex-wrap justify-center overflow-y-auto",
-              "h-[55px] gap-1", // 태그 리스트 크기 설정
+              "h-[55px] gap-1",
             )}
           >
             {tags.map((tag, index) => (
