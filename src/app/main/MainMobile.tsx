@@ -3,8 +3,9 @@ import "../globals.css";
 import Header from "@/components/common/Header";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import WebtoonCardColMobile from "@/components/common/webtoonCard/WebtoonCardColMobile";
-import Swipers from "../Swipers";
+import Swipers from "../../components/common/swiper/Swipers";
 import { BreakpointType } from "@/stores/breakptStore";
+import PaginationList from "@/components/common/pagination/PaginationList";
 
 export default function Main({
   initialBreakpoint,
@@ -12,7 +13,7 @@ export default function Main({
   initialBreakpoint: BreakpointType;
 }) {
   return (
-    <>
+    <div className="pb-10">
       <Header initialBreakpoint={initialBreakpoint} /> {/* 헤더 반응형 필요 */}
       <div
         className={clsx(
@@ -48,13 +49,13 @@ export default function Main({
           <p className="origin-left scale-[60%] text-xl text-black">
             웹툰 목록
           </p>
-          <div className="flex flex-col gap-4 self-center pt-7">
-            {[...Array(10)].map((_, i) => (
-              <WebtoonCardMobile key={i} />
-            ))}
+          <div className="flex flex-col items-center gap-4 self-center pt-7">
+            <PaginationList>
+              <WebtoonCardMobile />
+            </PaginationList>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

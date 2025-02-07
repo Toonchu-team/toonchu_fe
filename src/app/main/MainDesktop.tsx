@@ -1,10 +1,11 @@
 import { clsx } from "clsx";
 import WebtoonCardCol from "@/components/common/webtoonCard/WebtoonCardCol";
-import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 import "../globals.css";
-import Swipers from "../Swipers";
+import Swipers from "../../components/common/swiper/Swipers";
 import Header from "@/components/common/Header";
 import { BreakpointType } from "@/stores/breakptStore";
+import PaginationList from "@/components/common/pagination/PaginationList";
+import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 
 export default function Main({
   initialBreakpoint,
@@ -12,11 +13,12 @@ export default function Main({
   initialBreakpoint: BreakpointType;
 }) {
   return (
-    <>
+    <div className="pb-12">
       <Header initialBreakpoint={initialBreakpoint} /> {/* 헤더 반응형 필요 */}
       <div
         className={clsx(
           "flex flex-col items-center gap-16",
+          "md:h-[1200px] lg:h-[1500px] xl:h-auto", // 반응형 적용 시 하단 여백 발생하는 것 방지
           "px-mobile md:px-tablet lg:px-desktop",
         )}
       >
@@ -54,13 +56,13 @@ export default function Main({
           )}
         >
           <p className="text-xl text-black">웹툰 목록</p>
-          <div className="flex flex-wrap gap-x-10 gap-y-7 pt-14">
-            {[...Array(10)].map((_, i) => (
-              <WebtoonCard key={i} />
-            ))}
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-7 pt-14">
+            <PaginationList>
+              <WebtoonCard />
+            </PaginationList>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
