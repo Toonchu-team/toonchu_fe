@@ -14,25 +14,18 @@ export default async function AuthCallbackPage({
   const params = await paramsPromise;
   const searchParams = await searchParamsPromise;
   const code = searchParams.code;
+  const provider = params.provider;
 
   if (!code) {
     return <div>Authorization code를 찾을 수 없습니다.</div>; // 추후 에러 페이지 생성
   }
 
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const apiUrl = new URL(`/api/auth/callback/${params.provider}`, baseUrl);
-    apiUrl.searchParams.append("code", code);
-
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error("인증에 실패하였습니다.");
-    }
-
-    const data = await response.json();
-    return <AuthCallbackClient user={data.user} />;
+    const response = await fetch(`/api/auth/callback/${provider}?code=${code}`);
+    const userData = await response.json();
+    return <AuthCallbackClient user={userData} />;
   } catch (error) {
-    console.error(error);
+    console.error("Social login error:", error);
     return <div>인증에 실패하였습니다.</div>; // 추후 에러 페이지 생성
   }
 }

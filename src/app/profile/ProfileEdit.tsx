@@ -60,8 +60,8 @@ export default function ProfileEdit() {
           className="overflow-hidden rounded-full shadow-md"
           src={profileImage}
           alt="프로필 이미지"
-          width={120}
-          height={120}
+          width={130}
+          height={130}
         />
         <label
           htmlFor="profile-image"

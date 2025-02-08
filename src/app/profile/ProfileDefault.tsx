@@ -38,8 +38,8 @@ export default function ProfileDefault() {
         className="overflow-hidden rounded-full shadow-md"
         src={profileImage}
         alt="프로필 이미지"
-        width={120}
-        height={120}
+        width={130}
+        height={130}
       />
       <section className="flex flex-col items-center">
         <h3 className="font-bold">{user.nick_name}</h3>

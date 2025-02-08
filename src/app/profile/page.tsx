@@ -24,7 +24,7 @@ export default function Profile() {
   }
 
   return (
-    <main className="flex flex-col items-center gap-5 text-main-text">
+    <main className="flex flex-col items-center gap-7 pb-10 text-main-text">
       {isEditing ? <ProfileEdit /> : <ProfileDefault />}
     </main>
   );
