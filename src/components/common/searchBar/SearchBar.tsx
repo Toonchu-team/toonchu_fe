@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { RefObject, useRef, useState } from "react";
 import clsx from "clsx";
 import { X, Search, ChevronDown } from "lucide-react";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
 const SearchBar = () => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
@@ -15,21 +16,10 @@ const SearchBar = () => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // 외부 클릭 감지 핸들러
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setOpenDropdown(false); // 외부 클릭 시 다시 닫기
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  useOutsideClick({
+    ref: dropdownRef as RefObject<HTMLElement>,
+    callback: () => setOpenDropdown(false),
+  });
 
   // TailwindCSS 클래스 정리
   const inputClass = "pl-3 text-main-text focus:outline-none";
