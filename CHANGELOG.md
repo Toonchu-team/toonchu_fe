@@ -11,15 +11,22 @@
 ### :white_check_mark: Done
 
 - **공통 컴포넌트 - 검색창 컴포넌트 구현** (`SearchBar.tsx`, `SearchBarMobile.tsx`)
+  
   - 화면 크기에 따른 반응형 구현 (`ResponsiveSearchBar.tsx`)
   - 배급사 드롭다운 메뉴 추가
   - 태그, 검색어 구분
+    
 - **공통 컴포넌트 - 태그, 뱃지 컴포넌트 구현** (`Badges.tsx`, `Tags.tsx`)
+  
   - 태그 호버 시 색상 변경
+    
 - **공통 컴포넌트 - 웹툰 카드 컴포넌트 구현** (`WebtoonCard.tsx`, `WebtoonCardMobile.tsx`, `WebtoonCardCol.tsx`, `WebtoonCardColMobile.tsx`)
+  
   - 세로형 웹툰 카드 컴포넌트, 가로형 웹툰 카드 컴포넌트
   - 웹툰 정보 표시
+    
 - **메인 페이지 구현** (`page.tsx`)
+  
   - 메인 헤더 추가 (`Header.tsx`)
     - 툰츄 로고, 목업 사진 추가
   - 화면 크기에 따른 반응형 구현 (`MainDesktop.tsx`, `MainMobile.tsx`)
@@ -29,9 +36,12 @@
 ### :construction: In Progress
 
 - **태그 드롭다운 메뉴 구현**
+  
   - 태그 페이지네이션 추가
   - 반응형 구현
+    
 - **메인 헤더 애니메이션 구현**
+  
   - 고양이 발바닥 애니메이션 구현
 
 ### :mag: Preview
