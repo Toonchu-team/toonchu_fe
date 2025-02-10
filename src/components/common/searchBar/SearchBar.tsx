@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { X, Search, ChevronDown } from "lucide-react";
 
@@ -11,6 +11,25 @@ const SearchBar = () => {
   const [searchTag, setSearchTag] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const apiUrl = "api/webtoon/search";
+
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // 외부 클릭 감지 핸들러
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpenDropdown(false); // 외부 클릭 시 다시 닫기
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // TailwindCSS 클래스 정리
   const inputClass = "pl-3 text-main-text focus:outline-none";
@@ -43,7 +62,10 @@ const SearchBar = () => {
       {/* 검색 바 컨테이너 */}
       <div className="flex w-[820px] items-center justify-around pl-5">
         {/* 배급사 선택 드롭다운 */}
-        <div className="relative flex h-8 w-[150px] items-center justify-center">
+        <div
+          className="relative flex h-8 w-[150px] items-center justify-center"
+          ref={dropdownRef}
+        >
           <div
             className="relative flex w-36 cursor-pointer text-main-text"
             onClick={() => setOpenDropdown((prev) => !prev)}
