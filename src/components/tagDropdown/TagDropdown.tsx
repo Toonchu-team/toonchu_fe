@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tags from "../common/tag/Tags";
 import Hangul from "hangul-js";
 import clsx from "clsx";
 import { X } from "lucide-react";
 
-const TagDropdown = () => {
+const TagDropdown = ({
+  setOpenDropdown,
+}: {
+  setOpenDropdown: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   // 임시 데이터
   const genres = ["장르", "소재", "분위기", "관계", "직업", "남캐", "기타"];
   const tags = [
@@ -63,6 +67,12 @@ const TagDropdown = () => {
     "전쟁물",
   ];
 
+  const [isVisible, setIsVisible] = useState(false); // 애니메이션 상태
+
+  useEffect(() => {
+    setIsVisible(true); // 컴포넌트가 마운트되면 애니메이션 실행
+  }, []);
+
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]); // 선택한 태그
@@ -118,6 +128,11 @@ const TagDropdown = () => {
     "기타",
   ];
 
+  // 확인용
+  useEffect(() => {
+    console.log(selectedTags);
+  }, [selectedTags, setSelectedTags]);
+
   // 태그 클릭 핸들러
   const handleTagClick = (tag: string) => {
     setSelectedTags((prev) => {
@@ -149,12 +164,23 @@ const TagDropdown = () => {
   };
 
   return (
-    <div className="absolute top-0 z-50 flex h-[650px] w-full flex-col items-center justify-center gap-5 rounded-b-2xl bg-main-text bg-opacity-90">
+    <div
+      className={clsx(
+        "absolute top-0 z-50 flex h-[650px] w-full flex-col items-center justify-center gap-5 rounded-b-2xl bg-main-text bg-opacity-90 transition-all duration-500 ease-out",
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0",
+      )}
+    >
       <div className="relative flex w-[70%] justify-center">
         <p className="text-xl text-white">태그 선택</p>
 
         {/* 닫기 버튼 */}
-        <X color="white" className="absolute right-0 top-0 cursor-pointer" />
+        <X
+          color="white"
+          className="absolute right-0 top-0 cursor-pointer"
+          onClick={() => {
+            setOpenDropdown(false);
+          }}
+        />
       </div>
 
       <div className="flex w-[70%] flex-col items-center">
