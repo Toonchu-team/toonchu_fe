@@ -65,6 +65,229 @@ const TagDropdown = ({
     "무협",
     "Ninja",
     "전쟁물",
+    "SpaceOpera",
+    "ArtificialIntelligence",
+    "Dystopia",
+    "FantasyRomance",
+    "Mecha",
+    "MagicAcademy",
+    "DarkHero",
+    "TimeLoop",
+    "UnderwaterCity",
+    "MedievalFantasy",
+    "CelestialKingdom",
+    "DemonSlayer",
+    "PsychicPower",
+    "MonsterHunter",
+    "CosmicHorror",
+    "VirtualReality",
+    "HighSchoolDrama",
+    "PostApocalyptic",
+    "SupernaturalMystery",
+    "Reincarnation",
+    "Espionage",
+    "SecretAgent",
+    "BioPunk",
+    "Cyborg",
+    "Nanotechnology",
+    "Wuxia",
+    "MartialArts",
+    "SilentProtagonist",
+    "VillainOrigin",
+    "CrimeSyndicate",
+    "AlienInvasion",
+    "TimeTravelRomance",
+    "PsychologicalThriller",
+    "Harem",
+    "ReverseHarem",
+    "SliceOfLife",
+    "WorkplaceDrama",
+    "Pirates",
+    "Shapeshifter",
+    "Werewolf",
+    "GothicFantasy",
+    "Necropolis",
+    "AngelsVsDemons",
+    "DemonRealm",
+    "LegendaryHero",
+    "Summoner",
+    "ArtifactHunter",
+    "DungeonCrawler",
+    "CardBattle",
+    "TowerDefense",
+    "CityBuilder",
+    "MythicalCreatures",
+    "Astrobiology",
+    "SuperSoldier",
+    "DetectiveNoir",
+    "SpaghettiWestern",
+    "UndeadKingdom",
+    "Alchemy",
+    "CyberDetective",
+    "DreamExploration",
+    "ShadowWorld",
+    "SecretLab",
+    "ArtificialGods",
+    "LostCivilization",
+    "LovecraftianMadness",
+    "MythicalBeast",
+    "CursedTreasure",
+    "RuneMagic",
+    "DigitalSorcery",
+    "LivingWeapons",
+    "GodComplex",
+    "CorporateEspionage",
+    "BodyHorror",
+    "PuppetMaster",
+    "Revolution",
+    "HauntedMansion",
+    "BountyHunter",
+    "DimensionTravel",
+    "AlienEmpire",
+    "UndergroundFighter",
+    "SupernaturalInvestigation",
+    "OtherworldlyMarket",
+    "CelestialWar",
+    "LostPlanet",
+    "TechnoWarfare",
+    "DemonContract",
+    "ResurrectedHero",
+    "SentientAI",
+    "MagicVsScience",
+    "LivingDungeon",
+    "DungeonEconomy",
+    "FantasyKingdom",
+    "RoyalIntrigue",
+    "ParallelDimension",
+    "DreamWars",
+    "AstralProjection",
+    "ApocalypticCult",
+    "MythicalWarriors",
+    "FaeKingdom",
+    "ElementalPowers",
+    "UndyingWarrior",
+    "ImmortalCurse",
+    "AncientProphecy",
+    "GolemCrafting",
+    "MonsterTamer",
+    "ArtifactRebellion",
+    "UrbanFantasy",
+    "SupernaturalFactions",
+    "MartialWorld",
+    "Underworld",
+    "CorruptGovernment",
+    "SecretSociety",
+    "DarkAcademia",
+    "BioengineeredBeasts",
+    "BeastTamer",
+    "CyberSamurai",
+    "MechaPilots",
+    "ArtificialSoul",
+    "PhantomThief",
+    "LostTechnology",
+    "DimensionHopping",
+    "BloodMagic",
+    "DemonicPossession",
+    "MagicalHeist",
+    "GothicRomance",
+    "UndercoverAgent",
+    "Transhumanism",
+    "SpiritRealm",
+    "Exorcism",
+    "SecretArchives",
+    "AlchemistGuild",
+    "RoyalBloodline",
+    "DemonKing",
+    "LegendaryWeapons",
+    "TimeAnomaly",
+    "EldritchHorror",
+    "Chronomancer",
+    "CurseBreaker",
+    "SupernaturalAcademy",
+    "MysteriousRelic",
+    "MythicQuest",
+    "SpaceExplorers",
+    "RogueAIs",
+    "SpiritContract",
+    "AncientDeity",
+    "CyberOverlord",
+    "MindControl",
+    "PsychicAwakening",
+    "RevengeStory",
+    "ForbiddenKnowledge",
+    "AlienEcosystem",
+    "CelestialGuardians",
+    "LostGalaxy",
+    "DarkTournament",
+    "DivineIntervention",
+    "VoidWalker",
+    "EtherealBeings",
+    "ChaosMagic",
+    "CloningExperiment",
+    "SecretExperiment",
+    "ViralOutbreak",
+    "MonsterEvolution",
+    "ParanormalDetective",
+    "LivingCity",
+    "IntergalacticPolitics",
+    "HauntedIsland",
+    "QuantumPhysics",
+    "DarkSociety",
+    "RealityBending",
+    "AlternativeHistory",
+    "AIUprising",
+    "MythicalBeings",
+    "MartialTournament",
+    "MonsterCarnival",
+    "UnderworldRuler",
+    "ParallelUniverseSurvivor",
+    "SupernaturalAuction",
+    "GeneticMutation",
+    "DragonTamer",
+    "PsychicBattle",
+    "PostHuman",
+    "SinisterCorporation",
+    "SkyCity",
+    "CyberArena",
+    "ShadowAssassin",
+    "DreamReality",
+    "ForbiddenAlchemy",
+    "SpiritRebellion",
+    "RealityGlitch",
+    "MagicPolice",
+    "Warlocks",
+    "RogueMagician",
+    "PhantomArmy",
+    "BloodlineWar",
+    "CosmicEntities",
+    "TaintedBlood",
+    "DemonHunter",
+    "Technomagic",
+    "OtherworldlyChampion",
+    "DreamConstructs",
+    "AncientWarriors",
+    "ResurrectedEmpire",
+    "CelestialProphecy",
+    "VoidMagic",
+    "VampireLord",
+    "LostTemple",
+    "CosmicConflict",
+    "SupernaturalChampion",
+    "ElementalMastery",
+    "TimeDisruption",
+    "MagicalUnderground",
+    "GodSlayer",
+    "Pandemonium",
+    "EldritchEntities",
+    "DystopianUnderworld",
+    "FuturisticSamurai",
+    "HeroAcademy",
+    "HeavenVsHell",
+    "Witchcraft",
+    "MagicalConspiracy",
+    "SacredBeasts",
+    "EtherealWorld",
+    "AlternateRealities",
   ];
 
   const [isVisible, setIsVisible] = useState(false); // 애니메이션 상태
@@ -166,7 +389,7 @@ const TagDropdown = ({
   return (
     <div
       className={clsx(
-        "absolute top-0 z-50 flex h-[650px] w-full flex-col items-center justify-center gap-5 rounded-b-2xl bg-main-text bg-opacity-90 transition-all duration-500 ease-out",
+        "absolute top-0 z-50 flex h-[680px] w-full flex-col items-center justify-center gap-5 rounded-b-2xl bg-main-text bg-opacity-90 transition-all duration-500 ease-out",
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0",
       )}
     >
@@ -185,7 +408,7 @@ const TagDropdown = ({
 
       <div className="flex w-[70%] flex-col items-center">
         {/* 선택한 태그 */}
-        <div className="flex h-[100px] items-center px-10">
+        <div className="flex h-[100px] items-center justify-center px-10">
           <div className="flex h-[70px] flex-wrap items-center gap-3 overflow-y-auto">
             <button
               className="rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text"
@@ -239,7 +462,7 @@ const TagDropdown = ({
 
         {/* 해당 태그 */}
         <div className="flex h-[230px] items-center px-10">
-          <div className="flex h-[180px] flex-wrap items-center gap-3 overflow-y-auto">
+          <div className="flex h-[180px] flex-wrap items-center justify-center gap-3 overflow-y-auto">
             {pageTags.map((tag, idx) => {
               return (
                 <div
@@ -263,7 +486,7 @@ const TagDropdown = ({
         <hr className="w-full" />
 
         {/* 페이지네이션 */}
-        <div className="relative flex h-[110px] w-full items-center justify-center gap-5 text-white">
+        <div className="relative flex h-[150px] w-full items-center justify-center gap-5 text-white">
           <button
             className="absolute left-3 rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text"
             onClick={() => setSelectedEng((prev) => !prev)}
@@ -271,7 +494,7 @@ const TagDropdown = ({
             {selectedEng ? "한글" : "영어"}
           </button>
           {selectedEng ? (
-            <div className="flex w-[800px] flex-wrap justify-center gap-4">
+            <div className="flex w-[80%] flex-wrap justify-center gap-4">
               {paginationEng.map((page, idx) => {
                 return (
                   <div key={idx}>
@@ -292,24 +515,26 @@ const TagDropdown = ({
               })}
             </div>
           ) : (
-            paginationKor.map((page, idx) => {
-              return (
-                <div key={idx}>
-                  <button
-                    onClick={() => {
-                      filterByFirstLetter(tags, page);
-                      setSelectedPage(page);
-                    }}
-                    className={clsx(
-                      `${selectedPage == page && "border border-main-yellow bg-bg-yellow-02 text-main-text"}`,
-                      "rounded-full px-1.5 py-0.5",
-                    )}
-                  >
-                    {page}
-                  </button>
-                </div>
-              );
-            })
+            <div className="flex w-[80%] flex-wrap justify-center gap-4">
+              {paginationKor.map((page, idx) => {
+                return (
+                  <div key={idx}>
+                    <button
+                      onClick={() => {
+                        filterByFirstLetter(tags, page);
+                        setSelectedPage(page);
+                      }}
+                      className={clsx(
+                        `${selectedPage == page && "border border-main-yellow bg-bg-yellow-02 text-main-text"}`,
+                        "rounded-full px-1.5 py-0.5",
+                      )}
+                    >
+                      {page}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </div>
       </div>
