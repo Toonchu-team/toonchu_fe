@@ -1,5 +1,3 @@
-"use client";
-
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { BreakpointType } from "@/stores/breakptStore";
 import MainMobile from "./main/MainMobile";
