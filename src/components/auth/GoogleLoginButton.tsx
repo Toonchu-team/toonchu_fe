@@ -1,6 +1,8 @@
 "use client";
 
 import { getGoogleLoginUrl } from "@/lib/utils/auth";
+import LoginButton from "./LoginButton";
+import Image from "next/image";
 
 export default function GoogleLoginButton({
   className = "",
@@ -13,8 +15,15 @@ export default function GoogleLoginButton({
   };
 
   return (
-    <button onClick={handleLogin} className={`w-full px-4 py-3 ${className}`}>
-      구글 계정으로 로그인
-    </button>
+    <LoginButton onClick={handleLogin}>
+      <Image
+        alt="구글 로고"
+        width={40}
+        height={40}
+        src="/images/provider/google-logo-square.png"
+        className="h-5 w-5"
+      />
+      <p className="ml-1">구글로 로그인</p>
+    </LoginButton>
   );
 }

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { User } from "@/lib/types/auth";
 import useAuthStore from "@/stores/authStore";
 interface AuthCallbackClientProps {
-  user: User | null;
+  user: User;
 }
 
 export default function AuthCallbackClient({ user }: AuthCallbackClientProps) {
@@ -16,6 +16,7 @@ export default function AuthCallbackClient({ user }: AuthCallbackClientProps) {
     if (!user) return;
 
     try {
+      console.log(user);
       router.push("/");
     } catch (error) {
       console.error("Login state update failed:", error);

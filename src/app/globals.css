@@ -41,6 +41,9 @@
   .nav-item {
     @apply flex h-full flex-shrink-0 cursor-pointer items-center px-7 hover:bg-bg-yellow-01/60;
   }
+  .page-title {
+    @apply my-7 text-2xl font-bold;
+  }
 }
 
 @layer utilities {

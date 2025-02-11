@@ -17,6 +17,7 @@ export default function Header() {
             alt="mockup"
             width={370}
             height={400}
+            priority
             className="drop-shadow-2xl"
           />
           <div

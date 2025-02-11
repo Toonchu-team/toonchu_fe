@@ -21,8 +21,11 @@ export default async function AuthCallbackPage({
   }
 
   try {
-    const response = await fetch(`/api/auth/callback/${provider}?code=${code}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION}/api/auth/${provider}/callback?code=${code}`,
+    );
     const userData = await response.json();
+
     return <AuthCallbackClient user={userData} />;
   } catch (error) {
     console.error("Social login error:", error);

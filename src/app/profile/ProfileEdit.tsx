@@ -54,7 +54,7 @@ export default function ProfileEdit() {
 
   return (
     <>
-      <h2 className="mt-6 text-2xl font-bold">내 프로필 변경</h2>
+      <h2 className="page-title">내 프로필 변경</h2>
       <section className="group relative">
         <Image
           className="overflow-hidden rounded-full shadow-md"
