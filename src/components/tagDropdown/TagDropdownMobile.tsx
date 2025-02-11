@@ -380,7 +380,8 @@ const TagDropdownMobile = () => {
   return (
     <div
       className={clsx(
-        "flex h-[600px] w-full flex-col items-center justify-center gap-5 rounded-b-2xl tablet:h-[650px]",
+        "flex w-full flex-col items-center justify-center gap-5 rounded-b-2xl",
+        "mobile:h-[500px] tablet:h-[650px]",
         "mobile:text-xs tablet:text-base",
       )}
     >
@@ -423,7 +424,7 @@ const TagDropdownMobile = () => {
 
         {/* 장르 */}
         {/* 장르 선택 시 기본값 "ㄱ"으로 필터링 시작 */}
-        <div className="flex h-[100px] items-center gap-4 tablet:gap-6">
+        <div className="flex h-[70px] items-center gap-4 tablet:h-[100px] tablet:gap-6">
           {genres.map((genre, idx) => {
             return (
               <div key={idx}>
