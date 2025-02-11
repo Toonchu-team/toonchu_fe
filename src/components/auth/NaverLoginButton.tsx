@@ -4,11 +4,7 @@ import { getNaverLoginUrl } from "@/lib/utils/auth";
 import LoginButton from "./LoginButton";
 import Image from "next/image";
 
-export default function NaverLoginButton({
-  className = "",
-}: {
-  className?: string;
-}) {
+export default function NaverLoginButton() {
   const handleLogin = () => {
     const url = getNaverLoginUrl();
     window.location.href = url;

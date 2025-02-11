@@ -4,11 +4,7 @@ import { getGoogleLoginUrl } from "@/lib/utils/auth";
 import LoginButton from "./LoginButton";
 import Image from "next/image";
 
-export default function GoogleLoginButton({
-  className = "",
-}: {
-  className?: string;
-}) {
+export default function GoogleLoginButton() {
   const handleLogin = () => {
     const url = getGoogleLoginUrl();
     window.location.href = url;

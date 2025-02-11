@@ -1,11 +1,30 @@
+"use server";
+
 import { AuthResponse } from "@/lib/types/auth";
+import { cookies } from "next/headers";
+
+const getAccessToken = async () => {
+  const cookieStore = await cookies();
+  return cookieStore.get("access_token")?.value;
+};
 
 export const userApi = {
-  getLoginUser: async (user_id: number) => {
-    const response = await fetch(`api/users/${user_id}`);
+  getLoginUser: async () => {
+    const access_token = await getAccessToken();
+
+    const response = await fetch(
+      `${process.env.SERVER_URL}/users/me/profile/`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      },
+    );
+
     if (!response.ok) {
       throw new Error("로그인 유저 정보 찾기 실패");
     }
+
     const data = await response.json();
     return data.user;
   },
@@ -14,6 +33,8 @@ export const userApi = {
     provider: string,
     code: string,
   ): Promise<AuthResponse> => {
+    const access_token = await getAccessToken();
+
     if (!code) {
       throw new Error("Authorization code 찾기 실패.");
     }
@@ -26,9 +47,9 @@ export const userApi = {
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${access_token}`,
             "Content-Type": "application/json",
           },
-          credentials: "include",
           body: JSON.stringify({
             code,
           }),
@@ -49,9 +70,14 @@ export const userApi = {
   },
 
   handleLogout: async (): Promise<void> => {
+    const access_token = await getAccessToken();
+
     const response = await fetch(`${process.env.SERVER_URL}/users/me/logout`, {
       method: "POST",
       credentials: "include",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
     });
 
     if (!response.ok) {
@@ -59,12 +85,21 @@ export const userApi = {
     }
   },
 
-  handleWithdraw: async (): Promise<void> => {
+  handleWithdraw: async (nick_name: string): Promise<void> => {
+    const access_token = await getAccessToken();
+
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/withdrawal`,
       {
         method: "POST",
         credentials: "include",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nick_name,
+        }),
       },
     );
 
@@ -73,5 +108,27 @@ export const userApi = {
     }
   },
 
-  profileUpdate: async (nick_name: string, profile_image: string) => {},
+  profileUpdate: async (nick_name: string, profile_image: string) => {
+    const access_token = await getAccessToken();
+
+    const response = await fetch(
+      `${process.env.SERVER_URL}/users/me/profile/`,
+      {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nick_name,
+          profile_image,
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("프로필 수정 실패");
+    }
+  },
 };
