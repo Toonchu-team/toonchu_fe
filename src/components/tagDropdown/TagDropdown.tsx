@@ -411,7 +411,7 @@ const TagDropdown = ({
         <div className="flex h-[100px] items-center justify-center px-10">
           <div className="flex h-[70px] flex-wrap items-center gap-3 overflow-y-auto">
             <button
-              className="rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text"
+              className="rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text hover:bg-bg-yellow-01"
               onClick={() => {
                 setSelectedTags([]);
               }}
