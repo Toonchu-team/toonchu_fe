@@ -39,11 +39,11 @@ export default function TagSearchDesktop() {
         {/* 검색 요청에서 받아와야 할 것 같음 */}
         <div
           className={clsx(
-            "flex h-[100px] w-[870px] flex-wrap justify-center gap-3 overflow-y-auto",
+            "-z-50 flex h-[100px] w-[870px] flex-wrap justify-center gap-3 overflow-y-auto",
             "scale-[65%] lg:scale-75 xl:scale-100",
           )}
         >
-          <button className="h-[34px] rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text hover:bg-bg-yellow-01">
+          <button className="h-[34px] rounded-lg border border-main-yellow bg-bg-yellow-02 px-2 py-1 text-main-text hover:bg-bg-yellow-01">
             선택한 태그 초기화
           </button>
           {selectedTags.map((selectedTag, idx) => {

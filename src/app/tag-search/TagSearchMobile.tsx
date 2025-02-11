@@ -38,7 +38,7 @@ export default function TagSearchMobile() {
             "flex h-[100px] origin-top scale-[60%] flex-wrap justify-center gap-3 overflow-y-auto",
           )}
         >
-          <button className="h-[34px] rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text hover:bg-bg-yellow-01">
+          <button className="h-[34px] rounded-lg border border-main-yellow bg-bg-yellow-02 px-2 py-1 text-main-text hover:bg-bg-yellow-01">
             선택한 태그 초기화
           </button>
           {selectedTags.map((selectedTag, idx) => {
