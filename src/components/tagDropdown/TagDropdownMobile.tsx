@@ -399,7 +399,7 @@ const TagDropdownMobile = () => {
         <div className="flex h-[100px] items-center px-10">
           <div className="flex h-[70px] flex-wrap items-center justify-center gap-3 overflow-y-auto">
             <button
-              className="rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text hover:bg-bg-yellow-01"
+              className="rounded-lg border border-main-yellow bg-bg-yellow-02 px-2 py-1 text-main-text hover:bg-bg-yellow-01"
               onClick={() => {
                 setSelectedTags([]);
               }}
@@ -431,7 +431,7 @@ const TagDropdownMobile = () => {
                 <button
                   className={
                     selectedGenre == genre
-                      ? "rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text"
+                      ? "rounded-lg border border-main-yellow bg-bg-yellow-02 px-2 py-1 text-main-text"
                       : "text-main-text"
                   }
                   onClick={() => {
@@ -476,7 +476,7 @@ const TagDropdownMobile = () => {
         {/* 페이지네이션 */}
         <div className="relative flex h-[180px] w-full items-center justify-center gap-5 text-main-text">
           <button
-            className="absolute left-3 rounded-lg border border-main-grey bg-bg-yellow-02 px-2 py-1 text-main-text"
+            className="absolute left-3 rounded-lg border border-main-yellow bg-bg-yellow-02 px-2 py-1 text-main-text"
             onClick={() => setSelectedEng((prev) => !prev)}
           >
             {selectedEng ? "한글" : "영어"}
