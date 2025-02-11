@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { RefObject, useRef, useState } from "react";
 import clsx from "clsx";
 import { X, Search, ChevronDown } from "lucide-react";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
 const SearchBarMobile = () => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
@@ -17,6 +18,14 @@ const SearchBarMobile = () => {
   const containerClass =
     "flex items-center justify-start relative border-l-[1px]";
   const clearIconClass = "absolute right-0 cursor-pointer text-main-text";
+
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // 외부 클릭 감지 핸들러
+  useOutsideClick({
+    ref: dropdownRef as RefObject<HTMLElement>,
+    callback: () => setOpenDropdown(false),
+  });
 
   return (
     <div
@@ -42,9 +51,12 @@ const SearchBarMobile = () => {
       </button>
 
       {/* 검색 바 컨테이너 */}
-      <div className="flex items-center gap-1 pl-1">
+      <div className="z-50 flex items-center gap-1 pl-1">
         {/* 제공사 선택 드롭다운 */}
-        <div className="relative flex h-5 w-[70px] items-center justify-center">
+        <div
+          className="relative flex h-5 w-[70px] items-center justify-center"
+          ref={dropdownRef}
+        >
           <div
             className="relative flex w-[70px] cursor-pointer text-main-text"
             onClick={() => setOpenDropdown((prev) => !prev)}
@@ -57,7 +69,7 @@ const SearchBarMobile = () => {
             />
           </div>
           {openDropdown && (
-            <div className="border-1 absolute top-6 flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
+            <div className="border-1 absolute top-6 z-50 flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
               {providers.map((prov, index) => (
                 <div
                   key={index}

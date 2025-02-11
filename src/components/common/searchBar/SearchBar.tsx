@@ -52,39 +52,40 @@ const SearchBar = () => {
       {/* 검색 바 컨테이너 */}
       <div className="flex w-[820px] items-center justify-around pl-5">
         {/* 배급사 선택 드롭다운 */}
-        <div
-          className="relative flex h-8 w-[150px] items-center justify-center"
-          ref={dropdownRef}
-        >
+        <div className="relative z-50">
           <div
-            className="relative flex w-36 cursor-pointer text-main-text"
-            onClick={() => setOpenDropdown((prev) => !prev)}
+            className="relative flex h-8 w-[150px] items-center justify-center"
+            ref={dropdownRef}
           >
-            <p>{provider}</p>
-            <ChevronDown
-              className="absolute right-1"
-              color="#6a6a6a"
-              width={20}
-            />
-          </div>
-          {openDropdown && (
-            <div className="border-1 absolute top-10 flex h-32 w-36 cursor-pointer flex-col rounded-xl border bg-white">
-              {providers.map((prov, index) => (
-                <div
-                  key={index}
-                  className="flex h-1/3 w-full items-center justify-center hover:bg-bg-yellow-02"
-                  onClick={() => {
-                    setProvider(prov);
-                    setOpenDropdown(false);
-                  }}
-                >
-                  <p className="text-main-text">{prov}</p>
-                </div>
-              ))}
+            <div
+              className="relative flex w-36 cursor-pointer text-main-text"
+              onClick={() => setOpenDropdown((prev) => !prev)}
+            >
+              <p>{provider}</p>
+              <ChevronDown
+                className="absolute right-1"
+                color="#6a6a6a"
+                width={20}
+              />
             </div>
-          )}
+            {openDropdown && (
+              <div className="border-1 absolute top-10 z-50 flex h-32 w-36 cursor-pointer flex-col rounded-xl border bg-white shadow-lg">
+                {providers.map((prov, index) => (
+                  <div
+                    key={index}
+                    className="flex h-1/3 w-full items-center justify-center hover:bg-bg-yellow-02"
+                    onClick={() => {
+                      setProvider(prov);
+                      setOpenDropdown(false);
+                    }}
+                  >
+                    <p className="text-main-text">{prov}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-
         {/* 태그 입력 */}
         <div className={clsx(containerClass, "h-8 w-[230px]")}>
           <input
@@ -102,7 +103,6 @@ const SearchBar = () => {
             />
           )}
         </div>
-
         {/* 검색어 입력 */}
         <div className={clsx(containerClass, "h-8 w-[400px]")}>
           <input
