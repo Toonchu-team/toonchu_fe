@@ -1,4 +1,5 @@
-import AuthCallbackClient from "./AuthCallbackClient";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 interface AuthSearchParams {
   code: string;
@@ -16,6 +17,8 @@ export default async function AuthCallbackPage({
   const code = searchParams.code;
   const provider = params.provider;
 
+  const cookieStore = await cookies();
+
   if (!code) {
     return <div>Authorization code를 찾을 수 없습니다.</div>; // 추후 에러 페이지 생성
   }
@@ -24,9 +27,21 @@ export default async function AuthCallbackPage({
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION}/api/auth/${provider}/callback?code=${code}`,
     );
-    const userData = await response.json();
 
-    return <AuthCallbackClient user={userData} />;
+    if (!response.ok) {
+      console.error("API 요청 실패:", response.status, response.statusText);
+      return <div>인증에 실패하였습니다.</div>; // 추후 에러 페이지 생성
+    }
+
+    const data = await response.json();
+    cookieStore.set("access_token", data.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+    });
+
+    redirect("/");
   } catch (error) {
     console.error("Social login error:", error);
     return <div>인증에 실패하였습니다.</div>; // 추후 에러 페이지 생성

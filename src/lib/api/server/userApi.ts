@@ -1,5 +1,3 @@
-"use server";
-
 import { AuthResponse } from "@/lib/types/auth";
 import { cookies } from "next/headers";
 
@@ -33,8 +31,6 @@ export const userApi = {
     provider: string,
     code: string,
   ): Promise<AuthResponse> => {
-    const access_token = await getAccessToken();
-
     if (!code) {
       throw new Error("Authorization code 찾기 실패.");
     }
@@ -47,7 +43,6 @@ export const userApi = {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${access_token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -57,14 +52,21 @@ export const userApi = {
       );
 
       if (!response.ok) {
+        const errorData = await response.text();
+        console.error("Backend error response:", errorData);
         throw new Error("소셜 로그인 인증 실패");
       }
 
       const data = await response.json();
       console.log("BE응답 :", data);
       return data;
-    } catch (error) {
-      console.error("서버 연결 실패", error);
+    } catch (error: any) {
+      console.error("Error details:", {
+        message: error.message,
+        stack: error.stack,
+        provider,
+        code,
+      });
       throw error;
     }
   },
@@ -72,7 +74,7 @@ export const userApi = {
   handleLogout: async (): Promise<void> => {
     const access_token = await getAccessToken();
 
-    const response = await fetch(`${process.env.SERVER_URL}/users/me/logout`, {
+    const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -89,7 +91,7 @@ export const userApi = {
     const access_token = await getAccessToken();
 
     const response = await fetch(
-      `${process.env.SERVER_URL}/users/me/withdrawal`,
+      `${process.env.SERVER_URL}/users/me/withdrawal/`,
       {
         method: "POST",
         credentials: "include",
@@ -112,7 +114,7 @@ export const userApi = {
     const access_token = await getAccessToken();
 
     const response = await fetch(
-      `${process.env.SERVER_URL}/users/me/profile/`,
+      `${process.env.SERVER_URL}/users/me/profile/update/`,
       {
         method: "PATCH",
         credentials: "include",
