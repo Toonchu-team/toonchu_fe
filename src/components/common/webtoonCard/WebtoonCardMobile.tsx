@@ -31,8 +31,9 @@ const WebtoonCardMobile = () => {
       <Image
         src="/image.png"
         alt=""
-        width={100}
-        height={86}
+        width={83}
+        height={120}
+        unoptimized
         className="rounded-bl-xl rounded-tl-xl"
       />
       <div className="border-1 min-w-68 flex max-w-[580px] flex-col rounded-br-xl rounded-tr-xl border bg-white">

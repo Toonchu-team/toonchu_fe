@@ -90,7 +90,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .swiper-button-prev {
     left: -30px !important;
   }

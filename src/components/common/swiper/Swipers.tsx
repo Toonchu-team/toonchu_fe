@@ -20,7 +20,7 @@ const Swipers: React.FC<SwipersProps> = ({ children }) => {
         breakpoints={{
           0: { slidesPerView: 1 },
           540: { slidesPerView: 2 },
-          768: { slidesPerView: 3 },
+          769: { slidesPerView: 3 },
         }}
         modules={[Navigation, Pagination, Autoplay]}
         navigation={true} // ✅ 기본 navigation 사용

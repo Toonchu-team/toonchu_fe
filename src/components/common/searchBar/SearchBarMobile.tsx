@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { RefObject, useRef, useState } from "react";
+import clsx from "clsx";
 import { X, Search, ChevronDown } from "lucide-react";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
-const SearchBarMoblie = () => {
+const SearchBarMobile = () => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const providers = ["전체", "네이버", "카카오", "카카오페이지"];
   const [provider, setProvider] = useState<string>("전체");
@@ -11,19 +13,33 @@ const SearchBarMoblie = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const apiUrl = "api/webtoon/search";
 
-  // TailwindCSS
-  const inputClass = "pl-2 focus:outline-none text-main-text";
+  // TailwindCSS 클래스 정리
+  const inputClass = "pl-2 text-main-text text-[10px] focus:outline-none";
   const containerClass =
-    "flex justify-start items-center relative border-l-[1px]";
-  const clearIconClass = "absolute cursor-pointer text-main-text";
+    "flex items-center justify-start relative border-l-[1px]";
+  const clearIconClass = "absolute right-0 cursor-pointer text-main-text";
+
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // 외부 클릭 감지 핸들러
+  useOutsideClick({
+    ref: dropdownRef as RefObject<HTMLElement>,
+    callback: () => setOpenDropdown(false),
+  });
 
   return (
-    <div className="border-1 relative flex h-6 w-[350px] flex-grow origin-left flex-col justify-center rounded-xl border bg-white px-1">
+    <div
+      className={clsx(
+        "border-1 relative flex flex-col justify-center bg-white px-1",
+        "h-6 w-[350px] flex-grow origin-left rounded-xl border",
+      )}
+    >
+      {/* 검색 버튼 */}
       <button
         className="absolute flex h-4 w-5 items-center justify-center self-end rounded-r-xl bg-main-yellow pr-0.5"
         onClick={() => {
-          const queryString = `provider=${provider}${searchTag && `&tag=${searchTag}`}${searchTerm && `&term=${searchTerm}`}`;
-          console.log(`${apiUrl}?${queryString}`); // 확인용
+          const queryString = `provider=${provider}${searchTag ? `&tag=${searchTag}` : ""}${searchTerm ? `&term=${searchTerm}` : ""}`;
+          console.log(`${apiUrl}?${queryString}`);
 
           // 검색창 초기화
           setProvider("전체");
@@ -33,13 +49,17 @@ const SearchBarMoblie = () => {
       >
         <Search color="#FFF" size={12} />
       </button>
-      <div className="flex items-center gap-1 pl-1">
-        <div className="relative flex h-5 w-[70px] items-center justify-center">
+
+      {/* 검색 바 컨테이너 */}
+      <div className="z-50 flex items-center gap-1 pl-1">
+        {/* 제공사 선택 드롭다운 */}
+        <div
+          className="relative flex h-5 w-[70px] items-center justify-center"
+          ref={dropdownRef}
+        >
           <div
             className="relative flex w-[70px] cursor-pointer text-main-text"
-            onClick={() => {
-              setOpenDropdown((prev) => !prev);
-            }}
+            onClick={() => setOpenDropdown((prev) => !prev)}
           >
             <p className="text-[10px]">{provider}</p>
             <ChevronDown
@@ -49,53 +69,54 @@ const SearchBarMoblie = () => {
             />
           </div>
           {openDropdown && (
-            <div className="border-1 absolute top-6 flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
-              {providers.map((provider, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex h-1/3 w-full items-center justify-center hover:bg-bg-yellow-01"
-                    onClick={() => {
-                      setProvider(provider);
-                      setOpenDropdown(false);
-                    }}
-                  >
-                    <p className="text-[10px] text-main-text">{provider}</p>
-                  </div>
-                );
-              })}
+            <div className="border-1 absolute top-6 z-50 flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
+              {providers.map((prov, index) => (
+                <div
+                  key={index}
+                  className="flex h-1/3 w-full items-center justify-center hover:bg-bg-yellow-02"
+                  onClick={() => {
+                    setProvider(prov);
+                    setOpenDropdown(false);
+                  }}
+                >
+                  <p className="text-[10px] text-main-text">{prov}</p>
+                </div>
+              ))}
             </div>
           )}
         </div>
-        <div className={`${containerClass} h-4 w-[110px]`}>
+
+        {/* 태그 입력 */}
+        <div className={clsx(containerClass, "h-4 w-[110px]")}>
           <input
             type="text"
-            className={`${inputClass} w-[85%] text-[10px]`}
+            className={clsx(inputClass, "w-[85%]")}
             placeholder="태그를 입력하라냥"
             value={searchTag}
             onChange={(e) => setSearchTag(e.target.value)}
           />
           {searchTag && (
             <X
-              className={`${clearIconClass} right-0`}
+              className={clearIconClass}
               size={11}
               onClick={() => setSearchTag("")}
             />
           )}
         </div>
 
-        <div className={`${containerClass} h-4 w-[115px]`}>
+        {/* 검색어 입력 */}
+        <div className={clsx(containerClass, "h-4 w-[115px]")}>
           <input
             type="text"
-            className={`${inputClass} w-[85%] text-[10px]`}
+            className={clsx(inputClass, "w-[85%]")}
             placeholder="검색어를 입력하라냥"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           {searchTerm && (
             <X
-              className={`${clearIconClass} right-0`}
-              width={11}
+              className={clearIconClass}
+              size={11}
               onClick={() => setSearchTerm("")}
             />
           )}
@@ -105,4 +126,4 @@ const SearchBarMoblie = () => {
   );
 };
 
-export default SearchBarMoblie;
+export default SearchBarMobile;
