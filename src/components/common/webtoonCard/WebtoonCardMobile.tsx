@@ -53,6 +53,7 @@ const WebtoonCardMobile = () => {
           width={30}
           height={30}
           className="fixed self-end rounded-tr-xl"
+          priority
         />
         <div className="flex flex-col gap-1 p-2">
           <div className="flex flex-wrap gap-1">
