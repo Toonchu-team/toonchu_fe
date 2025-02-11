@@ -38,17 +38,32 @@ export default function DesktopNav() {
             className={`nav-item ${currentPath === "/tag-search" && "bg-bg-yellow-01/60"}`}
             onClick={() => setOpenDropdown(true)}
           >
-            <Link href="/tag-search">태그별 검색</Link>
+            <Link
+              href="/tag-search"
+              className="flex h-full w-full items-center px-7"
+            >
+              태그별 검색
+            </Link>
           </li>
           <li
             className={`nav-item ${currentPath === "/day-search" && "bg-bg-yellow-01/60"}`}
           >
-            <Link href="/day-search">연재별 검색</Link>
+            <Link
+              href="/day-search"
+              className="flex h-full w-full items-center px-7"
+            >
+              연재별 검색
+            </Link>
           </li>
           <li
             className={`nav-item ${currentPath === "/my-box" && "bg-bg-yellow-01/60"}`}
           >
-            <Link href="/my-box">내 상자</Link>
+            <Link
+              href="/my-box"
+              className="flex h-full w-full items-center px-7"
+            >
+              내 상자
+            </Link>
           </li>
         </ul>
         <ProfileMenu />
