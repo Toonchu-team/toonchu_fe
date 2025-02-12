@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import { Info, PlusIcon, X, Camera } from "lucide-react";
@@ -269,89 +271,104 @@ function WebtoonRegisterForm() {
       <div className="flex flex-col gap-2">
         <label className="font-bold text-main-text">연재 주기 *</label>
         <div className="flex flex-col gap-4">
-          <div className="flex flex-wrap gap-2">
-            {(() => {
-                const days = ["월", "화", "수", "목", "금", "토", "일", "매일", "완결"];
-                const weekdays = ["월", "화", "수", "목", "금", "토", "일"];
-            
-                const handleDayClick = (day: string) => {
-                  if (day === "매일") {
-                    // 매일 선택 시 모든 요일 선택
-                    if (selectedDays.includes("매일")) {
-                      setSelectedDays(selectedDays.filter(d => d !== "매일" && !weekdays.includes(d)));
-                    } else {
-                      setSelectedDays([...weekdays, "매일"]);
-                    }
-                  } else if (weekdays.includes(day)) {
-                    if (selectedDays.includes(day)) {
-                      // 요일 해제 시
-                      const newDays = selectedDays.filter(d => d !== day);
-                      if (selectedDays.includes("매일")) {
-                        // 매일이 선택되어 있었다면 매일도 해제
-                        newDays.splice(newDays.indexOf("매일"), 1);
-                      }
-                      setSelectedDays(newDays);
-                    } else {
-                      // 요일 선택 시
-                      const newDays = [...selectedDays, day];
-                      // 월화수목금토일이 모두 선택되었는지 확인
-                      const hasAllWeekdays = weekdays.every(d => 
-                        newDays.includes(d) || d === day
-                      );
-                      if (hasAllWeekdays) {
-                        // 모든 요일이 선택되면 매일 추가
-                        newDays.push("매일");
-                      }
-                      setSelectedDays(newDays);
-                    }
-                  } else if (day === "완결") {
-                    if (selectedDays.includes("완결")) {
-                      setSelectedDays(selectedDays.filter(d => d !== "완결"));
-                    } else {
-                      setSelectedDays(["완결"]);
-                    }
-                  }
-            };
-
-            return days.map((day) => (
+          {/* 연재 주기 선택 */}
+          <div className="flex flex-wrap items-center gap-2">
+            {[
+              { label: "매주", value: "1weeks" },
+              { label: "격주", value: "2weeks" },
+              { label: "10일", value: "10days" },
+              { label: "20일", value: "20days" },
+              { label: "한달", value: "month" },
+              { label: "기타", value: "etc" }
+            ].map(({ label, value }) => (
               <button
-                key={day}
+                key={value}
+                disabled={selectedDays.includes("완결")}
                 className={clsx(
                   "rounded-md px-4 py-2 text-sm",
-                  selectedDays.includes(day)
-                    ? "bg-main-yellow text-white"
-                    : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
-                )}
-                onClick={() => handleDayClick(day)}
-              >
-                {day}
-              </button>
-            ));
-        })()}
-    </div>
-    <div className="flex flex-wrap gap-2">
-      {[
-        { label: "매주", value: "1weeks" },
-        { label: "격주", value: "2weeks" },
-        { label: "10일", value: "10days" },
-        { label: "20일", value: "20days" },
-        { label: "한달", value: "month" },
-        { label: "기타", value: "etc" }
-      ].map(({ label, value }) => (
-                <button
-                key={value}
-                className={clsx(
-                    "rounded-md px-4 py-2 text-sm",
-                    cycle === value
-                    ? "bg-main-yellow text-white"
-                    : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
+                  selectedDays.includes("완결") 
+                    ? "cursor-not-allowed bg-gray-300 text-gray-500"
+                    : cycle === value
+                      ? "bg-main-yellow text-white"
+                      : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
                 )}
                 onClick={() => setCycle(value)}
-                >
+              >
                 {label}
-                </button>
+              </button>
             ))}
+            {/* 구분선 */}
+            <div className="h-8 w-px bg-main-grey"></div>
+            {/* 완결 버튼 */}
+            <button
+              className={clsx(
+                "rounded-md px-4 py-2 text-sm",
+                selectedDays.includes("완결")
+                  ? "bg-main-yellow text-white"
+                  : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
+              )}
+              onClick={() => {
+                if (selectedDays.includes("완결")) {
+                  setSelectedDays([]);
+                  setCycle("1weeks"); // 완결 해제 시 매주로 돌아감
+                } else {
+                  setSelectedDays(["완결"]);
+                  setCycle(""); // 완결 선택 시 주기 선택 초기화
+                }
+              }}
+            >
+              완결
+            </button>
           </div>
+
+          {/* 요일 선택 - 매주/격주일 때만 보이도록 */}
+          {(cycle === "1weeks" || cycle === "2weeks") && (
+            <div className="flex flex-wrap gap-2">
+              {["월", "화", "수", "목", "금", "토", "일", "매일"].map((day) => (
+                <button
+                  key={day}
+                  disabled={selectedDays.includes("완결")}
+                  className={clsx(
+                    "rounded-md px-4 py-2 text-sm",
+                    selectedDays.includes("완결")
+                      ? "cursor-not-allowed bg-gray-300 text-gray-500"
+                      : selectedDays.includes(day)
+                        ? "bg-main-yellow text-white"
+                        : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
+                  )}
+                  onClick={() => {
+                    if (selectedDays.includes("완결")) return;
+
+                    if (day === "매일") {
+                      if (selectedDays.includes("매일")) {
+                        setSelectedDays([]);
+                      } else {
+                        setCycle("1weeks"); // 매일 선택 시 매주로 강제 설정
+                        setSelectedDays([...["월", "화", "수", "목", "금", "토", "일"], "매일"]);
+                      }
+                    } else {
+                      if (selectedDays.includes(day)) {
+                        const newDays = selectedDays.filter(d => d !== day && d !== "매일");
+                        setSelectedDays(newDays);
+                      } else {
+                        const newDays = [...selectedDays, day];
+                        const hasAllWeekdays = ["월", "화", "수", "목", "금", "토", "일"].every(d => 
+                          newDays.includes(d) || d === day
+                        );
+                        if (hasAllWeekdays) {
+                          newDays.push("매일");
+                          setCycle("1weeks"); // 모든 요일 선택으로 인한 매일 선택 시에도 매주로 강제 설정
+                        }
+                        setSelectedDays(newDays);
+                      }
+                    }
+                  }}
+                >
+                  {day}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
