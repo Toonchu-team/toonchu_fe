@@ -3,33 +3,35 @@
 import { useState, useEffect } from "react";
 import { BreakpointType } from "@/stores/breakptStore";
 
-function getBreakpoint(): BreakpointType {
-  const width = window.innerWidth;
-  if (width <= 768) {
-    return "mobile";
-  } else if (width <= 1024) {
-    return "tablet";
-  } else {
-    return "desktop";
-  }
-}
-
-export default function useBreakpoint(initialBreakpoint?: BreakpointType) {
-  const [breakpoint, setBreakpoint] = useState<BreakpointType>(
-    initialBreakpoint ?? getBreakpoint(),
-  );
+function useBreakpoint(initialBreakpoint: BreakpointType): BreakpointType {
+  const [breakpoint, setBreakpoint] =
+    useState<BreakpointType>(initialBreakpoint);
 
   useEffect(() => {
-    const checkBreakpoint = () => {
-      setBreakpoint(getBreakpoint());
+    const handleResize = () => {
+      let newBreakpoint: BreakpointType;
+
+      if (window.innerWidth < 768) {
+        newBreakpoint = "mobile";
+      } else if (window.innerWidth < 1024) {
+        newBreakpoint = "tablet";
+      } else {
+        newBreakpoint = "desktop";
+      }
+
+      if (newBreakpoint !== breakpoint) {
+        setBreakpoint(newBreakpoint);
+      }
     };
 
-    window.addEventListener("resize", checkBreakpoint);
-
+    window.addEventListener("resize", handleResize);
+    handleResize();
     return () => {
-      window.removeEventListener("resize", checkBreakpoint);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return breakpoint;
 }
+
+export default useBreakpoint;
