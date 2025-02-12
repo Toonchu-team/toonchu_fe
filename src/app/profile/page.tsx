@@ -1,31 +1,8 @@
-"use client";
+import { userApi } from "@/lib/api/server/userApi";
+import ProfileClient from "./ProfileClient";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import useAuthStore from "@/stores/authStore";
-import useProfileStore from "@/stores/profileStore";
-import ProfileDefault from "./ProfileDefault";
-import ProfileEdit from "./ProfileEdit";
+export default async function ProfilePage() {
+  const user = await userApi.getLoginUser();
 
-export default function Profile() {
-  const user = useAuthStore((state) => state.user);
-  const isEditing = useProfileStore((state) => state.isEditing);
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user, router]);
-
-  if (!user) {
-    return null;
-  }
-
-  return (
-    <main className="flex flex-col items-center gap-7 pb-10 text-main-text">
-      {isEditing ? <ProfileEdit /> : <ProfileDefault />}
-    </main>
-  );
+  return <ProfileClient initialUser={user} />;
 }
