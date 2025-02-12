@@ -75,7 +75,7 @@ export default function DaySearchDesktop() {
             "xl:h-auto xl:scale-100",
           )}
         >
-          <div className="self-start rounded-xl border border-main-grey px-2 py-1">
+          <div className="border-1-main-text self-start rounded-xl border px-2 py-1">
             <Dropdown
               openDropdown={openDropdown}
               setOpenDropdown={setOpenDropdown}

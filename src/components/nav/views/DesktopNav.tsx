@@ -3,13 +3,30 @@
 import Link from "next/link";
 import ProfileMenu from "../ProfileMenu";
 import { usePathname } from "next/navigation";
-import { RefObject, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import TagDropdown from "@/components/tagDropdown/TagDropdown";
 import useOutsideClick from "@/hooks/useOutsideClick";
 
 export default function DesktopNav() {
   const currentPath = usePathname();
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (openDropdown) {
+      document.body.style.overflow = "hidden"; // 스크롤 방지
+      document.body.style.position = "fixed"; // iOS 대응
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = "auto"; // 스크롤 복원
+      document.body.style.position = "static";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // 컴포넌트 언마운트 시 복원
+      document.body.style.position = "static";
+    };
+  }, [openDropdown]);
+
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick({

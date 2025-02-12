@@ -69,7 +69,7 @@ export default function DaySearchMobile() {
 
         <div className="flex flex-col">
           {/* 정렬 드롭다운 */}
-          <div className="self-start rounded-md border border-main-grey px-2 py-1">
+          <div className="border-1-main-text self-start rounded-md border px-2 py-1">
             <DropdownMobile
               openDropdown={openDropdown}
               setOpenDropdown={setOpenDropdown}
