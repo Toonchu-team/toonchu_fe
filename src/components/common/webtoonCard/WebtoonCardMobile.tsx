@@ -36,7 +36,7 @@ const WebtoonCardMobile = () => {
         unoptimized
         className="rounded-bl-xl rounded-tl-xl"
       />
-      <div className="border-1 min-w-68 flex max-w-[580px] flex-col rounded-br-xl rounded-tr-xl border bg-white">
+      <div className="border-1 min-w-68 relative flex max-w-[580px] flex-col rounded-br-xl rounded-tr-xl border bg-white">
         <Heart
           className="absolute right-10 top-2 cursor-pointer"
           size={17}
@@ -52,7 +52,7 @@ const WebtoonCardMobile = () => {
           alt="naverLogo"
           width={30}
           height={30}
-          className="fixed self-end rounded-tr-xl"
+          className="absolute self-end rounded-tr-xl"
           priority
         />
         <div className="flex flex-col gap-1 p-2">
