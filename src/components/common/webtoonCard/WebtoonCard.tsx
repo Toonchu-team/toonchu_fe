@@ -40,6 +40,7 @@ const WebtoonCard = () => {
         width={180}
         height={257}
         className="rounded-bl-2xl rounded-tl-2xl"
+        priority
       />
 
       {/* 카드 컨테이너 */}

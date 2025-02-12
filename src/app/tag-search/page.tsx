@@ -1,8 +1,8 @@
 import { breakpointDetect } from "@/lib/utils/breakpointDetect";
-import MainClient from "./main/MainClient";
+import TagSearchClient from "./TagSearchClient";
 
 export default async function Main() {
   const initialBreakpoint = await breakpointDetect();
 
-  return <MainClient initialBreakpoint={initialBreakpoint} />;
+  return <TagSearchClient initialBreakpoint={initialBreakpoint} />;
 }

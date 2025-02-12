@@ -1,8 +1,8 @@
 import { breakpointDetect } from "@/lib/utils/breakpointDetect";
-import MainClient from "./main/MainClient";
+import DaySearchClient from "./DaySearchClient";
 
 export default async function Main() {
   const initialBreakpoint = await breakpointDetect();
 
-  return <MainClient initialBreakpoint={initialBreakpoint} />;
+  return <DaySearchClient initialBreakpoint={initialBreakpoint} />;
 }

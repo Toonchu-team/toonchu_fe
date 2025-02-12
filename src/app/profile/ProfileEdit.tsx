@@ -54,14 +54,14 @@ export default function ProfileEdit() {
 
   return (
     <>
-      <h2 className="mt-6 text-2xl font-bold">내 프로필 변경</h2>
+      <h2 className="page-title">내 프로필 변경</h2>
       <section className="group relative">
         <Image
           className="overflow-hidden rounded-full shadow-md"
           src={profileImage}
           alt="프로필 이미지"
-          width={120}
-          height={120}
+          width={130}
+          height={130}
         />
         <label
           htmlFor="profile-image"

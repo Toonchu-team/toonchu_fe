@@ -39,6 +39,7 @@ const WebtoonCardCol = () => {
         width={300}
         height={216}
         className="h-[216px] rounded-xl object-cover"
+        priority
       />
 
       {/* 즐겨찾기 버튼 */}

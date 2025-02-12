@@ -8,9 +8,9 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import BottomSlideUpMenu from "@/components/common/BottomSlideUpMenu";
 import useProfileStore from "@/stores/profileStore";
+import TagDropdownMobile from "@/components/tagDropdown/TagDropdownMobile";
 
 export default function MobileTabletNav() {
-  const [padding, setPadding] = useState("px-4");
   const { user } = useAuthStore();
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
@@ -27,14 +27,21 @@ export default function MobileTabletNav() {
   };
 
   const toggleMenu = (e: React.MouseEvent) => {
+    console.log(e); // 디버깅용
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const [tagMenuIsOpen, setTagMenuIsOpen] = useState<boolean>(false);
+  const closeTagMenu = () => {
+    setTagMenuIsOpen(false);
   };
 
   return (
     <>
-      <nav
-        className={`${padding} flex h-[60px] w-full items-center justify-between gap-7 px-4 font-bold text-main-text md:px-8`}
-      >
+      <BottomSlideUpMenu isOpen={tagMenuIsOpen} onClose={closeTagMenu}>
+        <TagDropdownMobile />
+      </BottomSlideUpMenu>
+      <nav className="flex h-[60px] w-full items-center justify-between gap-7 px-4 font-bold text-main-text md:px-8">
         <button onClick={toggleMenu} className="flex items-center">
           <AlignJustifyIcon
             size={24}
@@ -75,6 +82,7 @@ export default function MobileTabletNav() {
             <Link
               href="/tag-search"
               className="flex h-4 w-full cursor-pointer items-center justify-center border-b-2 border-bg-yellow-01 py-6 hover:bg-bg-yellow-01/60"
+              onClick={() => setTagMenuIsOpen(true)}
             >
               태그별 검색
             </Link>
