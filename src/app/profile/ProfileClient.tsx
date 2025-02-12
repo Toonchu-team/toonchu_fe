@@ -12,7 +12,7 @@ export default function ProfileClient({
 }: {
   initialUser: User | null;
 }) {
-  const { user, login } = useAuthStore();
+  const { login } = useAuthStore();
   const isEditing = useProfileStore((state) => state.isEditing);
 
   useEffect(() => {
