@@ -56,9 +56,24 @@ function WebtoonRegisterForm() {
   const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      // 파일 크기 체크 (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert("파일 용량은 5MB 이하여야 합니다.");
+        return;
+      }
+  
+      // 이미지 가로/세로 비율 체크
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setThumbnail(reader.result as string);
+      reader.onload = (e) => {
+        const img = document.createElement('img');
+        img.onload = () => {
+          if (img.width > img.height) {
+            alert("세로형 이미지를 업로드 해 주세요.");
+            return;
+          }
+          setThumbnail(e.target?.result as string);
+        };
+        img.src = e.target?.result as string;
       };
       reader.readAsDataURL(file);
     }
@@ -131,54 +146,30 @@ function WebtoonRegisterForm() {
       <div className="flex flex-col gap-2">
         <label className="font-bold text-main-text">표지 *</label>
         <div className="flex items-center gap-4">
-            <div className="relative w-[120px] h-[180px]">
-                {thumbnail ? (
-                    <Image 
-                    src={thumbnail} 
-                    alt="표지 미리보기" 
-                    fill 
-                    className="rounded-md object-cover" 
-                    width={180}
-                    height={120}
-                    />
-                ) : (
-                  <div className="flex h-full w-full flex-col items-center justify-center rounded-md border-2 border-dashed border-main-text bg-bg-grey-01">
-                     <Camera size={32} className="text-main-text/50" />
-                  </div>
-                )}
-                <label className="absolute bottom-2 right-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white shadow-md hover:bg-bg-yellow-01/60">
-                  <input
-                    type="file"
-                    className="hidden"
-                    accept=".jpg,.jpeg,.png"
-                    onChange={(event) => {
-                        const file = event.target.files?.[0];
-                        if (file) {
-                        // 파일 크기 체크 (5MB)
-                            if (file.size > 5 * 1024 * 1024) {
-                                alert("파일 용량은 5MB 이하여야 합니다.");
-                                return;
-                            }
-
-                        // 이미지 가로/세로 비율 체크
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            const img = document.createElement('img');
-                            img.onload = () => {
-                                if (img.width > img.height) {
-                                    alert("세로형 이미지를 업로드 해 주세요.");
-                                    return;
-                                }
-                                setThumbnail(e.target?.result as string);
-                            };
-                            img.src = e.target?.result as string;
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                }}
-            />
-            <PlusIcon size={20} className="text-main-text" />
-           </label>
+          <div className="relative w-[120px] h-[180px]">
+            {thumbnail ? (
+              <Image 
+                src={thumbnail} 
+                alt="표지 미리보기" 
+                fill 
+                className="rounded-md object-cover" 
+                width={120}
+                height={180}
+              />
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center rounded-md border-2 border-dashed border-main-text bg-bg-grey-01">
+                <Camera size={32} className="text-main-text/50" />
+              </div>
+            )}
+            <label className="absolute bottom-2 right-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white shadow-md hover:bg-bg-yellow-01/60">
+              <input
+                type="file"
+                className="hidden"
+                accept=".jpg,.jpeg,.png"
+                onChange={handleThumbnailChange}
+              />
+              <PlusIcon size={20} className="text-main-text" />
+            </label>
           </div>
           <div className="flex flex-col gap-1 text-sm text-main-text">
             <p>• 파일 용량 5MB 이하</p>
