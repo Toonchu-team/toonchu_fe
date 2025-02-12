@@ -43,7 +43,7 @@ const SearchBarMobile = () => {
       </button>
 
       {/* 검색 바 컨테이너 */}
-      <div className="z-50 flex items-center gap-1 pl-1">
+      <div className="flex items-center gap-1 pl-1">
         {/* 제공사 선택 드롭다운 */}
         <DropdownMobile
           openDropdown={openDropdown}
