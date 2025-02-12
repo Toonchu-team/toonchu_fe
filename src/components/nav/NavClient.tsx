@@ -13,7 +13,7 @@ export default function NavClient({
   user,
 }: {
   initialBreakpoint: BreakpointType;
-  user: User;
+  user: User | null;
 }) {
   const breakpoint = useBreakpoint(initialBreakpoint);
   const { login } = useAuthStore();
