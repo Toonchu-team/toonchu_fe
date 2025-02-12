@@ -27,6 +27,7 @@ export default function MobileTabletNav() {
   };
 
   const toggleMenu = (e: React.MouseEvent) => {
+    console.log(e); // 디버깅용
     setIsMenuOpen(!isMenuOpen);
   };
 

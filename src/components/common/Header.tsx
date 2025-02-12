@@ -38,10 +38,9 @@ export default function Header({
             alt="mockup"
             width={370}
             height={400}
-            priority
+            priority // Next.js가 이 이미지를 최우선으로 로드하도록
             className="drop-shadow-2xl"
             style={{ width: "auto", height: "auto" }} // Next.js가 크기 변경을 감지하지 않도록 설정
-            priority // Next.js가 이 이미지를 최우선으로 로드하도록
           />
         </div>
       </div>
