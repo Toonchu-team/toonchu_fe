@@ -1,16 +1,8 @@
-"use client";
+import { breakpointDetect } from "@/lib/utils/breakpointDetect";
+import DaySearchClient from "./DaySearchClient";
 
-import { BreakpointType } from "@/stores/breakptStore";
-import useBreakpoint from "@/hooks/useBreakpoint";
-import DaySearchMobile from "./DaySearchMobile";
-import DaySearchDesktop from "./DaySearchDesktop";
+export default async function Main() {
+  const initialBreakpoint = await breakpointDetect();
 
-export default function TagSearch({
-  initialBreakpoint,
-}: {
-  initialBreakpoint: BreakpointType;
-}) {
-  const breakpoint = useBreakpoint(initialBreakpoint);
-
-  return breakpoint == "mobile" ? <DaySearchMobile /> : <DaySearchDesktop />;
+  return <DaySearchClient initialBreakpoint={initialBreakpoint} />;
 }
