@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import useAuthStore from "@/stores/authStore";
 import dynamic from "next/dynamic";
+import WebtoonRegisterForm from "@/components/myBox/WebtoonRegisterForm";
 
 const FavoritesList = dynamic(
   () => import("@/components/myBox/FavoritesList"),
@@ -68,7 +69,7 @@ export default function MyBox() {
         <div className="mt-8 flex min-h-[400px] justify-center px-4">
           {activeTab === 0 && <FavoritesList />}
           {activeTab === 1 && <div>최근 본 목록</div>}
-          {activeTab === 2 && <div>작품 등록</div>}
+          {activeTab === 2 && <WebtoonRegisterForm/>}
           {activeTab === 3 && <div>등록 신청한 작품</div>}
         </div>
       </section>
