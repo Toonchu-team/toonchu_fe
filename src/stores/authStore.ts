@@ -8,7 +8,14 @@ interface AuthState {
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-  user: null,
+  // user: null,
+  user: {
+    id: 111,
+    nick_name: "test-user",
+    email: "test-user@gmail.com",
+    profile_image: "/images/brand-character/default-profile.png",
+    provider: "kakao",
+  },
   login: (user) => set({ user }),
   logout: async () => {
     try {
