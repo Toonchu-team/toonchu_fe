@@ -66,7 +66,7 @@ const WebtoonCard = () => {
           alt="네이버 로고"
           width={50}
           height={50}
-          className="fixed self-end rounded-tr-2xl"
+          className="absolute self-end rounded-tr-2xl"
         />
 
         {/* 콘텐츠 */}
