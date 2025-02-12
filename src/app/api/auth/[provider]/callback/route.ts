@@ -1,5 +1,5 @@
 import { userApi } from "@/lib/api/server/userApi";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(

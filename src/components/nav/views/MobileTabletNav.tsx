@@ -12,6 +12,7 @@ import TagDropdownMobile from "@/components/tagDropdown/TagDropdownMobile";
 
 export default function MobileTabletNav() {
   const [padding, setPadding] = useState("px-4");
+  console.log(setPadding); // 디버깅용
   const { user } = useAuthStore();
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
@@ -28,6 +29,7 @@ export default function MobileTabletNav() {
   };
 
   const toggleMenu = (e: React.MouseEvent) => {
+    console.log(e); // 디버깅용
     setIsMenuOpen(!isMenuOpen);
   };
 

@@ -11,6 +11,7 @@ import useProfileStore from "@/stores/profileStore";
 
 export default function ProfileMenu() {
   const { user, login, logout } = useAuthStore();
+  console.log(login); // 디버깅용
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
   const [isDropdown, setIsDropdown] = useState(false);

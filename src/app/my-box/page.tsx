@@ -1,18 +1,22 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import useAuthStore from '@/stores/authStore';
-import dynamic from 'next/dynamic';
+import React, { useState } from "react";
+import Image from "next/image";
+import useAuthStore from "@/stores/authStore";
+import dynamic from "next/dynamic";
 
-const FavoritesList = dynamic(() => import('@/components/myBox/FavoritesList'), {
-  ssr: false,
-});
+const FavoritesList = dynamic(
+  () => import("@/components/myBox/FavoritesList"),
+  {
+    ssr: false,
+  },
+);
 
 export default function MyBox() {
   const { user } = useAuthStore();
+  console.log(user); // 디버깅용
   const [activeTab, setActiveTab] = useState(0);
-  const tabs = ['찜 목록', '최근 본 목록', '작품 등록', '등록 신청한 작품'];
+  const tabs = ["찜 목록", "최근 본 목록", "작품 등록", "등록 신청한 작품"];
 
   return (
     <main className="min-h-screen bg-white">
@@ -23,7 +27,7 @@ export default function MyBox() {
           <div className="mx-auto flex max-w-4xl translate-y-[48%] items-center gap-6 px-4">
             <div className="relative h-[120px] w-[120px] overflow-hidden rounded-full border-4 border-white bg-white">
               <Image
-                src={'/images/brand-character/default-profile.png'}
+                src={"/images/brand-character/default-profile.png"}
                 alt="프로필 이미지"
                 className="object-cover"
                 sizes="130px"
@@ -35,9 +39,7 @@ export default function MyBox() {
               <p className="text-xl font-bold text-white">
                 NICKNAME(@123456789)
               </p>
-              <p className="font-bold text-[#DEB887]">
-                {'nickname@gmail.com'}
-              </p>
+              <p className="font-bold text-[#DEB887]">{"nickname@gmail.com"}</p>
             </div>
           </div>
         </div>
@@ -54,8 +56,8 @@ export default function MyBox() {
               onClick={() => setActiveTab(index)}
               className={`min-w-[140px] px-6 py-4 text-center font-bold ${
                 activeTab === index
-                  ? 'border-b-2 border-main-yellow text-main-yellow'
-                  : 'text-main-text'
+                  ? "border-b-2 border-main-yellow text-main-yellow"
+                  : "text-main-text"
               }`}
             >
               {tab}
