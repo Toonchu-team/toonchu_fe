@@ -1,5 +1,6 @@
 "use client";
 
+import Dropdown from "@/components/common/dropdown/Dropdown";
 import PaginationList from "@/components/common/pagination/PaginationList";
 import SearchBar from "@/components/common/searchBar/SearchBar";
 import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
@@ -12,6 +13,10 @@ export default function DaySearchDesktop() {
 
   const [selectedContent, setSelectedContent] = useState<string>("전체");
   const [selectedDay, setSelectedDay] = useState<string>("매일");
+
+  const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+  const [sort, setSort] = useState<string>("인기순");
+  const sortArray = ["인기순", "등록순", "오래된순"];
 
   return (
     <div
@@ -28,7 +33,7 @@ export default function DaySearchDesktop() {
         <SearchBar />
 
         {/* 카테고리 */}
-        <div className="flex h-[100px] gap-2 text-main-text lg:gap-32">
+        <div className="-z-10 flex h-[100px] gap-2 text-main-text lg:gap-32">
           {/* 연재 카테고리 */}
           <div className={clsx("flex gap-7", "md:scale-[80%] xl:scale-100")}>
             {contentCategories.map((category, idx) => {
@@ -62,18 +67,34 @@ export default function DaySearchDesktop() {
           </div>
         </div>
 
-        {/* 검색 결과 - 카드 컴포넌트 */}
         <div
           className={clsx(
-            "flex w-[1121px] flex-wrap justify-center gap-x-10 gap-y-7 pt-14",
+            "flex w-[1121px] flex-col",
             "h-[800px] origin-top scale-[60%]",
             "lg:h-[1010px] lg:scale-75",
             "xl:h-auto xl:scale-100",
           )}
         >
-          <PaginationList>
-            <WebtoonCard />
-          </PaginationList>
+          <div className="self-start rounded-xl border border-main-grey px-2 py-1">
+            <Dropdown
+              openDropdown={openDropdown}
+              setOpenDropdown={setOpenDropdown}
+              elements={sortArray}
+              option={sort}
+              setOption={setSort}
+            />
+          </div>
+
+          {/* 검색 결과 - 카드 컴포넌트 */}
+          <div
+            className={clsx(
+              "flex flex-wrap justify-center gap-x-10 gap-y-7 pt-10",
+            )}
+          >
+            <PaginationList>
+              <WebtoonCard />
+            </PaginationList>
+          </div>
         </div>
       </div>
     </div>

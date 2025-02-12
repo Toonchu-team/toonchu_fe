@@ -1,8 +1,12 @@
+"use client";
+
+import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
 import PaginationList from "@/components/common/pagination/PaginationList";
 import SearchBarMobile from "@/components/common/searchBar/SearchBarMobile";
 import Tags from "@/components/common/tag/Tags";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import clsx from "clsx";
+import { useState } from "react";
 
 export default function TagSearchMobile() {
   const selectedTags = [
@@ -16,6 +20,10 @@ export default function TagSearchMobile() {
     "현대물",
     "현대물",
   ];
+
+  const [openDropdown, setOpenDropdown] = useState<boolean>(false);
+  const [sort, setSort] = useState<string>("인기순");
+  const sortArray = ["인기순", "등록순", "오래된순"];
 
   return (
     <div
@@ -50,11 +58,26 @@ export default function TagSearchMobile() {
           })}
         </div>
 
-        {/* 검색 결과 - 카드 컴포넌트 */}
-        <div className={clsx("flex flex-col items-center gap-x-10 gap-y-7")}>
-          <PaginationList>
-            <WebtoonCardMobile />
-          </PaginationList>
+        <div className="flex flex-col">
+          {/* 정렬 드롭다운 */}
+          <div className="self-start rounded-md border border-main-grey px-2 py-1">
+            <DropdownMobile
+              openDropdown={openDropdown}
+              setOpenDropdown={setOpenDropdown}
+              elements={sortArray}
+              option={sort}
+              setOption={setSort}
+            />
+          </div>
+
+          {/* 검색 결과 - 카드 컴포넌트 */}
+          <div
+            className={clsx("flex flex-col items-center gap-x-10 gap-y-7 pt-3")}
+          >
+            <PaginationList>
+              <WebtoonCardMobile />
+            </PaginationList>
+          </div>
         </div>
       </div>
     </div>
