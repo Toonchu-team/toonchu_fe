@@ -60,14 +60,10 @@ export const userApi = {
       const data = await response.json();
       console.log("BE응답 :", data);
       return data;
-    } catch (error: any) {
-      console.error("Error details:", {
-        message: error.message,
-        stack: error.stack,
-        provider,
-        code,
-      });
-      throw error;
+    } catch (error) {
+      // 디버깅
+      console.error("소셜 로그인 인증 실패 :", error);
+      throw new Error("소셜 로그인 인증 실패");
     }
   },
 
