@@ -1,9 +1,9 @@
 "use client";
 
-import React, { RefObject, useRef, useState } from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
-import { X, Search, ChevronDown } from "lucide-react";
-import useOutsideClick from "@/hooks/useOutsideClick";
+import { X, Search } from "lucide-react";
+import DropdownMobile from "../dropdown/DropdownMobile";
 
 const SearchBarMobile = () => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
@@ -18,14 +18,6 @@ const SearchBarMobile = () => {
   const containerClass =
     "flex items-center justify-start relative border-l-[1px]";
   const clearIconClass = "absolute right-0 cursor-pointer text-main-text";
-
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  // 외부 클릭 감지 핸들러
-  useOutsideClick({
-    ref: dropdownRef as RefObject<HTMLElement>,
-    callback: () => setOpenDropdown(false),
-  });
 
   return (
     <div
@@ -53,38 +45,13 @@ const SearchBarMobile = () => {
       {/* 검색 바 컨테이너 */}
       <div className="z-50 flex items-center gap-1 pl-1">
         {/* 제공사 선택 드롭다운 */}
-        <div
-          className="relative flex h-5 w-[70px] items-center justify-center"
-          ref={dropdownRef}
-        >
-          <div
-            className="relative flex w-[70px] cursor-pointer text-main-text"
-            onClick={() => setOpenDropdown((prev) => !prev)}
-          >
-            <p className="text-[10px]">{provider}</p>
-            <ChevronDown
-              className="absolute right-0 top-0.5"
-              color="#6a6a6a"
-              size={12}
-            />
-          </div>
-          {openDropdown && (
-            <div className="border-1 absolute top-6 z-50 flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
-              {providers.map((prov, index) => (
-                <div
-                  key={index}
-                  className="flex h-1/3 w-full items-center justify-center hover:bg-bg-yellow-02"
-                  onClick={() => {
-                    setProvider(prov);
-                    setOpenDropdown(false);
-                  }}
-                >
-                  <p className="text-[10px] text-main-text">{prov}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <DropdownMobile
+          openDropdown={openDropdown}
+          setOpenDropdown={setOpenDropdown}
+          elements={providers}
+          option={provider}
+          setOption={setProvider}
+        />
 
         {/* 태그 입력 */}
         <div className={clsx(containerClass, "h-4 w-[110px]")}>
