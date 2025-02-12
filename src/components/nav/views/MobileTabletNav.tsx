@@ -11,7 +11,6 @@ import useProfileStore from "@/stores/profileStore";
 import TagDropdownMobile from "@/components/tagDropdown/TagDropdownMobile";
 
 export default function MobileTabletNav() {
-  const [padding, setPadding] = useState("px-4");
   const { user } = useAuthStore();
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
@@ -41,9 +40,7 @@ export default function MobileTabletNav() {
       <BottomSlideUpMenu isOpen={tagMenuIsOpen} onClose={closeTagMenu}>
         <TagDropdownMobile />
       </BottomSlideUpMenu>
-      <nav
-        className={`${padding} flex h-[60px] w-full items-center justify-between gap-7 px-4 font-bold text-main-text md:px-8`}
-      >
+      <nav className="flex h-[60px] w-full items-center justify-between gap-7 px-4 font-bold text-main-text md:px-8">
         <button onClick={toggleMenu} className="flex items-center">
           <AlignJustifyIcon
             size={24}

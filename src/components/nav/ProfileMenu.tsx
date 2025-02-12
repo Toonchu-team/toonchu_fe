@@ -8,9 +8,10 @@ import { RefObject, useRef, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon, LogInIcon } from "lucide-react";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useProfileStore from "@/stores/profileStore";
+import { logoutAction } from "@/lib/actions/authActions";
 
 export default function ProfileMenu() {
-  const { user, login, logout } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
   const [isDropdown, setIsDropdown] = useState(false);
@@ -35,9 +36,15 @@ export default function ProfileMenu() {
     router.push("/profile");
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsDropdown(false);
-    logout();
+    try {
+      await logoutAction();
+      logout();
+      router.push("/");
+    } catch (error) {
+      console.error("로그아웃 에러:", error);
+    }
   };
 
   useOutsideClick({

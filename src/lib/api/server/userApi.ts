@@ -10,21 +10,34 @@ export const userApi = {
   getLoginUser: async () => {
     const access_token = await getAccessToken();
 
-    const response = await fetch(
-      `${process.env.SERVER_URL}/users/me/profile/`,
-      {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error("로그인 유저 정보 찾기 실패");
+    if (!access_token) {
+      return null;
     }
 
-    const data = await response.json();
-    return data.user;
+    try {
+      const response = await fetch(
+        `${process.env.SERVER_URL}/users/me/profile/`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          console.warn("인증 실패: access_token이 유효하지 않음");
+          return null;
+        }
+        throw new Error("로그인 유저 정보 찾기 실패");
+      }
+
+      const data = await response.json();
+      return data.user;
+    } catch (error) {
+      console.error("getLoginUser 오류:", error);
+      return null;
+    }
   },
 
   handleSocialLogin: async (
@@ -60,14 +73,9 @@ export const userApi = {
       const data = await response.json();
       console.log("BE응답 :", data);
       return data;
-    } catch (error: any) {
-      console.error("Error details:", {
-        message: error.message,
-        stack: error.stack,
-        provider,
-        code,
-      });
-      throw error;
+    } catch (error) {
+      console.error("소셜 로그인 인증 실패 :", error);
+      throw new Error("소셜 로그인 인증 실패");
     }
   },
 
