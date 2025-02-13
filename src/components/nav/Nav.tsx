@@ -1,10 +1,10 @@
-import { breakpointDetect } from "@/lib/utils/breakpointDetect";
 import NavClient from "./NavClient";
-import { userApi } from "@/lib/api/server/userApi";
+import { BreakpointType } from "@/stores/breakptStore";
 
-export default async function Nav() {
-  const initialBreakpoint = await breakpointDetect();
-  const user = (await userApi.getLoginUser()) || null;
-
-  return <NavClient initialBreakpoint={initialBreakpoint} user={user} />;
+export default async function Nav({
+  initialBreakpoint,
+}: {
+  initialBreakpoint: BreakpointType;
+}) {
+  return <NavClient initialBreakpoint={initialBreakpoint} />;
 }

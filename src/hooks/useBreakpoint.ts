@@ -26,10 +26,11 @@ function useBreakpoint(initialBreakpoint: BreakpointType): BreakpointType {
 
     window.addEventListener("resize", handleResize);
     handleResize();
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [breakpoint]);
 
   return breakpoint;
 }

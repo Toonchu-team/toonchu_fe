@@ -1,8 +1,11 @@
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
 import { Lemonada } from "next/font/google";
 import localFont from "next/font/local";
 import Nav from "@/components/nav/Nav";
+import AppInitializer from "@/components/common/AppInitializer";
+import { getUser } from "@/lib/actions/userActions";
+import { getInitialBreakpoint } from "@/lib/actions/breakpointActions";
 
 const nanumsquare = localFont({
   src: [
@@ -40,16 +43,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUser();
+  const initialBreakpoint = await getInitialBreakpoint();
+
   return (
     <html lang="en" className={`${nanumsquare.variable} ${lemonada.variable}`}>
       <body>
-        <Nav />
-        {children}
+        <Nav initialBreakpoint={initialBreakpoint} />
+        <AppInitializer
+          initialUser={user}
+          initialBreakpoint={initialBreakpoint}
+        >
+          {children}
+        </AppInitializer>
       </body>
     </html>
   );

@@ -1,15 +1,7 @@
-import { AuthResponse } from "@/lib/types/auth";
-import { cookies } from "next/headers";
-
-const getAccessToken = async () => {
-  const cookieStore = await cookies();
-  return cookieStore.get("access_token")?.value;
-};
+import { AuthResponse, User } from "@/lib/types/auth";
 
 export const userApi = {
-  getLoginUser: async () => {
-    const access_token = await getAccessToken();
-
+  getLoginUser: async (access_token: string | undefined) => {
     if (!access_token) {
       return null;
     }
@@ -33,7 +25,8 @@ export const userApi = {
       }
 
       const data = await response.json();
-      return data.user;
+      console.log("data.user :", data.user);
+      return data.user as User;
     } catch (error) {
       console.error("getLoginUser 오류:", error);
       return null;
@@ -52,7 +45,7 @@ export const userApi = {
       console.log("백엔드에게 주기 직전 code 형태 : ", code);
 
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/callback/${provider}/`,
+        `${process.env.SERVER_URL}/users/login/${provider}/`,
         {
           method: "POST",
           headers: {
@@ -79,9 +72,7 @@ export const userApi = {
     }
   },
 
-  handleLogout: async (): Promise<void> => {
-    const access_token = await getAccessToken();
-
+  handleLogout: async (access_token: string | undefined): Promise<void> => {
     const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
       method: "POST",
       credentials: "include",
@@ -95,9 +86,10 @@ export const userApi = {
     }
   },
 
-  handleWithdraw: async (nick_name: string): Promise<void> => {
-    const access_token = await getAccessToken();
-
+  handleWithdraw: async (
+    nick_name: string,
+    access_token: string | undefined,
+  ): Promise<void> => {
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/withdrawal/`,
       {
@@ -118,9 +110,11 @@ export const userApi = {
     }
   },
 
-  profileUpdate: async (nick_name: string, profile_image: string) => {
-    const access_token = await getAccessToken();
-
+  profileUpdate: async (
+    nick_name: string,
+    profile_image: string,
+    access_token: string | undefined,
+  ) => {
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/profile/update/`,
       {
