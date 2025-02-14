@@ -24,6 +24,7 @@
     "react-hook-form": "^7.54.2",
     "react-responsive": "^10.0.0",
     "react-use": "^17.6.0",
+    "sass": "^1.85.0",
     "swiper": "10",
     "tailwind-scrollbar-hide": "^2.0.0",
     "zod": "^3.24.1",
