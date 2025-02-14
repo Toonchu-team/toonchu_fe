@@ -6,20 +6,29 @@ import Image from "next/image";
 import useAuthStore from "@/stores/authStore";
 import useProfileStore from "@/stores/profileStore";
 import { Info, PlusIcon } from "lucide-react";
+import { User } from "@/lib/types/auth";
 
 export default function ProfileEdit() {
-  const user = useAuthStore((state) => state.user);
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
   const [newImage, setPreviewImage] = useState("");
 
   const router = useRouter();
+  /*
+  const user = useAuthStore((state) => state.user);
 
   // /profile/page.tsx에서 Protected Route로 처리 예정
   if (!user) {
     router.push("/login");
     return;
   }
-
+*/
+  const user: User = {
+    id: 111,
+    nick_name: "test-user",
+    email: "test-user@gmail.com",
+    profile_image: "/images/brand-character/default-profile.png",
+    provider: "kakao",
+  };
   const profileImage =
     newImage ||
     user?.profile_image ||
@@ -53,7 +62,7 @@ export default function ProfileEdit() {
   };
 
   return (
-    <>
+    <form className="flex flex-col items-center gap-7 pb-10 text-main-text">
       <h2 className="page-title">내 프로필 변경</h2>
       <section className="group relative">
         <Image
@@ -117,6 +126,6 @@ export default function ProfileEdit() {
           홈으로
         </button>
       </section>
-    </>
+    </form>
   );
 }

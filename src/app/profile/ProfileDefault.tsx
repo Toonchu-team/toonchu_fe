@@ -4,16 +4,27 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useAuthStore from "@/stores/authStore";
 import useProfileStore from "@/stores/profileStore";
+import { User } from "@/lib/types/auth";
 
 export default function ProfileDefault() {
-  const user = useAuthStore((state) => state.user);
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
   const router = useRouter();
+  /*
+  const user = useAuthStore((state) => state.user);
 
+  // /profile/page.tsx에서 Protected Route로 처리 예정
   if (!user) {
     router.push("/login");
     return;
   }
+*/
+  const user: User = {
+    id: 111,
+    nick_name: "test-user",
+    email: "test-user@gmail.com",
+    profile_image: "/images/brand-character/default-profile.png",
+    provider: "kakao",
+  };
 
   const profileImage =
     user?.profile_image ?? "/images/brand-character/default-profile.png";
@@ -26,13 +37,13 @@ export default function ProfileDefault() {
     // 로그아웃 처리 로직
   };
 
-  const handleWithdrawal = () => {
+  const handleWithdraw = () => {
     router.push("/withdrawal");
     // 회원탈퇴 처리 로직
   };
 
   return (
-    <>
+    <main className="flex flex-col items-center gap-7 pb-10 text-main-text">
       <h2 className="page-title">내 프로필</h2>
       <Image
         className="overflow-hidden rounded-full shadow-md"
@@ -63,11 +74,11 @@ export default function ProfileDefault() {
         <hr className="w-60" />
         <button
           className="w-60 rounded-md bg-main-grey py-2 text-sm font-bold text-white hover:bg-bg-red-01 hover:text-black"
-          onClick={handleWithdrawal}
+          onClick={handleWithdraw}
         >
           회원탈퇴
         </button>
       </section>
-    </>
+    </main>
   );
 }

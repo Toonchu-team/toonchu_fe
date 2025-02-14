@@ -17,31 +17,23 @@ export async function GET(request: Request) {
   console.log("code: ", code);
 
   try {
-    const data = await userApi.handleSocialLogin(provider, code!); // 여기서 백엔드 정상 Response 받지 못하는 중
+    const { access_token, refresh_token, user } =
+      await userApi.handleSocialLogin(provider, code);
 
-    return NextResponse.json({ user: data.user });
+    // Access Token과 Refresh Token을 쿠키에 저장
+    const response = NextResponse.json({ user });
+    response.cookies.set("access_token", access_token, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60, // 1시간
+    });
+    response.cookies.set("refresh_token", refresh_token, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24, // 1일
+    });
 
-    // Mock 데이터 : 백엔드 반환값 다시 확인 필요 (USER-001(2/1 API명세서 기준))
-
-    // console.log("start");
-    // const mockUser = {
-    //   id: 1,
-    //   nick_name: "USERNAME",
-    //   email: "mock_user@example.com",
-    //   // profile_image: "https://picsum.photos/300/300",
-    //   profile_image: null, // 이미지 플레이스홀더 테스트 용
-    //   provider,
-    // };
-
-    // const mockResponse = {
-    //   access_token: "mock_access_token",
-    //   user: mockUser,
-    // };
-
-    // console.log("mockResponse: ", mockResponse);
-
-    // return NextResponse.json(mockResponse);
-    // return NextResponse.json({ provider, code });
+    return response;
   } catch (error) {
     console.error(error);
     return NextResponse.json(

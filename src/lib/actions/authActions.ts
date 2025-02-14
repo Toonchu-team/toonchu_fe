@@ -7,15 +7,18 @@ import { redirect } from "next/navigation";
 
 export async function logoutAction() {
   const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value;
 
   try {
-    await userApi.handleLogout(access_token);
+    const access_token = cookieStore.get("access_token")?.value;
+    if (access_token) {
+      await userApi.handleLogout(access_token);
+    }
+  } catch (error) {
+    console.error("Logout API error:", error);
+  } finally {
     cookieStore.delete("access_token");
+    cookieStore.delete("refresh_token");
     revalidatePath("/");
     redirect("/login");
-  } catch (error) {
-    console.error("로그아웃 에러:", error);
-    throw new Error("로그아웃 실패");
   }
 }

@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 interface AuthSearchParams {
@@ -17,8 +16,6 @@ export default async function AuthCallbackPage({
   const code = searchParams.code;
   const provider = params.provider;
 
-  const cookieStore = await cookies();
-
   if (!code) {
     return <div>Authorization code를 찾을 수 없습니다.</div>; // 추후 에러 페이지 생성
   }
@@ -34,12 +31,7 @@ export default async function AuthCallbackPage({
     }
 
     const data = await response.json();
-    cookieStore.set("access_token", data.access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-    });
+    console.log(data);
 
     redirect("/");
   } catch (error) {

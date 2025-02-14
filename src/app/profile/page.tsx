@@ -1,8 +1,23 @@
-import { userApi } from "@/lib/api/server/userApi";
-import ProfileClient from "./ProfileClient";
+"use client";
 
-export default async function ProfilePage() {
-  const user = await userApi.getLoginUser();
+import { useEffect } from "react";
+import { User } from "@/lib/types/auth";
+import useAuthStore from "@/stores/authStore";
+import useProfileStore from "@/stores/profileStore";
+import ProfileEdit from "./ProfileEdit";
+import ProfileDefault from "./ProfileDefault";
 
-  return <ProfileClient initialUser={user} />;
+export default function Profile() {
+  const isEditing = useProfileStore((state) => state.isEditing);
+
+  /* 
+  const { user, login } = useAuthStore();
+
+  useEffect(() => {
+    if (user) {
+      login(user);
+    }
+  }, [user, login]);
+*/
+  return <> {isEditing ? <ProfileEdit /> : <ProfileDefault />}</>;
 }

@@ -2,6 +2,7 @@ import { AuthResponse, User } from "@/lib/types/auth";
 
 export const userApi = {
   getLoginUser: async (access_token: string | undefined) => {
+    "use server";
     if (!access_token) {
       return null;
     }
@@ -37,6 +38,7 @@ export const userApi = {
     provider: string,
     code: string,
   ): Promise<AuthResponse> => {
+    "use server";
     if (!code) {
       throw new Error("Authorization code 찾기 실패.");
     }
@@ -73,6 +75,7 @@ export const userApi = {
   },
 
   handleLogout: async (access_token: string | undefined): Promise<void> => {
+    "use server";
     const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
       method: "POST",
       credentials: "include",
@@ -90,6 +93,7 @@ export const userApi = {
     nick_name: string,
     access_token: string | undefined,
   ): Promise<void> => {
+    "use server";
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/withdrawal/`,
       {
@@ -115,6 +119,7 @@ export const userApi = {
     profile_image: string,
     access_token: string | undefined,
   ) => {
+    "use server";
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/profile/update/`,
       {
