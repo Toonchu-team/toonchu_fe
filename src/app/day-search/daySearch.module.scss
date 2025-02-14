@@ -1,0 +1,94 @@
+.mobile {
+  .container {
+    // 전체 컨테이너
+    @apply gap-10 pt-5;
+  }
+
+  .text {
+    // 제목
+    @apply text-lg;
+  }
+
+  .content_container {
+    @apply gap-5;
+  }
+
+  // 카테고리
+  .category_container {
+    @apply flex-col items-center gap-3 text-[11px];
+  }
+
+  // 연재 카테고리
+  .category_series_container {
+    @apply gap-2;
+  }
+
+  // 카테고리 버튼
+  .category_button {
+    @apply px-1 py-0.5;
+  }
+
+  // 요일 카테고리
+  .category_day_container {
+    @apply gap-2;
+  }
+
+  // 정렬 드롭다운
+  .dropdown {
+    @apply rounded-md;
+  }
+
+  // 검색 결과
+  .search_result {
+    @apply flex-col items-center pt-3;
+  }
+}
+
+.tablet,
+.desktop {
+  .container {
+    @apply gap-16 pt-12;
+  }
+
+  .text {
+    @apply text-2xl;
+  }
+
+  .content_container {
+    @apply gap-9;
+  }
+
+  // 카테고리
+  .category_container {
+    @apply -z-10 gap-2 lg:gap-32;
+  }
+
+  // 연재 카테고리
+  .category_series_container {
+    @apply gap-7 md:scale-[80%] xl:scale-100;
+  }
+
+  // 카테고리 버튼
+  .category_button {
+    @apply px-2 py-1;
+  }
+
+  // 요일 카테고리
+  .category_day_container {
+    @apply gap-7 md:scale-[80%] xl:scale-100;
+  }
+
+  // 정렬 드롭다운
+  .dropdown_container {
+    @apply h-[800px] w-[1121px] origin-top scale-[60%] lg:h-[1010px] lg:scale-75 xl:h-auto xl:scale-100;
+  }
+
+  .dropdown {
+    @apply rounded-xl;
+  }
+
+  // 검색 결과
+  .search_result {
+    @apply w-[1121px] flex-wrap justify-center pt-10;
+  }
+}
