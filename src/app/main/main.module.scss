@@ -1,0 +1,51 @@
+// 인기 웹툰
+.mobile {
+  .popular_webtoon_container {
+    @apply relative left-0 h-[300px];
+  }
+
+  .popular_webtoon_text {
+    @apply scale-[60%] text-center;
+  }
+
+  .popular_webtoon_swiper {
+    @apply w-[400px] overflow-visible pt-7;
+  }
+}
+
+.tablet,
+.desktop {
+  .popular_webtoon_container {
+    @apply h-[300px] w-[1121px] scale-[60%] lg:h-[400px] lg:scale-75 xl:h-auto xl:scale-100;
+  }
+
+  .popular_webtoon_swiper {
+    @apply w-full pt-14;
+  }
+}
+
+// 웹툰 목록
+.mobile {
+  .webtoon_container {
+    @apply max-w-[672px];
+  }
+
+  .webtoon_text {
+    @apply origin-left scale-[60%];
+  }
+
+  .webtoon_pagination {
+    @apply flex-col items-center gap-4 self-center pt-7;
+  }
+}
+
+.tablet,
+.desktop {
+  .webtoon_container {
+    @apply h-[900px] w-[1121px] origin-top scale-[60%] transform lg:h-[1150px] lg:scale-75 xl:h-auto xl:scale-100;
+  }
+
+  .webtoon_pagination {
+    @apply flex-wrap justify-center gap-x-10 gap-y-7 pt-14;
+  }
+}
