@@ -28,7 +28,7 @@ function useBreakpoint(): BreakpointType {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [breakpoint]);
 
   return breakpoint;
 }
