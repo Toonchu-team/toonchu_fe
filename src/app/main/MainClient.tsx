@@ -1,7 +1,6 @@
 "use client";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
-import { BreakpointType } from "@/stores/breakptStore";
 import clsx from "clsx";
 import Swipers from "@/components/common/swiper/Swipers";
 import WebtoonCardCol from "@/components/common/webtoonCard/WebtoonCardCol";
@@ -12,16 +11,12 @@ import Header from "@/components/common/Header";
 import s from "./main.module.scss";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 
-export default function MainClient({
-  initialBreakpoint,
-}: {
-  initialBreakpoint: BreakpointType;
-}) {
-  const breakpoint = useBreakpoint(initialBreakpoint);
+export default function MainClient() {
+  const breakpoint = useBreakpoint();
 
   return (
     <div className="pb-12">
-      <Header initialBreakpoint={initialBreakpoint} /> {/* 헤더 반응형 필요 */}
+      <Header /> {/* 헤더 반응형 필요 */}
       <div
         className={clsx(
           "flex flex-col items-center gap-16",

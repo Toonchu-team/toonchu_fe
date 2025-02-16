@@ -1,13 +1,8 @@
 import Image from "next/image";
 import clsx from "clsx";
 import ResponsiveSearchBar from "./searchBar/ResponsiveSearchBar";
-import { BreakpointType } from "@/stores/breakptStore";
 
-export default function Header({
-  initialBreakpoint,
-}: {
-  initialBreakpoint: BreakpointType;
-}) {
+export default function Header() {
   return (
     <header className={clsx("w-full", "h-[420px] sm:h-[630px] lg:h-[800px]")}>
       {/* 상단 영역 */}
@@ -54,7 +49,7 @@ export default function Header({
         )}
       >
         <div>
-          <ResponsiveSearchBar initialBreakpoint={initialBreakpoint} />
+          <ResponsiveSearchBar />
         </div>
         <p className="text-xs text-main-text lg:text-sm">
           🔍 검색해 보세요! 🔍
