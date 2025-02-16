@@ -49,11 +49,13 @@ export default function MobileTabletNav() {
           />
         </button>
         <h1>
-          <Link
-            href={"/"}
-            className="h-[60px] bg-gradient-to-r from-main-grey to-main-yellow bg-clip-text font-lemonada text-xl text-transparent"
-          >
-            Toonchu
+          <Link href={"/"}>
+            <Image
+              src="/images/logo/logo-eng.png"
+              alt="툰츄 로고 이미지"
+              width={150}
+              height={60}
+            />
           </Link>
         </h1>
         {user ? (
