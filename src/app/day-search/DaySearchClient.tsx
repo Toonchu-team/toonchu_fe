@@ -1,6 +1,5 @@
 "use client";
 
-import { BreakpointType } from "@/stores/breakptStore";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { useState } from "react";
 import clsx from "clsx";
