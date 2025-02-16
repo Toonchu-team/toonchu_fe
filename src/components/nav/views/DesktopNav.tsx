@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { RefObject, useEffect, useRef, useState } from "react";
 import TagDropdown from "@/components/tagDropdown/TagDropdown";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import Image from "next/image";
 
 export default function DesktopNav() {
   const currentPath = usePathname();
@@ -43,11 +44,13 @@ export default function DesktopNav() {
       )}
       <nav className="flex h-[60px] w-full items-center justify-between gap-7 px-10 font-bold text-main-text">
         <h1>
-          <Link
-            href={"/"}
-            className="h-[60px] bg-gradient-to-r from-main-grey to-main-yellow bg-clip-text font-lemonada text-3xl text-transparent"
-          >
-            Toonchu
+          <Link href={"/"}>
+            <Image
+              src="/images/logo/logo-eng.png"
+              alt="툰츄 로고 이미지"
+              width={150}
+              height={60}
+            />
           </Link>
         </h1>
         <ul className="flex h-full flex-1">

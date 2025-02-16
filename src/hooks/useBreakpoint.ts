@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import { BreakpointType } from "@/stores/breakptStore";
 
-function useBreakpoint(initialBreakpoint: BreakpointType): BreakpointType {
-  const [breakpoint, setBreakpoint] =
-    useState<BreakpointType>(initialBreakpoint);
+function useBreakpoint(): BreakpointType {
+  const [breakpoint, setBreakpoint] = useState<BreakpointType>("mobile");
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,7 +28,7 @@ function useBreakpoint(initialBreakpoint: BreakpointType): BreakpointType {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [breakpoint]);
 
   return breakpoint;
 }

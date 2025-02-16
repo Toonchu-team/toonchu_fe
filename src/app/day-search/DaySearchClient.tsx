@@ -1,6 +1,5 @@
 "use client";
 
-import { BreakpointType } from "@/stores/breakptStore";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { useState } from "react";
 import clsx from "clsx";
@@ -13,12 +12,8 @@ import SearchBarMobile from "@/components/common/searchBar/SearchBarMobile";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
 
-export default function DaySearchClient({
-  initialBreakpoint,
-}: {
-  initialBreakpoint: BreakpointType;
-}) {
-  const breakpoint = useBreakpoint(initialBreakpoint);
+export default function DaySearchClient() {
+  const breakpoint = useBreakpoint();
 
   const contentCategories = ["전체", "신작", "완결"];
   const dayCategories = ["매일", "월", "화", "수", "목", "금", "토", "일"];

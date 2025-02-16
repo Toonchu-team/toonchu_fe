@@ -1,6 +1,5 @@
 "use client";
 
-import { BreakpointType } from "@/stores/breakptStore";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import PaginationList from "@/components/common/pagination/PaginationList";
@@ -13,12 +12,8 @@ import s from "./globalSearch.module.scss";
 import { useState } from "react";
 import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 
-export default function GlobalSearchClient({
-  initialBreakpoint,
-}: {
-  initialBreakpoint: BreakpointType;
-}) {
-  const breakpoint = useBreakpoint(initialBreakpoint);
+export default function GlobalSearchClient() {
+  const breakpoint = useBreakpoint();
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("인기순");
   const sortArray = ["인기순", "등록순", "오래된순"];

@@ -1,6 +1,5 @@
 "use client";
 
-import { BreakpointType } from "@/stores/breakptStore";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { useState } from "react";
 import clsx from "clsx";
@@ -14,12 +13,8 @@ import SearchBarMobile from "@/components/common/searchBar/SearchBarMobile";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
 
-export default function TagSearchClient({
-  initialBreakpoint,
-}: {
-  initialBreakpoint: BreakpointType;
-}) {
-  const breakpoint = useBreakpoint(initialBreakpoint);
+export default function TagSearchClient() {
+  const breakpoint = useBreakpoint();
 
   const selectedTags = [
     "오컬트판타지",
