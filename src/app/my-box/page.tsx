@@ -68,7 +68,17 @@ export default function MyBox() {
 
         <div className="mt-8 flex min-h-[400px] justify-center px-4">
           {activeTab === 0 && <FavoritesList />}
-          {activeTab === 1 && <div>최근 본 목록</div>}
+          {activeTab === 1 && (
+            <div className="flex h-[400px] w-full items-center justify-center">
+              <Image
+                src="/images/brand-character/not-found.png"
+                alt="준비 중인 페이지"
+                width={200}
+                height={200}
+                className="object-contain"
+              />
+            </div>
+          )}
           {activeTab === 2 && <WebtoonRegisterForm/>}
           {activeTab === 3 && <div>등록 신청한 작품</div>}
         </div>
