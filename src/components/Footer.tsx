@@ -2,6 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const official_email = "toonchu.official@gmail.com";
+  const subject = "툰츄 문의하기";
+  const body =
+    "안녕하세요, 툰츄입니다. 문의사항을 남겨주시면 빠르게 답변드리겠습니다.";
+
+  const mailtoLink = `mailto:${official_email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
   return (
     <footer className="mt-40 flex h-fit min-h-96 w-full min-w-[320px] shrink-0 flex-col gap-4 bg-gradient-to-b from-white to-main-yellow px-mobile pb-20 text-sm text-main-text md:px-tablet md:text-base lg:px-52">
       <div className="mt-20 flex flex-col justify-between gap-4 md:flex-row">
@@ -24,9 +31,13 @@ export default function Footer() {
             툰츄 회원가입
           </Link>
           <ul className="flex items-center gap-2 px-4 py-4">
-            {/* 툰츄 - X, 인스타그램, 트위치, 메일 URL 필요*/}
             <li>
-              <Link href="#">
+              <Link
+                href="https://x.com/toonchuofficial"
+                aria-label="툰츄 X 플랫폼 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="25"
                   height="25"
@@ -40,7 +51,12 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link
+                href="https://www.instagram.com/toonchu_official/"
+                aria-label="툰츄 인스타그램 플랫폼 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="27"
                   height="27"
@@ -54,7 +70,12 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link
+                href="https://chzzk.naver.com/822381620fc9834c12b78efc2eb96042"
+                aria-label="툰츄 치지직 플랫폼 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="25"
                   height="25"
@@ -68,7 +89,12 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <a
+                href={mailtoLink}
+                aria-label="툰츄 이메일 보내기 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="25"
                   height="25"
@@ -79,7 +105,7 @@ export default function Footer() {
                 >
                   <path d="M64 112c-8.8 0-16 7.2-16 16l0 22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1l0-22.1c0-8.8-7.2-16-16-16L64 112zM48 212.2L48 384c0 8.8 7.2 16 16 16l384 0c8.8 0 16-7.2 16-16l0-171.8L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64l384 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 448c-35.3 0-64-28.7-64-64L0 128z" />
                 </svg>
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
