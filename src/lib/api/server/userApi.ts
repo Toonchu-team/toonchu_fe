@@ -6,8 +6,20 @@ const getAccessToken = async () => {
   return cookieStore.get("access_token")?.value;
 };
 
+const getRefreshToken = async () => {
+  const cookieStore = await cookies();
+  return cookieStore.get("refresh_token")?.value;
+};
+
+const deleteAuthCookies = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("access_token");
+  cookieStore.delete("refresh_token");
+};
+
 export const userApi = {
   getLoginUser: async () => {
+    "use server";
     const access_token = await getAccessToken();
 
     if (!access_token) {
@@ -16,7 +28,7 @@ export const userApi = {
 
     try {
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/me/profile/`,
+        `${process.env.SERVER_URL}/users/me/profile/update/`,
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -33,7 +45,8 @@ export const userApi = {
       }
 
       const data = await response.json();
-      return data.user;
+
+      return data;
     } catch (error) {
       console.error("getLoginUser 오류:", error);
       return null;
@@ -44,6 +57,7 @@ export const userApi = {
     provider: string,
     code: string,
   ): Promise<AuthResponse> => {
+    "use server";
     if (!code) {
       throw new Error("Authorization code 찾기 실패.");
     }
@@ -52,7 +66,7 @@ export const userApi = {
       console.log("백엔드에게 주기 직전 code 형태 : ", code);
 
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/callback/${provider}/`,
+        `${process.env.SERVER_URL}/users/login/${provider}/`,
         {
           method: "POST",
           headers: {
@@ -70,8 +84,9 @@ export const userApi = {
         throw new Error("소셜 로그인 인증 실패");
       }
 
+      console.log("로그인 BE응답 :", response);
       const data = await response.json();
-      console.log("BE응답 :", data);
+      // console.log("BE응답 :", data);
       return data;
     } catch (error) {
       console.error("소셜 로그인 인증 실패 :", error);
@@ -80,35 +95,49 @@ export const userApi = {
   },
 
   handleLogout: async (): Promise<void> => {
+    "use server";
     const access_token = await getAccessToken();
+    const refresh_token = await getRefreshToken();
+    console.log("access_token - userApi(handleLogout): ", access_token);
+    console.log("refresh_token - userApi(handleLogout): ", refresh_token);
 
     const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
-      method: "POST",
+      method: "POST", 
       credentials: "include",
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${access_token}`, 
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        refresh_token,
+      }),
     });
 
+    console.log("response-handleLogout(userApi) :", response);
+
     if (!response.ok) {
-      throw new Error("로그아웃 실패");
+      throw new Error("로그아웃 실패-userAPi");
     }
+
+    deleteAuthCookies(); // 쿠키 삭제
   },
 
-  handleWithdraw: async (nick_name: string): Promise<void> => {
+  handleWithdrawal: async (nick_name: string): Promise<void> => {
+    "use server";
+
     const access_token = await getAccessToken();
 
     const response = await fetch(
-      `${process.env.SERVER_URL}/users/me/withdrawal/`,
+      `${process.env.SERVER_URL}/users/me/profile/withdraw/`,
       {
-        method: "POST",
+        method: "DELETE",
         credentials: "include",
         headers: {
           Authorization: `Bearer ${access_token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          nick_name,
+          input_nick_name: nick_name,
         }),
       },
     );
@@ -116,10 +145,23 @@ export const userApi = {
     if (!response.ok) {
       throw new Error("회원탈퇴 실패");
     }
+
+    deleteAuthCookies(); // 쿠키 삭제
   },
 
-  profileUpdate: async (nick_name: string, profile_image: string) => {
+  profileUpdate: async (nick_name: string, profile_image: File | null) => {
+    "use server";
     const access_token = await getAccessToken();
+
+    console.log("nick_name: ", nick_name);
+    console.log("profile_image 파일 형태: ", profile_image);
+
+    const formData = new FormData();
+    formData.append("nick_name", nick_name);
+
+    if (profile_image) {
+      formData.append("profile_image", profile_image);
+    }
 
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/profile/update/`,
@@ -128,17 +170,13 @@ export const userApi = {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          nick_name,
-          profile_image,
-        }),
+        body: formData,
       },
     );
 
     if (!response.ok) {
-      throw new Error("프로필 수정 실패");
+      throw new Error("프로필 수정 실패-userApi");
     }
   },
 };

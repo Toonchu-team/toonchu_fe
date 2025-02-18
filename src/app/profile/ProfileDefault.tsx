@@ -2,18 +2,18 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import useAuthStore from "@/stores/authStore";
 import useProfileStore from "@/stores/profileStore";
+import { User } from "@/lib/types/auth";
+import useAuthStore from "@/stores/authStore";
 
-export default function ProfileDefault() {
-  const user = useAuthStore((state) => state.user);
+interface ProfileDefaultProps {
+  user: User;
+}
+
+export default function ProfileDefault({ user }: ProfileDefaultProps) {
+  const logout = useAuthStore((state) => state.logout);
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
   const router = useRouter();
-
-  if (!user) {
-    router.push("/login");
-    return;
-  }
 
   const profileImage =
     user?.profile_image ?? "/images/brand-character/default-profile.png";
@@ -23,12 +23,11 @@ export default function ProfileDefault() {
   };
 
   const handleLogout = () => {
-    // 로그아웃 처리 로직
+    logout();
   };
 
   const handleWithdrawal = () => {
     router.push("/withdrawal");
-    // 회원탈퇴 처리 로직
   };
 
   return (
