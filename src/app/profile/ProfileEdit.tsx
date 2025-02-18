@@ -3,32 +3,23 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import useAuthStore from "@/stores/authStore";
 import useProfileStore from "@/stores/profileStore";
 import { Info, PlusIcon } from "lucide-react";
+import { User } from "@/lib/types/auth";
+import { profileUpdateAction } from "@/lib/actions/authActions";
 
-export default function ProfileEdit() {
-  const user = useAuthStore((state) => state.user);
+export default function ProfileEdit({ user }: { user: User }) {
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
-  const [newImage, setPreviewImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
+  const [newNickName, setNewNickName] = useState(user.nick_name || "");
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
 
   const router = useRouter();
 
-  // /profile/page.tsx에서 Protected Route로 처리 예정
-  if (!user) {
-    router.push("/login");
-    return;
-  }
-
   const profileImage =
-    newImage ||
+    previewImage ||
     user?.profile_image ||
     "/images/brand-character/default-profile.png";
-
-  const handleSave = () => {
-    setIsEditing(false);
-    // 프로필 변경 로직 (newImage, newNickName))
-  };
 
   const handleCancel = () => {
     setIsEditing(false);
@@ -39,12 +30,29 @@ export default function ProfileEdit() {
     setIsEditing(false);
   };
 
+  const handleSave = async () => {
+    const nickNameToUpdate =
+      newNickName !== user.nick_name ? newNickName : user.nick_name;
+
+    try {
+      // API 요청 보내기
+      await profileUpdateAction(nickNameToUpdate, selectedImageFile);
+      // 성공 처리
+      console.log("프로필 업데이트 성공!");
+      setIsEditing(false);
+    } catch (error) {
+      // 실패 처리
+      console.error("프로필 업데이트 실패:", error);
+    } finally {
+      setIsEditing(false);
+    }
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(event.target.files);
     const file = event.target.files?.[0];
     if (file) {
+      setSelectedImageFile(file);
       const reader = new FileReader();
-      // console.log(reader); // "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCE...""
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
       };
@@ -52,12 +60,16 @@ export default function ProfileEdit() {
     }
   };
 
+  const handleNickNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewNickName(e.target.value);
+  };
+
   return (
     <>
       <h2 className="page-title">내 프로필 변경</h2>
       <section className="group relative">
         <Image
-          className="overflow-hidden rounded-full shadow-md"
+          className="h-[130px] w-[130px] overflow-hidden rounded-full shadow-md"
           src={profileImage}
           alt="프로필 이미지"
           width={130}
@@ -74,18 +86,24 @@ export default function ProfileEdit() {
           type="file"
           accept="image/*"
           aria-label="프로필 이미지 업로드"
-          className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          className="absolute inset-0 h-full w-full cursor-pointer overflow-hidden opacity-0"
           onChange={handleImageChange}
         />
       </section>
       <section className="flex flex-col items-center">
         <div className="w-full">
           <p className="font-bold">새 닉네임</p>
+          <p className="text-xs font-bold">
+            닉네임은 최대 16자까지 입력할 수 있어요.
+          </p>
+
           <input
             type="text"
             maxLength={16}
             placeholder={user.nick_name}
             className="my-2 w-60 rounded-md border-2 border-main-text py-2 pl-2 pr-8 hover:border-main-yellow focus:border-main-yellow focus:outline-main-yellow"
+            value={newNickName} // 현재 닉네임 값을 표시
+            onChange={handleNickNameChange} // 닉네임 변경 이벤트 핸들러
           />
           <p className="flex w-full items-center gap-1 text-main-red">
             <Info size={14} />

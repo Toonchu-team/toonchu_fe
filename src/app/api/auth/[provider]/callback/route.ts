@@ -17,39 +17,37 @@ export async function GET(request: Request) {
   console.log("code: ", code);
 
   try {
-    const data = await userApi.handleSocialLogin(provider, code!); // 여기서 백엔드 정상 Response 받지 못하는 중
+    const { access_token, refresh_token, user } =
+      await userApi.handleSocialLogin(provider, code);
 
-    return NextResponse.json({ user: data.user });
+    // Access Token과 Refresh Token을 쿠키에 저장
+    const response = NextResponse.redirect(new URL("/", request.url));
 
-    // Mock 데이터 : 백엔드 반환값 다시 확인 필요 (USER-001(2/1 API명세서 기준))
+    // CORS 설정 (개발 환경에서는 필요)
+    response.headers.set(
+      "Access-Control-Allow-Origin",
+      process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION || "*",
+    );
+    response.headers.set("Access-Control-Allow-Credentials", "true");
 
-    // console.log("start");
-    // const mockUser = {
-    //   id: 1,
-    //   nick_name: "USERNAME",
-    //   email: "mock_user@example.com",
-    //   // profile_image: "https://picsum.photos/300/300",
-    //   profile_image: null, // 이미지 플레이스홀더 테스트 용
-    //   provider,
-    // };
+    response.cookies.set("access_token", access_token, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60, // 1시간
+    });
+    response.cookies.set("refresh_token", refresh_token, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24, // 1일
+    });
 
-    // const mockResponse = {
-    //   access_token: "mock_access_token",
-    //   user: mockUser,
-    // };
+    console.log("리다이렉트 직전");
+    console.log("user(백엔드응답): ", user);
+    console.log("access_token(백엔드응답): ", access_token);
 
-    // console.log("mockResponse: ", mockResponse);
-
-    // return NextResponse.json(mockResponse);
-    // return NextResponse.json({ provider, code });
+    // 리다이렉트
+    return response;
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      {
-        error:
-          "인증에 실패하였습니다. - /api/auth/callback/[provider]/route.ts",
-      },
-      { status: 500 },
-    );
   }
 }
