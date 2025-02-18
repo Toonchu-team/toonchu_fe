@@ -22,7 +22,7 @@ const AppInitializer: React.FC<AppInitializerProps> = ({
       setUser(userData.user);
       setAccessToken(userData.access_token);
     }
-  }, [userData, setUser]);
+  }, [userData, setUser, setAccessToken]);
 
   return <>{children}</>;
 };

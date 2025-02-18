@@ -1,6 +1,5 @@
 import { logoutAction } from "@/lib/actions/authActions";
 import { User } from "@/lib/types/auth";
-import { useRouter } from "next/navigation";
 import { create } from "zustand";
 
 interface AuthState {
@@ -29,9 +28,6 @@ const useAuthStore = create<AuthState>((set) => ({
       await logoutAction();
       // 2. 클라이언트 상태 초기화
       set({ user: null, access_token: null });
-      // 3. 메인 페이지로 리다이렉트
-      const router = useRouter();
-      router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
       // 추후 에러 페이지 생성

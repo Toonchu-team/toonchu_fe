@@ -1,7 +1,7 @@
 "use client";
 
 import useOutsideClick from "@/hooks/useOutsideClick";
-import { ReactNode, RefObject, useEffect, useRef } from "react";
+import { ReactNode, RefObject, useRef } from "react";
 import { useLockBodyScroll } from "react-use";
 
 interface ModalContainerProps {

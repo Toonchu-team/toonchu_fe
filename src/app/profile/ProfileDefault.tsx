@@ -24,6 +24,7 @@ export default function ProfileDefault({ user }: ProfileDefaultProps) {
 
   const handleLogout = () => {
     logout();
+    router.push("/");
   };
 
   const handleWithdrawal = () => {

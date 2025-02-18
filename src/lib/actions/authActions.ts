@@ -29,8 +29,8 @@ export async function profileUpdateAction(
   try {
     await userApi.profileUpdate(nick_name, profile_image);
     revalidatePath("/");
-  } catch (error: any) {
+  } catch (error) {
     console.error("Profile update error:", error);
-    throw new Error(error.message || "프로필 업데이트 실패");
+    throw new Error("프로필 업데이트 실패");
   }
 }

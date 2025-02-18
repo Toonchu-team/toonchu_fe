@@ -11,7 +11,6 @@ import ModalContainer from "@/components/common/modal/ModalContainer";
 import ModalTitle from "@/components/common/modal/items/ModalTitle";
 import ModalContent from "@/components/common/modal/items/ModalContent";
 import { withdrawalAction } from "@/lib/actions/authActions";
-import { revalidatePath } from "next/cache";
 
 export default function Withdrawal() {
   const { user, logout } = useAuthStore();
@@ -21,15 +20,13 @@ export default function Withdrawal() {
   const [isConfirmed, setIsConfirmed] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  if (!user) {
-    return null;
-  }
-
   const userNickName = user?.nick_name ?? "";
 
   useEffect(() => {
-    setIsConfirmed(inputValue === userNickName);
-  }, [inputValue, userNickName]);
+    if (user) {
+      setIsConfirmed(inputValue === userNickName);
+    }
+  }, [inputValue, userNickName, user]);
 
   const handleWithdrawal = () => {
     if (isConfirmed) {
