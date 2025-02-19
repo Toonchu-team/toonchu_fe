@@ -3,15 +3,14 @@
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { useState } from "react";
 import clsx from "clsx";
-import SearchBar from "@/components/common/searchBar/SearchBar";
 import Dropdown from "@/components/common/dropdown/Dropdown";
 import PaginationList from "@/components/common/pagination/PaginationList";
 import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 import Tags from "@/components/common/tag/Tags";
 import s from "./tagSearch.module.scss";
-import SearchBarMobile from "@/components/common/searchBar/SearchBarMobile";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
+import ResponsiveSearchBar from "@/components/common/searchBar/ResponsiveSearchBar";
 
 export default function TagSearchClient() {
   const breakpoint = useBreakpoint();
@@ -50,7 +49,7 @@ export default function TagSearchClient() {
 
         <div className={`flex flex-col items-center ${s.content_container}`}>
           {/* 검색창 */}
-          {breakpoint === "mobile" ? <SearchBarMobile /> : <SearchBar />}
+          <ResponsiveSearchBar type="tag" />
 
           {/* 선택한 태그 */}
           {/* 검색 요청에서 받아와야 할 것 같음 */}

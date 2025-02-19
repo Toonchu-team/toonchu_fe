@@ -4,14 +4,36 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { X, Search } from "lucide-react";
 import DropdownMobile from "../dropdown/DropdownMobile";
+import { useRouter } from "next/navigation";
 
-const SearchBarMobile = () => {
+const SearchBarMobile = ({ type }: { type: string }) => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const providers = ["전체", "네이버", "카카오", "카카오페이지"];
   const [provider, setProvider] = useState<string>("전체");
   const [searchTag, setSearchTag] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const apiUrl = "api/webtoon/search";
+  const apiglobalUrl = "api/webtoon/searchglobal";
+  const apiTagUrl = "api/webtoon/searchtag";
+  const apiDayUrl = "api/webtoon/searchday";
+  const router = useRouter();
+
+  // 검색 버튼 클릭 시 실행
+  const searchHandler = () => {
+    const queryString = `provider=${provider}${searchTag ? `&tag=${searchTag}` : ""}${searchTerm ? `&term=${searchTerm}` : ""}`;
+    console.log(
+      `${type === "global" || "header" ? apiglobalUrl : type === "tag" ? apiTagUrl : apiDayUrl}?${queryString}`,
+    );
+
+    // 검색창 초기화
+    setProvider("전체");
+    setSearchTag("");
+    setSearchTerm("");
+
+    // 통합 검색의 경우 통합 검색 페이지로 이동
+    if (type === "header") {
+      router.push("/global-search");
+    }
+  };
 
   // TailwindCSS 클래스 정리
   const inputClass = "pl-2 text-main-text text-[10px] focus:outline-none";
@@ -29,15 +51,7 @@ const SearchBarMobile = () => {
       {/* 검색 버튼 */}
       <button
         className="absolute flex h-4 w-5 items-center justify-center self-end rounded-r-xl bg-main-yellow pr-0.5"
-        onClick={() => {
-          const queryString = `provider=${provider}${searchTag ? `&tag=${searchTag}` : ""}${searchTerm ? `&term=${searchTerm}` : ""}`;
-          console.log(`${apiUrl}?${queryString}`);
-
-          // 검색창 초기화
-          setProvider("전체");
-          setSearchTag("");
-          setSearchTerm("");
-        }}
+        onClick={searchHandler}
       >
         <Search color="#FFF" size={12} />
       </button>

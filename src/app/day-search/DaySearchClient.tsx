@@ -3,14 +3,13 @@
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { useState } from "react";
 import clsx from "clsx";
-import SearchBar from "@/components/common/searchBar/SearchBar";
 import Dropdown from "@/components/common/dropdown/Dropdown";
 import PaginationList from "@/components/common/pagination/PaginationList";
 import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 import s from "./daySearch.module.scss";
-import SearchBarMobile from "@/components/common/searchBar/SearchBarMobile";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
+import ResponsiveSearchBar from "@/components/common/searchBar/ResponsiveSearchBar";
 
 export default function DaySearchClient() {
   const breakpoint = useBreakpoint();
@@ -39,7 +38,7 @@ export default function DaySearchClient() {
 
         <div className={`flex flex-col items-center ${s.content_container}`}>
           {/* 검색창 */}
-          {breakpoint === "mobile" ? <SearchBarMobile /> : <SearchBar />}
+          <ResponsiveSearchBar type="tag" />
 
           {/* 카테고리 */}
           <div
