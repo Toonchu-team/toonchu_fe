@@ -102,10 +102,9 @@ export const userApi = {
     console.log("refresh_token - userApi(handleLogout): ", refresh_token);
 
     const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
-      method: "POST", 
+      method: "POST",
       credentials: "include",
       headers: {
-        Authorization: `Bearer ${access_token}`, 
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
