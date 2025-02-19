@@ -49,7 +49,7 @@ export default function Header() {
         )}
       >
         <div>
-          <ResponsiveSearchBar />
+          <ResponsiveSearchBar type="header" />
         </div>
         <p className="text-xs text-main-text lg:text-sm">
           🔍 검색해 보세요! 🔍
