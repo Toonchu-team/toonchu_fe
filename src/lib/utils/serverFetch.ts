@@ -12,7 +12,7 @@ export async function serverFetch<T>(
 ): Promise<T> {
   const headers = new Headers(options.headers);
   const cookieStore = await cookies();
-  let access_token = cookieStore.get("access_token")?.value;
+  const access_token = cookieStore.get("access_token")?.value;
 
   if (access_token) {
     headers.set("Authorization", `Bearer ${access_token}`); // Authorization 헤더 설정

@@ -195,7 +195,6 @@ export const userApi = {
           credentials: "include",
           headers: {
             Authorization: `Bearer ${refresh_token}`,
-            "Content-Type": "application/json",
           },
         },
       );
