@@ -1,0 +1,64 @@
+.mobile {
+  .container {
+    // 전체 컨테이너
+    @apply gap-10 pt-5;
+  }
+
+  .text {
+    // 제목
+    @apply text-lg;
+  }
+
+  // 선택한 태그
+  .selected_tag_container {
+    @apply origin-top scale-[60%];
+  }
+
+  .content_container {
+    @apply gap-5;
+  }
+
+  // 정렬 드롭다운
+  .dropdown {
+    @apply rounded-md;
+  }
+
+  // 검색 결과
+  .search_result {
+    @apply flex-col items-center pt-3;
+  }
+}
+
+.tablet,
+.desktop {
+  .container {
+    @apply gap-16 pt-12;
+  }
+
+  .text {
+    @apply text-2xl;
+  }
+
+  // 선택한 태그
+  .selected_tag_container {
+    @apply -z-50 w-[870px] scale-[65%] lg:scale-75 xl:scale-100;
+  }
+
+  .content_container {
+    @apply gap-9;
+  }
+
+  // 정렬 드롭다운
+  .dropdown_container {
+    @apply h-[800px] w-[1121px] origin-top scale-[60%] lg:h-[1010px] lg:scale-75 xl:h-auto xl:scale-100;
+  }
+
+  .dropdown {
+    @apply rounded-xl;
+  }
+
+  // 검색 결과
+  .search_result {
+    @apply w-[1121px] flex-wrap justify-center pt-10;
+  }
+}

@@ -1,3 +1,5 @@
-export default function Main() {
-  return <div>Main 컴포넌트</div>;
+import MainClient from "./main/MainClient";
+
+export default async function Main() {
+  return <MainClient />;
 }
