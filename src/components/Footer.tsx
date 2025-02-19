@@ -102,16 +102,10 @@ export default function Footer() {
           개인정보 처리방침
         </Link>
         <Link
-          className="text-nowrap border-r-[1px] border-main-text px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="text-nowrap px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
           href="/terms"
         >
           사이트 이용약관
-        </Link>
-        <Link
-          className="text-nowrap px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
-          href="/cookie-policy"
-        >
-          쿠키정책
         </Link>
       </div>
       <p className="w-full py-4 text-center text-xs text-main-text">
