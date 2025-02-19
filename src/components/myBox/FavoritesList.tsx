@@ -3,9 +3,13 @@
 import React, { useState } from 'react';
 import SearchBar from '../common/searchBar/SearchBar';
 import WebtoonCard from '../common/webtoonCard/WebtoonCard';
+import PaginationList from '../common/pagination/PaginationList';
+import WebtoonCardMobile from '../common/webtoonCard/WebtoonCardMobile';
+import useBreakpoint from '@/hooks/useBreakpoint';
 
 export default function FavoritesList() {
   const [sortBy, setSortBy] = useState('latest');
+  const breakpoint = useBreakpoint();
 
   return (
     <div className="pt-4 pb-10 px-4 md:px-0">
@@ -25,11 +29,15 @@ export default function FavoritesList() {
         </div>
 
         {/* 웹툰 목록 */}
-        <div className="flex w-[1121px] origin-top transform flex-col gap-14">
-          <div className="flex flex-wrap gap-x-10 gap-y-7">
-            {[...Array(10)].map((_, index) => (
-              <WebtoonCard key={index} />
-            ))}
+        <div className="flex w-[1121px] origin-top transform flex-col items-center">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-7">
+            <PaginationList>
+              {breakpoint === "mobile" ? (
+                <WebtoonCardMobile />
+              ) : (
+                <WebtoonCard />
+              )}
+            </PaginationList>
           </div>
         </div>
       </div>
