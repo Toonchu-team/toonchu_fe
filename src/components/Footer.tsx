@@ -23,7 +23,7 @@ export default function Footer() {
           <p>개인정보관리책임자 : 김 규태</p>
           <p>호스팅제공자 : 네이버 클라우드 플랫폼</p>
         </div>
-        <div className="mb-10 flex h-fit w-full flex-col items-start justify-center md:mb-0 md:w-1/3 md:items-end">
+        <div className="mb-10 flex h-fit w-full flex-col items-start justify-center md:mb-0 md:w-1/3 md:items-center">
           <Link
             className="w-fit shrink-0 rounded-full bg-gradient-to-r from-bg-yellow-01 to-bg-grey-01 px-10 py-2 font-bold shadow-lg transition-transform duration-200 ease-in-out hover:scale-105"
             href="/login"
