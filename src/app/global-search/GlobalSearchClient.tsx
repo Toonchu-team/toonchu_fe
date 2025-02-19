@@ -6,11 +6,10 @@ import PaginationList from "@/components/common/pagination/PaginationList";
 import clsx from "clsx";
 import Dropdown from "@/components/common/dropdown/Dropdown";
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
-import SearchBarMobile from "@/components/common/searchBar/SearchBarMobile";
-import SearchBar from "@/components/common/searchBar/SearchBar";
 import s from "./globalSearch.module.scss";
 import { useState } from "react";
 import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
+import ResponsiveSearchBar from "@/components/common/searchBar/ResponsiveSearchBar";
 
 export default function GlobalSearchClient() {
   const breakpoint = useBreakpoint();
@@ -32,7 +31,7 @@ export default function GlobalSearchClient() {
 
         <div className={`flex flex-col items-center ${s.content_container}`}>
           {/* 검색창 */}
-          {breakpoint === "mobile" ? <SearchBarMobile /> : <SearchBar />}
+          <ResponsiveSearchBar type="global" />
 
           <div className={clsx("flex flex-col", s.dropdown_container)}>
             <div
