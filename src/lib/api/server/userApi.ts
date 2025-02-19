@@ -178,4 +178,36 @@ export const userApi = {
       throw new Error("프로필 수정 실패-userApi");
     }
   },
+
+  getNewAcessToken: async (): Promise<string> => {
+    "use server";
+    const refresh_token = await getRefreshToken();
+
+    if (!refresh_token) {
+      throw new Error("refresh_token이 없습니다.");
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.SERVER_URL}/users/token/refresh/`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${refresh_token}`,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("새로운 access_token 발급 실패");
+      }
+
+      const data = await response.json();
+      return data.access_token;
+    } catch (error) {
+      console.error("새로운 access_token 발급 실패-userApi", error);
+      throw new Error("새로운 access_token 발급 실패");
+    }
+  },
 };
