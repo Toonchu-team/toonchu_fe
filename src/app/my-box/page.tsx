@@ -5,6 +5,7 @@ import Image from "next/image";
 import useAuthStore from "@/stores/authStore";
 import dynamic from "next/dynamic";
 import WebtoonRegisterForm from "@/components/myBox/WebtoonRegisterForm";
+import MyRequestedList from "@/components/myBox/MyRequestedList";
 
 const FavoritesList = dynamic(
   () => import("@/components/myBox/FavoritesList"),
@@ -80,7 +81,7 @@ export default function MyBox() {
             </div>
           )}
           {activeTab === 2 && <WebtoonRegisterForm/>}
-          {activeTab === 3 && <div>등록 신청한 작품</div>}
+          {activeTab === 3 && <MyRequestedList />}
         </div>
       </section>
     </main>
