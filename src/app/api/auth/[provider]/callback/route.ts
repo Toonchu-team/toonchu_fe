@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     // CORS 설정 (개발 환경에서는 필요)
     response.headers.set(
       "Access-Control-Allow-Origin",
-      process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION || "*",
+      process.env.NEXT_PUBLIC_BASE_URL || "*",
     );
     response.headers.set("Access-Control-Allow-Credentials", "true");
 
