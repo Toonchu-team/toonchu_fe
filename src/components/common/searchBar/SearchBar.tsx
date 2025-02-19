@@ -6,7 +6,7 @@ import { X, Search } from "lucide-react";
 import Dropdown from "../dropdown/Dropdown";
 import { useRouter } from "next/navigation";
 
-const SearchBar = ({ type }: { type: string }) => {
+const SearchBar = ({ type }: { type?: string }) => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const providers = ["전체", "네이버", "카카오", "카카오페이지"];
   const [provider, setProvider] = useState<string>("전체");
