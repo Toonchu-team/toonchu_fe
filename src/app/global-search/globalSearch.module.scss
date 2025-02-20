@@ -35,12 +35,12 @@
   }
 
   .content_container {
-    @apply gap-9;
+    @apply gap-20;
   }
 
   // 정렬 드롭다운
   .dropdown_container {
-    @apply h-[800px] w-[1121px] origin-top scale-[60%] lg:h-[1010px] lg:scale-75 xl:h-auto xl:scale-100;
+    @apply h-[800px] w-[704px] origin-top lg:h-[1010px] xl:h-auto xl:w-[1121px];
   }
 
   .dropdown {
@@ -49,6 +49,6 @@
 
   // 검색 결과
   .search_result {
-    @apply w-[1121px] flex-wrap justify-center pt-10;
+    @apply w-[704px] flex-wrap justify-center pt-10 xl:w-[1121px];
   }
 }
