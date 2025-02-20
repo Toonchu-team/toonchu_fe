@@ -124,7 +124,7 @@ function WebtoonRegisterForm() {
       thumbnail,
       webtoon_url: formData.webtoon_url,
       publication_day: formData.publication_day,
-      platform: "naver", // 현재는 네이버만 지원
+      platform: "naver", // 현재는 네이버만
       serial_day: selectedDays.map(day => day.toLowerCase()).filter(day => ["mon", "tue", "wed", "thu", "fri", "sat", "sun"].includes(day)),
       serialization_cycle: cycle,
       tags: Object.entries(formData.tags).map(([category, tags]) => 
@@ -150,8 +150,7 @@ function WebtoonRegisterForm() {
             {thumbnail ? (
               <Image 
                 src={thumbnail} 
-                alt="표지 미리보기" 
-                fill 
+                alt="표지 미리보기"
                 className="rounded-md object-cover" 
                 width={120}
                 height={180}
