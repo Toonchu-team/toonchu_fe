@@ -116,3 +116,23 @@
 .swiper-button-disabled {
   opacity: 0.3 !important;
 }
+
+/* 애니메이션 - 로딩바 */
+@keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  33% {
+    width: 33%;
+  }
+  66% {
+    width: 66%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animation-loading-bar {
+  animation: loading-bar infinite 600ms linear;
+}

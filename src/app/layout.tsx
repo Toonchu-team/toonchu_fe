@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Lemonada } from "next/font/google";
 import localFont from "next/font/local";
-import Nav from "@/components/nav/Nav";
+
 import { userApi } from "@/lib/api/server/userApi";
 import AppInitializer from "@/components/auth/AppInitializer";
 import Footer from "@/components/Footer";
+import { cookies } from "next/headers";
+import Nav from "@/components/nav/Nav";
 
 const nanumsquare = localFont({
   src: [
@@ -49,13 +51,18 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   let userData = null;
+  const cookieStore = await cookies();
+  const access_token = cookieStore.get("access_token")?.value;
 
-  try {
-    userData = await userApi.getLoginUser();
-    console.log("user(layout.tsx): ", userData);
-  } catch (error) {
-    console.error("유저 정보 가져오기 실패:", error);
+  if (access_token) {
+    try {
+      userData = await userApi.getLoginUser();
+      console.log("user(layout.tsx): ", userData);
+    } catch (error) {
+      console.error("유저 정보 가져오기 실패:", error);
+    }
   }
+
   return (
     <html lang="en" className={`${nanumsquare.variable} ${lemonada.variable}`}>
       <body>

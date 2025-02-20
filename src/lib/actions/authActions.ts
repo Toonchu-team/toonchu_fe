@@ -2,6 +2,21 @@
 import { userApi } from "@/lib/api/server/userApi";
 import { revalidatePath } from "next/cache";
 
+export async function getUserAction() {
+  try {
+    const userData = await userApi.getLoginUser();
+
+    if (!userData) {
+      return null;
+    }
+
+    return userData.user;
+  } catch (error) {
+    console.error("Get user error:", error);
+    throw new Error("사용자 정보 가져오기 실패");
+  }
+}
+
 export async function logoutAction() {
   try {
     await userApi.handleLogout();

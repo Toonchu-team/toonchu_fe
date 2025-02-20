@@ -7,8 +7,10 @@ import { RefObject, useEffect, useRef, useState } from "react";
 import TagDropdown from "@/components/tagDropdown/TagDropdown";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import Image from "next/image";
+import useAuthStore from "@/stores/authStore";
 
-export default function DesktopNav() {
+export default  function DesktopNav() {
+  const user = useAuthStore((state) => state.user);
   const currentPath = usePathname();
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
 
@@ -86,7 +88,7 @@ export default function DesktopNav() {
             </Link>
           </li>
         </ul>
-        <ProfileMenu />
+        <ProfileMenu user={user || null} />
       </nav>
     </>
   );

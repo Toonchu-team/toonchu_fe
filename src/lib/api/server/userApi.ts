@@ -1,4 +1,5 @@
 import { AuthResponse } from "@/lib/types/auth";
+import { customFetch } from "@/lib/utils/customFetch";
 import { cookies } from "next/headers";
 
 const getAccessToken = async () => {
@@ -79,8 +80,7 @@ export const userApi = {
       );
 
       if (!response.ok) {
-        const errorData = await response.text();
-        console.error("Backend error response:", errorData);
+        console.log("Backend error response", response);
         throw new Error("소셜 로그인 인증 실패");
       }
 
@@ -126,7 +126,7 @@ export const userApi = {
 
     const access_token = await getAccessToken();
 
-    const response = await fetch(
+    const response = await customFetch(
       `${process.env.SERVER_URL}/users/me/profile/withdraw/`,
       {
         method: "DELETE",
@@ -161,6 +161,8 @@ export const userApi = {
     if (profile_image) {
       formData.append("profile_image", profile_image);
     }
+
+    console.log("formData - userApi.ts: ", formData);
 
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/profile/update/`,
