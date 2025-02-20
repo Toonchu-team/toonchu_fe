@@ -52,7 +52,10 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
           stroke={isFavorite ? "#FF8B8B" : "#968E82"}
           strokeWidth={1.5}
           fill={isFavorite ? "#FF8B8B" : "none"}
-          onClick={() => setIsFavorite((prev) => !prev)}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            setIsFavorite((prev) => !prev);
+          }}
         />
 
         {/* 배급사 로고 */}

@@ -10,6 +10,9 @@ const Tags = ({ tag }: { tag: string }) => {
         `md:h-[25px] md:rounded-lg md:px-2 md:py-1`,
         `xl:h-[34px]`,
       )}
+      onClick={(e: React.MouseEvent) => {
+        e.stopPropagation();
+      }}
     >
       <p
         className={clsx(
