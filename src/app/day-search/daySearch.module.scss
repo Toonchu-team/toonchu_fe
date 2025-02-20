@@ -60,12 +60,12 @@
 
   // 카테고리
   .category_container {
-    @apply -z-10 gap-2 lg:gap-32;
+    @apply -z-10 gap-16 lg:gap-32;
   }
 
   // 연재 카테고리
   .category_series_container {
-    @apply gap-7 md:scale-[80%] xl:scale-100;
+    @apply gap-4 lg:gap-7;
   }
 
   // 카테고리 버튼
@@ -75,12 +75,12 @@
 
   // 요일 카테고리
   .category_day_container {
-    @apply gap-7 md:scale-[80%] xl:scale-100;
+    @apply gap-4 lg:gap-7;
   }
 
   // 정렬 드롭다운
   .dropdown_container {
-    @apply h-[800px] w-[1121px] origin-top scale-[60%] lg:h-[1010px] lg:scale-75 xl:h-auto xl:scale-100;
+    @apply h-[800px] w-[704px] origin-top lg:h-[1010px] xl:h-auto xl:w-[1121px];
   }
 
   .dropdown {
@@ -89,6 +89,6 @@
 
   // 검색 결과
   .search_result {
-    @apply w-[1121px] flex-wrap justify-center pt-10;
+    @apply w-[704px] flex-wrap justify-center pt-10 xl:w-[1121px];
   }
 }

@@ -9,13 +9,16 @@
     @apply text-lg;
   }
 
-  // 선택한 태그
-  .selected_tag_container {
-    @apply origin-top scale-[60%];
-  }
-
   .content_container {
     @apply gap-5;
+  }
+
+  .selected_tag_container {
+    @apply h-[50px] w-[300px];
+  }
+
+  .dropdown_container {
+    @apply pt-5;
   }
 
   // 정렬 드롭다운
@@ -41,7 +44,7 @@
 
   // 선택한 태그
   .selected_tag_container {
-    @apply -z-50 w-[870px] scale-[65%] lg:scale-75 xl:scale-100;
+    @apply -z-50 h-[70px] w-[600px] xl:h-[100px] xl:w-[870px];
   }
 
   .content_container {
@@ -50,7 +53,7 @@
 
   // 정렬 드롭다운
   .dropdown_container {
-    @apply h-[800px] w-[1121px] origin-top scale-[60%] lg:h-[1010px] lg:scale-75 xl:h-auto xl:scale-100;
+    @apply h-[800px] w-[704px] pt-10 lg:h-[1010px] xl:h-auto xl:w-[1121px];
   }
 
   .dropdown {
@@ -59,6 +62,6 @@
 
   // 검색 결과
   .search_result {
-    @apply w-[1121px] flex-wrap justify-center pt-10;
+    @apply w-[704px] flex-wrap justify-center pt-10 xl:w-[1121px];
   }
 }

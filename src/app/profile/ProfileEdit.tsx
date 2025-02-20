@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useProfileStore from "@/stores/profileStore";
-import { Info, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { User } from "@/lib/types/auth";
 import { profileUpdateAction } from "@/lib/actions/authActions";
 

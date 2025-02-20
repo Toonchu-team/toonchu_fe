@@ -26,11 +26,11 @@ const Dropdown = ({
   return (
     <>
       <div
-        className="relative flex h-8 w-[150px] items-center justify-center"
+        className="relative flex h-7 w-[100px] items-center justify-center xl:h-8 xl:w-[150px]"
         ref={dropdownRef}
       >
         <div
-          className="relative flex w-36 cursor-pointer text-main-text"
+          className="relative flex w-36 cursor-pointer items-center text-sm text-main-text xl:text-base"
           onClick={() => setOpenDropdown((prev) => !prev)}
         >
           <p>{option}</p>
@@ -41,7 +41,7 @@ const Dropdown = ({
           />
         </div>
         {openDropdown && (
-          <div className="border-1 absolute top-10 z-50 flex h-32 w-36 cursor-pointer flex-col rounded-xl border bg-white shadow-lg">
+          <div className="border-1 absolute top-10 z-50 flex h-28 w-28 cursor-pointer flex-col rounded-xl border bg-white text-sm shadow-lg xl:h-32 xl:w-36 xl:text-base">
             {elements.map((el, index) => (
               <div
                 key={index}

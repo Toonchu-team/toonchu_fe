@@ -10,15 +10,15 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import useProfileStore from "@/stores/profileStore";
 import { User } from "@/lib/types/auth";
 
-const HIDDEN_NICKNAMES = [
-  "코가 짧은 코숏",
-  "야비한 아비시니안",
-  "하나 둘 샴",
-  "렉걸린 렉돌",
-  "가깝고도 먼치킨",
-  "스코티쉬 플립",
-  "손병호게임 숙호티씨 접어",
-];
+// const HIDDEN_NICKNAMES = [
+//   "코가 짧은 코숏",
+//   "야비한 아비시니안",
+//   "하나 둘 샴",
+//   "렉걸린 렉돌",
+//   "가깝고도 먼치킨",
+//   "스코티쉬 플립",
+//   "손병호게임 숙호티씨 접어",
+// ];
 
 export default function ProfileMenu({ user }: { user: User | null }) {
   const { logout } = useAuthStore();

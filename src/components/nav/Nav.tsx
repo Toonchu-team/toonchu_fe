@@ -4,7 +4,6 @@ import MobileTabletNav from "./views/MobileTabletNav";
 import DesktopNav from "./views/DesktopNav";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 export default function Nav() {
   const [isBpSet, setIsBpSet] = useState(false);
