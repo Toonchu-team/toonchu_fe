@@ -28,6 +28,7 @@ const useAuthStore = create<AuthState>((set) => ({
       await logoutAction();
       // 2. 클라이언트 상태 초기화
       set({ user: null, access_token: null });
+      window.location.href = "/";
     } catch (error) {
       console.error("Logout error:", error);
       // 추후 에러 페이지 생성

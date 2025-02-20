@@ -6,6 +6,7 @@ export interface User {
   email: string;
   profile_image?: string;
   provider: SocialProvider;
+  is_hidden?: boolean;
 }
 
 export interface AuthResponse {

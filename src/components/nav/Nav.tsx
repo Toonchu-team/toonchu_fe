@@ -18,16 +18,7 @@ export default function Nav() {
 
   if (!isBpSet) {
     return (
-      <nav className="flex h-[60px] w-full items-center justify-center">
-        <h1>
-          <Image
-            src="/images/logo/logo-eng.png"
-            alt="툰츄 로고 이미지"
-            width={150}
-            height={56}
-          />
-        </h1>
-      </nav>
+      <nav className="flex h-[60px] w-full items-center justify-center"></nav>
     );
   }
 
