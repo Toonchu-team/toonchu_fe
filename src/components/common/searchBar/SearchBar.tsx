@@ -43,20 +43,20 @@ const SearchBar = ({ type }: { type?: string }) => {
   return (
     <div
       className={clsx(
-        "border-1 flex flex-col justify-center rounded-3xl bg-white px-1",
-        "h-10 w-[870px] scale-75 border lg:scale-100",
+        "border-1 relative flex flex-col justify-center rounded-3xl bg-white px-1",
+        "h-8 w-[700px] border xl:h-10 xl:w-[870px]",
       )}
     >
       {/* 검색 버튼 */}
       <button
-        className="fixed flex h-8 w-9 items-center justify-center self-end rounded-r-3xl bg-main-yellow pr-1"
+        className="absolute flex h-6 w-8 items-center justify-center self-end rounded-r-3xl bg-main-yellow pr-1 xl:h-8 xl:w-9"
         onClick={searchHandler}
       >
         <Search color="#FFF" width={20} />
       </button>
 
       {/* 검색 바 컨테이너 */}
-      <div className="relative flex w-[820px] items-center justify-around pl-5">
+      <div className="relative flex w-[650px] items-center justify-around pl-5 text-sm xl:w-[820px] xl:text-base">
         {/* 배급사 선택 드롭다운 */}
         <Dropdown
           openDropdown={openDropdown}
@@ -83,7 +83,7 @@ const SearchBar = ({ type }: { type?: string }) => {
           )}
         </div>
         {/* 검색어 입력 */}
-        <div className={clsx(containerClass, "h-8 w-[400px]")}>
+        <div className={clsx(containerClass, "h-8 w-[270px] xl:w-[400px]")}>
           <input
             type="text"
             className={clsx(inputClass, "w-[95%]")}
