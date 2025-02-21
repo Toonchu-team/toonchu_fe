@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { userApi } from "../api/server/userApi";
 
-export async function customFetch<T>(
+export async function customFetch(
   url: string,
   options: RequestInit = {},
 ): Promise<Response> {
