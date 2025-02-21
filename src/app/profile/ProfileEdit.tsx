@@ -36,7 +36,6 @@ export default function ProfileEdit({ user }: { user: User }) {
       newNickName !== user.nick_name ? newNickName : user.nick_name;
 
     try {
-      // API 요청 보내기
       await profileUpdateAction(nickNameToUpdate, selectedImageFile);
       console.log("프로필 업데이트 성공!");
       setIsEditing(false);
