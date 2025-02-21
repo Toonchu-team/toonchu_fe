@@ -39,6 +39,7 @@ export default function Withdrawal() {
   const handleConfirmWithdrawal = async () => {
     try {
       await withdrawalAction(userNickName);
+      window.location.href = "/";
       logout();
       console.log("zustand 유저 상태 : ", user);
       router.push("/");
@@ -96,8 +97,8 @@ export default function Withdrawal() {
             <p className="flex items-start gap-1 text-main-grey">
               <Info size={14} className="flex-shrink-0" />
               <span className="text-xs font-bold">
-                계정 탈퇴 후 30일 동안 계정이 임시 보관되며, 이 기간 동안 로그인
-                시 탈퇴가 취소됩니다. 30일 이후에는 영구 삭제되어 복구가
+                계정 탈퇴 후 50일 동안 계정이 임시 보관되며, 이 기간 동안 로그인
+                시 탈퇴가 취소됩니다. 50일 이후에는 영구 삭제되어 복구가
                 불가능합니다.
               </span>
             </p>

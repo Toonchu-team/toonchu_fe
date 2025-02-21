@@ -1,5 +1,4 @@
 import { AuthResponse } from "@/lib/types/auth";
-import { customFetch } from "@/lib/utils/customFetch";
 import { cookies } from "next/headers";
 
 const getAccessToken = async () => {
@@ -23,10 +22,6 @@ export const userApi = {
     "use server";
     const access_token = await getAccessToken();
 
-    if (!access_token) {
-      return null;
-    }
-
     try {
       const response = await fetch(
         `${process.env.SERVER_URL}/users/me/profile/update/`,
@@ -38,10 +33,6 @@ export const userApi = {
       );
 
       if (!response.ok) {
-        if (response.status === 401) {
-          console.warn("인증 실패: access_token이 유효하지 않음");
-          return null;
-        }
         throw new Error("로그인 유저 정보 찾기 실패");
       }
 
@@ -126,7 +117,7 @@ export const userApi = {
 
     const access_token = await getAccessToken();
 
-    const response = await customFetch(
+    const response = await fetch(
       `${process.env.SERVER_URL}/users/me/profile/withdraw/`,
       {
         method: "DELETE",
@@ -179,6 +170,8 @@ export const userApi = {
     if (!response.ok) {
       throw new Error("프로필 수정 실패-userApi");
     }
+
+    console.log("프로필 수정 요청시 BE응답: ", response);
   },
 
   getNewAcessToken: async (): Promise<string> => {

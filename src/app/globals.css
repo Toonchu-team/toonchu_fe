@@ -36,6 +36,15 @@
   .page-title {
     @apply my-7 text-2xl font-bold;
   }
+  .policy-ol-container {
+    @apply text-wrap pl-8 font-nanumsquare;
+  }
+  .policy-item-decimal {
+    @apply list-decimal;
+  }
+  .policy-link {
+    @apply border-b-[1px] border-transparent pb-1 hover:border-black hover:text-black;
+  }
 }
 
 @layer utilities {
