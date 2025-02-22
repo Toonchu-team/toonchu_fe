@@ -145,9 +145,8 @@
 ### :mag: Preview
 
 - **공통 컴포넌트 - 네비게이션 바**
-<div align="center">
-  ![nav](https://github.com/user-attachments/assets/aabb5296-6698-4894-95da-fc60b84b85ae)
-</div>
+
+<img src='https://github.com/user-attachments/assets/aabb5296-6698-4894-95da-fc60b84b85ae'/>
 
 </details>
 
@@ -272,24 +271,22 @@
 ### :mag: Preview
 
 - **모달 컴포넌트**
-<div align=center>
-  ![modal](https://github.com/user-attachments/assets/a3524f76-8861-4fd1-876e-963769138d0f)
-</div>
+  
+<img src='github.com/user-attachments/assets/a3524f76-8861-4fd1-876e-963769138d0f'/>
+
 
 - **로딩 컴포넌트**
-<div align=center>
-  ![loading](https://github.com/user-attachments/assets/903fa15d-fe7c-4b75-a45f-07a471b8039e)
-</div>
+
+<img src='https://github.com/user-attachments/assets/903fa15d-fe7c-4b75-a45f-07a471b8039e'/>
+
 
 - **에러 컴포넌트**
-<div align=center>
-  ![error](https://github.com/user-attachments/assets/f7c836cc-b076-4a18-bd82-01c6133b5dad)
-</div>
+
+<img src='https://github.com/user-attachments/assets/f7c836cc-b076-4a18-bd82-01c6133b5dad'/>
 
 - **찾을 수 없는 페이지(not-found) 컴포넌트**
-<div align=center>
-  ![not-found](https://github.com/user-attachments/assets/f5ed5daa-9974-4f98-9751-ac6339bd913e)
-</div>
+
+<img src='https://github.com/user-attachments/assets/f5ed5daa-9974-4f98-9751-ac6339bd913e'/>
 
 </details>
 
@@ -361,14 +358,13 @@
 </div>
 
 - **개인정보 처리방침 페이지**
-<div align=center>
-  ![privacy](https://github.com/user-attachments/assets/c73cb78d-fb14-453f-a278-75443fd2d145)
-</div>
+
+<img src='https://github.com/user-attachments/assets/c73cb78d-fb14-453f-a278-75443fd2d145'/>
+
 
 - **사이트 이용약관 페이지**
-<div align=center>
-  ![terms](https://github.com/user-attachments/assets/8d07640c-8bfa-4486-8e10-03db0f2702f3)
-</div>
+
+<img src='https://github.com/user-attachments/assets/8d07640c-8bfa-4486-8e10-03db0f2702f3'/>
 
 </details>
 
