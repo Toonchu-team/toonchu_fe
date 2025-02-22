@@ -207,6 +207,68 @@
 
 ## ✅ Week 2 (2주차)
 
+<details>
+  <summary>👤 조유원</summary>
+
+### ✅ Done
+
+- 태그 드롭다운 메뉴 구현 (`TagDropdown.tsx`, `TagDropdownMobile.tsx`)
+  - ㄱㄴㄷ 페이지네이션
+  - 선택한 태그 상단에 표시
+- 태그별 검색 페이지 구현 (`TagSearchClient.tsx`)
+  - 인기순/조회순/등록순/최신순 정렬 드롭다운 메뉴 추가
+  - 페이지네이션 구현
+  - 상단 검색창 및 선택한 태그 표시
+- 연재별 검색 페이지 구현 (`DaySearchClient.tsx`)
+  - 인기순/조회순/등록순/최신순 정렬 드롭다운 메뉴 추가
+  - 페이지네이션 구현
+  - 상단 검색창 및 연재 여부, 요일 표시
+- 통합 검색 페이지 구현 (`GlobalSearchClient.tsx`)
+  - 메인 헤더 검색창에서 이동
+  - 인기순/조회순/등록순/최신순 정렬 드롭다운 메뉴 추가
+  - 페이지네이션 구현
+  - 상단 검색창 표시
+- SCSS를 활용하여 반응형 수정 (Tailwind CSS + SCSS)
+  - 코드 가독성 향상
+
+### 🚧 In Progress
+
+- API 연동
+  - `webtoonStore.ts` 작성 중
+- 메인 헤더 고양이 발바닥 애니메이션 추가
+
+### 🔍 Preview
+
+- 태그 드롭다운 메뉴 - 데스크탑
+<div align=center>
+  <img src='https://github.com/user-attachments/assets/866426b7-953e-4293-a929-45e63f6da566'/>
+</div>
+
+- 태그 드롭다운 메뉴 - 태블릿 & 모바일
+<div align=center>
+  <div>
+    <img src='https://github.com/user-attachments/assets/4b39ac73-f594-4b0e-aa21-8f3f88f73edf' width=200 />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <img src='https://github.com/user-attachments/assets/d30e2edb-2079-4395-bd51-2adf910c6e6e' width=300 />
+  </div>
+</div>
+
+- 검색 페이지 - 데스크탑
+<div align=center>
+  <img src='https://github.com/user-attachments/assets/46e99bca-dfb2-4eca-895c-2a8dc042c5ef'/>
+</div>
+
+- 검색 페이지 - 태블릿 & 모바일
+<div align=center>
+  <div>
+    <img src='https://github.com/user-attachments/assets/7dd54879-8aa6-4780-80a1-2cd171757067' width=200 />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <img src='https://github.com/user-attachments/assets/ab4aa819-d591-4621-b884-6e8e8006850a' width=300 />
+  </div>
+</div>
+
+</details>
+
 ---
 
 <details>
@@ -271,19 +333,16 @@
 ### :mag: Preview
 
 - **모달 컴포넌트**
-  
-<img src='https://github.com/user-attachments/assets/7b7ee67f-60ce-46d1-9b32-c322b3953aca'/>
 
+<img src='https://github.com/user-attachments/assets/7b7ee67f-60ce-46d1-9b32-c322b3953aca'/>
 
 - **로딩 컴포넌트**
 
 <img src='https://github.com/user-attachments/assets/903fa15d-fe7c-4b75-a45f-07a471b8039e'/>
 
-
 - **에러 컴포넌트**
 
 <img src='https://github.com/user-attachments/assets/f7c836cc-b076-4a18-bd82-01c6133b5dad'/>
-
 
 - **찾을 수 없는 페이지(not-found) 컴포넌트**
 
@@ -361,7 +420,6 @@
 - **개인정보 처리방침 페이지**
 
 <img src='https://github.com/user-attachments/assets/c73cb78d-fb14-453f-a278-75443fd2d145'/>
-
 
 - **사이트 이용약관 페이지**
 
