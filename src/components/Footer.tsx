@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
         <div className="mb-10 flex h-fit w-full flex-col items-start justify-center md:mb-0 md:w-fit md:items-center">
           <Link
-            className="w-fit shrink-0 rounded-full bg-gradient-to-r from-bg-yellow-01 to-bg-grey-01 px-10 py-2 font-bold shadow-lg transition-transform duration-200 ease-in-out hover:scale-105"
+            className="w-fit shrink-0 rounded-full bg-gradient-to-r from-bg-yellow-01 to-bg-grey-01 px-10 py-2 font-bold shadow-lg transition-transform duration-200 ease-in-out hover:text-black"
             href="/login"
           >
             툰츄 회원가입
@@ -127,15 +127,15 @@ export default function Footer() {
           className="absolute bottom-[-3px] right-4 md:right-10"
         />
       </div>
-      <div className="flex w-full items-center justify-center">
+      <div className="flex w-full flex-col items-center justify-center sm:flex-row">
         <Link
-          className="text-nowrap border-r-[1px] border-main-text px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="text-nowrap border-r-0 border-main-text px-2 pb-2 underline-offset-8 hover:text-black hover:underline sm:border-r-[1px] sm:px-4 sm:pb-0"
           href="/privacy"
         >
           개인정보 처리방침
         </Link>
         <Link
-          className="text-nowrap border-r-[1px] border-main-text px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="mb-2 text-nowrap border-y-[1px] border-r-0 border-main-text px-2 py-2 underline-offset-8 hover:text-black hover:underline sm:mb-0 sm:border-y-0 sm:border-r-[1px] sm:px-4 sm:py-0 sm:pb-0"
           href="/terms"
         >
           사이트 이용약관

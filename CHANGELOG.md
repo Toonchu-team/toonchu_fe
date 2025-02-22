@@ -85,6 +85,7 @@
   - 클라이언트 사이드 BP 감지 커스텀 훅 구현 (`useBreakpoint.ts`)
     - Resize 이벤트를 이용한 화면 크기 기반 동적 BP 감지
 - **공통 컴포넌트 - 외부 클릭 감지 커스텀 훅 구현** (`useOutsideClick.tsx`)
+
 - **공통 컴포넌트 - 모바일/탭뷰를 위한 바텀 팝업 시트 구현** (`BottomSlideUpMenu.tsx`)
 
   - body 스크롤 잠금 기능 구현 (`useLockBodyScroll`)
@@ -246,6 +247,8 @@
 
 - **공통 컴포넌트 - 에러화면 구현** (`error.tsx`)
 
+- **공통 컴포넌트 - '찾을수 없는 페이지'화면 구현** (`not-found.tsx`)
+
 ### :construction: In Progress
 
 - **로그인/로그아웃 기능**
@@ -281,7 +284,12 @@
 
 - **에러 컴포넌트**
 <div align=center>
-  로딩 컴포넌트 GIF 이미지 추가 예정
+  에러 컴포넌트 GIF 이미지 추가 예정
+</div>
+
+- **찾을 수 없는 페이지(not-found) 컴포넌트**
+<div align=center>
+  찾을 수 없는 페이지 컴포넌트 GIF 이미지 추가 예정
 </div>
 
 </details>
