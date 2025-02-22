@@ -146,8 +146,7 @@
 
 - **공통 컴포넌트 - 네비게이션 바**
 <div align="center">
-  <kbd>
-  </kbd>
+  ![nav](https://github.com/user-attachments/assets/aabb5296-6698-4894-95da-fc60b84b85ae)
 </div>
 
 </details>
@@ -274,22 +273,22 @@
 
 - **모달 컴포넌트**
 <div align=center>
-  모달 컴포넌트 GIF 이미지 추가 예정
+  ![modal](https://github.com/user-attachments/assets/a3524f76-8861-4fd1-876e-963769138d0f)
 </div>
 
 - **로딩 컴포넌트**
 <div align=center>
-  로딩 컴포넌트 GIF 이미지 추가 예정
+  ![loading](https://github.com/user-attachments/assets/903fa15d-fe7c-4b75-a45f-07a471b8039e)
 </div>
 
 - **에러 컴포넌트**
 <div align=center>
-  에러 컴포넌트 GIF 이미지 추가 예정
+  ![error](https://github.com/user-attachments/assets/f7c836cc-b076-4a18-bd82-01c6133b5dad)
 </div>
 
 - **찾을 수 없는 페이지(not-found) 컴포넌트**
 <div align=center>
-  찾을 수 없는 페이지 컴포넌트 GIF 이미지 추가 예정
+  ![not-found](https://github.com/user-attachments/assets/f5ed5daa-9974-4f98-9751-ac6339bd913e)
 </div>
 
 </details>
@@ -363,12 +362,12 @@
 
 - **개인정보 처리방침 페이지**
 <div align=center>
-  개인정보 처리방침 페이지 이미지 추가 예정
+  ![privacy](https://github.com/user-attachments/assets/c73cb78d-fb14-453f-a278-75443fd2d145)
 </div>
 
 - **사이트 이용약관 페이지**
 <div align=center>
-  사이트 이용약관 페이지 추가 예정
+  ![terms](https://github.com/user-attachments/assets/8d07640c-8bfa-4486-8e10-03db0f2702f3)
 </div>
 
 </details>
