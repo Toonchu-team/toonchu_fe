@@ -272,7 +272,7 @@
 
 - **모달 컴포넌트**
   
-<img src='github.com/user-attachments/assets/a3524f76-8861-4fd1-876e-963769138d0f'/>
+<img src='https://github.com/user-attachments/assets/7b7ee67f-60ce-46d1-9b32-c322b3953aca'/>
 
 
 - **로딩 컴포넌트**
@@ -283,6 +283,7 @@
 - **에러 컴포넌트**
 
 <img src='https://github.com/user-attachments/assets/f7c836cc-b076-4a18-bd82-01c6133b5dad'/>
+
 
 - **찾을 수 없는 페이지(not-found) 컴포넌트**
 
