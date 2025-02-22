@@ -13,6 +13,13 @@ export default function Footer() {
     <footer className="mt-40 flex h-fit min-h-96 w-full min-w-[320px] shrink-0 flex-col gap-4 bg-gradient-to-b from-white to-main-yellow px-mobile pb-20 text-sm text-main-text md:px-tablet md:text-base lg:px-52">
       <div className="mt-20 flex flex-col justify-between gap-4 md:flex-row">
         <div className="w-full md:w-2/3">
+          <Image
+            src="/images/logo/logo-eng.png"
+            alt="툰츄 로고 이미지"
+            width={150}
+            height={56}
+            className="mb-4"
+          />
           <p>상호명 : 툰츄</p>
           <p>대표번호 : 010-7310-7587</p>
           <p>이메일 주소 : toonchu.official@gmail.com</p>
@@ -23,9 +30,9 @@ export default function Footer() {
           <p>개인정보관리책임자 : 김 규태</p>
           <p>호스팅제공자 : 네이버 클라우드 플랫폼</p>
         </div>
-        <div className="mb-10 flex h-fit w-full flex-col items-start justify-center md:mb-0 md:w-1/3 md:items-center">
+        <div className="mb-10 flex h-fit w-full flex-col items-start justify-center md:mb-0 md:w-fit md:items-center">
           <Link
-            className="w-fit shrink-0 rounded-full bg-gradient-to-r from-bg-yellow-01 to-bg-grey-01 px-10 py-2 font-bold shadow-lg transition-transform duration-200 ease-in-out hover:scale-105"
+            className="w-fit shrink-0 rounded-full bg-gradient-to-r from-bg-yellow-01 to-bg-grey-01 px-10 py-2 font-bold shadow-lg transition-transform duration-200 ease-in-out hover:text-black"
             href="/login"
           >
             툰츄 회원가입
@@ -120,18 +127,24 @@ export default function Footer() {
           className="absolute bottom-[-3px] right-4 md:right-10"
         />
       </div>
-      <div className="flex w-full items-center justify-center">
+      <div className="flex w-full flex-col items-center justify-center sm:flex-row">
         <Link
-          className="text-nowrap border-r-[1px] border-main-text px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="text-nowrap border-r-0 border-main-text px-2 pb-2 underline-offset-8 hover:text-black hover:underline sm:border-r-[1px] sm:px-4 sm:pb-0"
           href="/privacy"
         >
           개인정보 처리방침
         </Link>
         <Link
-          className="text-nowrap px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="mb-2 text-nowrap border-y-[1px] border-r-0 border-main-text px-2 py-2 underline-offset-8 hover:text-black hover:underline sm:mb-0 sm:border-y-0 sm:border-r-[1px] sm:px-4 sm:py-0 sm:pb-0"
           href="/terms"
         >
           사이트 이용약관
+        </Link>
+        <Link
+          className="text-nowrap px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          href="https://form.typeform.com/to/ASObDg8w"
+        >
+          😺태그에게 피드백 보내기
         </Link>
       </div>
       <p className="w-full py-4 text-center text-xs text-main-text">

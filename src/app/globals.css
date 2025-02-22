@@ -36,6 +36,15 @@
   .page-title {
     @apply my-7 text-2xl font-bold;
   }
+  .policy-ol-container {
+    @apply text-wrap pl-8 font-nanumsquare;
+  }
+  .policy-item-decimal {
+    @apply list-decimal;
+  }
+  .policy-link {
+    @apply border-b-[1px] border-transparent pb-1 hover:border-black hover:text-black;
+  }
 }
 
 @layer utilities {
@@ -115,4 +124,24 @@
 
 .swiper-button-disabled {
   opacity: 0.3 !important;
+}
+
+/* 애니메이션 - 로딩바 */
+@keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  33% {
+    width: 33%;
+  }
+  66% {
+    width: 66%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animation-loading-bar {
+  animation: loading-bar infinite 600ms linear;
 }

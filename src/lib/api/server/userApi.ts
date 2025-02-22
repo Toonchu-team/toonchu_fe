@@ -22,10 +22,6 @@ export const userApi = {
     "use server";
     const access_token = await getAccessToken();
 
-    if (!access_token) {
-      return null;
-    }
-
     try {
       const response = await fetch(
         `${process.env.SERVER_URL}/users/me/profile/update/`,
@@ -37,10 +33,6 @@ export const userApi = {
       );
 
       if (!response.ok) {
-        if (response.status === 401) {
-          console.warn("인증 실패: access_token이 유효하지 않음");
-          return null;
-        }
         throw new Error("로그인 유저 정보 찾기 실패");
       }
 
@@ -79,8 +71,7 @@ export const userApi = {
       );
 
       if (!response.ok) {
-        const errorData = await response.text();
-        console.error("Backend error response:", errorData);
+        console.log("Backend error response", response);
         throw new Error("소셜 로그인 인증 실패");
       }
 
@@ -162,6 +153,8 @@ export const userApi = {
       formData.append("profile_image", profile_image);
     }
 
+    console.log("formData - userApi.ts: ", formData);
+
     const response = await fetch(
       `${process.env.SERVER_URL}/users/me/profile/update/`,
       {
@@ -177,6 +170,8 @@ export const userApi = {
     if (!response.ok) {
       throw new Error("프로필 수정 실패-userApi");
     }
+
+    console.log("프로필 수정 요청시 BE응답: ", response);
   },
 
   getNewAcessToken: async (): Promise<string> => {

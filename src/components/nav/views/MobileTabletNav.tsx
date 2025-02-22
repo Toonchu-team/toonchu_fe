@@ -11,7 +11,7 @@ import useProfileStore from "@/stores/profileStore";
 import TagDropdownMobile from "@/components/tagDropdown/TagDropdownMobile";
 
 export default function MobileTabletNav() {
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
   const pathname = usePathname();
