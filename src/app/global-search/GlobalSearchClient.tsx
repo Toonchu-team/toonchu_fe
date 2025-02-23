@@ -12,6 +12,7 @@ import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 import ResponsiveSearchBar from "@/components/common/searchBar/ResponsiveSearchBar";
 import useWebtoonStore from "@/stores/webtoonStore";
 import { usePathname } from "next/navigation";
+import NoResults from "@/app/noResults";
 
 export default function GlobalSearchClient() {
   const breakpoint = useBreakpoint();
@@ -56,29 +57,32 @@ export default function GlobalSearchClient() {
           <div
             className={clsx("flex flex-col items-center", s.dropdown_container)}
           >
-            <div
-              className={`${s.dropdown} border-1-main-text self-start border px-2 py-1`}
-            >
-              {breakpoint === "mobile" ? (
-                <DropdownMobile
-                  openDropdown={openDropdown}
-                  setOpenDropdown={setOpenDropdown}
-                  elements={sortArray}
-                  option={sort}
-                  setOption={setSort}
-                />
-              ) : (
-                <Dropdown
-                  openDropdown={openDropdown}
-                  setOpenDropdown={setOpenDropdown}
-                  elements={sortArray}
-                  option={sort}
-                  setOption={setSort}
-                />
-              )}
-            </div>
+            {webtoons.length !== 0 && (
+              <div
+                className={`${s.dropdown} border-1-main-text self-start border px-2 py-1`}
+              >
+                {breakpoint === "mobile" ? (
+                  <DropdownMobile
+                    openDropdown={openDropdown}
+                    setOpenDropdown={setOpenDropdown}
+                    elements={sortArray}
+                    option={sort}
+                    setOption={setSort}
+                  />
+                ) : (
+                  <Dropdown
+                    openDropdown={openDropdown}
+                    setOpenDropdown={setOpenDropdown}
+                    elements={sortArray}
+                    option={sort}
+                    setOption={setSort}
+                  />
+                )}
+              </div>
+            )}
 
             {/* 검색 결과 - 카드 컴포넌트 */}
+            {webtoons.length === 0 && <NoResults />}
             <div className={clsx("flex gap-x-10 gap-y-7", s.search_result)}>
               <PaginationList data={data}>
                 {(webtoonData) =>

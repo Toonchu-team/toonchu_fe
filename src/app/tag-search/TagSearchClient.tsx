@@ -10,6 +10,7 @@ import s from "./tagSearch.module.scss";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
 import useWebtoonStore from "@/stores/webtoonStore";
+import NoResults from "../noResults";
 
 export default function TagSearchClient() {
   const { selectedTags, selectedTagIds, toggleTag, resetTag, webtoons } =
@@ -88,29 +89,32 @@ export default function TagSearchClient() {
           </div>
 
           <div className={clsx("flex flex-col", s.dropdown_container)}>
-            <div
-              className={`${s.dropdown} border-1-main-text self-start border px-2 py-1`}
-            >
-              {breakpoint === "mobile" ? (
-                <DropdownMobile
-                  openDropdown={openDropdown}
-                  setOpenDropdown={setOpenDropdown}
-                  elements={sortArray}
-                  option={sort}
-                  setOption={setSort}
-                />
-              ) : (
-                <Dropdown
-                  openDropdown={openDropdown}
-                  setOpenDropdown={setOpenDropdown}
-                  elements={sortArray}
-                  option={sort}
-                  setOption={setSort}
-                />
-              )}
-            </div>
+            {webtoons.length !== 0 && (
+              <div
+                className={`${s.dropdown} border-1-main-text self-start border px-2 py-1`}
+              >
+                {breakpoint === "mobile" ? (
+                  <DropdownMobile
+                    openDropdown={openDropdown}
+                    setOpenDropdown={setOpenDropdown}
+                    elements={sortArray}
+                    option={sort}
+                    setOption={setSort}
+                  />
+                ) : (
+                  <Dropdown
+                    openDropdown={openDropdown}
+                    setOpenDropdown={setOpenDropdown}
+                    elements={sortArray}
+                    option={sort}
+                    setOption={setSort}
+                  />
+                )}
+              </div>
+            )}
 
             {/* 검색 결과 - 카드 컴포넌트 */}
+            {webtoons.length === 0 && <NoResults />}
             <div className={clsx("flex gap-x-10 gap-y-7", s.search_result)}>
               <PaginationList data={data}>
                 {(webtoonData) =>
