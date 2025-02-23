@@ -9,22 +9,21 @@ import { WebtoonData } from "./type";
 import { dayMapping } from "@/lib/utils/korFomatter";
 
 const WebtoonCardMobile = ({ data }: { data: WebtoonData }) => {
-  const tags = data.tags.map((tag) => tag.tag_name);
   const koreanDay = dayMapping[data.serial_day];
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   return (
-    <div className="flex h-[120px] min-w-[320px] max-w-[672x] drop-shadow-lg">
-      <Image
+    <div className="flex h-[120px] w-[339px] drop-shadow-lg">
+      {/* <Image
         src={data && data.thumbnail}
         alt="썸네일"
         width={83}
         height={120}
         unoptimized
         className="rounded-bl-xl rounded-tl-xl"
-      />
-      <div className="border-1 relative flex min-w-64 max-w-[580px] flex-col rounded-br-xl rounded-tr-xl border bg-white">
+      /> */}
+      <div className="border-1 relative flex w-[339px] flex-col rounded-br-xl rounded-tr-xl border bg-white">
         <Heart
           className="absolute right-10 top-2 cursor-pointer"
           size={17}
@@ -70,8 +69,8 @@ const WebtoonCardMobile = ({ data }: { data: WebtoonData }) => {
               className="absolute self-end rounded-tr-xl"
             />
           ) : (
-            <div className="absolute left-0 flex h-[30px] w-[30px] items-center justify-center rounded-lg rounded-tr-xl bg-bg-yellow-01">
-              <p className="text-xs text-main-text">준비중</p>
+            <div className="absolute flex h-[30px] w-[30px] items-center justify-center self-end rounded-lg rounded-tr-xl bg-bg-yellow-01">
+              <p className="text-[8px] text-main-text">준비중</p>
             </div>
           )
         ) : null}
@@ -85,7 +84,7 @@ const WebtoonCardMobile = ({ data }: { data: WebtoonData }) => {
             <p className="text-[10px] text-main-text">{data && data.author}</p>
           </div>
           <div className="flex h-[50px] flex-wrap gap-1 overflow-y-auto">
-            {tags.map((tag, index) => {
+            {data.tags.map((tag, index) => {
               return <Tags key={index} tag={tag} />;
             })}
           </div>

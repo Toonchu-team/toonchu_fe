@@ -13,7 +13,7 @@ const DropdownMobile = ({
   setOpenDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   elements: string[];
   option: string;
-  setOption: React.Dispatch<React.SetStateAction<string>>;
+  setOption: (value: string) => void;
 }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 

@@ -13,7 +13,7 @@ const Dropdown = ({
   setOpenDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   elements: string[];
   option: string;
-  setOption: React.Dispatch<React.SetStateAction<string>>;
+  setOption: (value: string) => void;
 }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -35,13 +35,13 @@ const Dropdown = ({
         >
           <p>{option}</p>
           <ChevronDown
-            className="absolute right-1"
+            className="absolute right-0 xl:right-1"
             color="#6a6a6a"
             width={20}
           />
         </div>
         {openDropdown && (
-          <div className="border-1 absolute top-10 z-50 flex h-28 w-28 cursor-pointer flex-col rounded-xl border bg-white text-sm shadow-lg xl:h-32 xl:w-36 xl:text-base">
+          <div className="border-1 absolute top-10 z-50 flex h-32 w-28 cursor-pointer flex-col rounded-xl border bg-white text-sm shadow-lg xl:h-32 xl:w-36 xl:text-base">
             {elements.map((el, index) => (
               <div
                 key={index}
