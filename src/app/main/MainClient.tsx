@@ -10,9 +10,18 @@ import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 import Header from "@/components/common/Header";
 import s from "./main.module.scss";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
+import { useEffect } from "react";
+import useWebtoonStore from "@/stores/webtoonStore";
 
 export default function MainClient() {
   const breakpoint = useBreakpoint();
+  const resetSearchState = useWebtoonStore((state) => state.resetSearchState);
+
+  // 메인에서는 검색 모두 초기화
+  useEffect(() => {
+    resetSearchState();
+  }, [resetSearchState]);
+
   const data = {
     webtoons: [
       {

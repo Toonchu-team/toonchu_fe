@@ -7,160 +7,31 @@ import clsx from "clsx";
 import Dropdown from "@/components/common/dropdown/Dropdown";
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
 import s from "./globalSearch.module.scss";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
 import ResponsiveSearchBar from "@/components/common/searchBar/ResponsiveSearchBar";
+import useWebtoonStore from "@/stores/webtoonStore";
+import { usePathname } from "next/navigation";
 
 export default function GlobalSearchClient() {
   const breakpoint = useBreakpoint();
-  const data = {
-    webtoons: [
-      {
-        title: "Tower of God",
-        author: "SIU",
-        thumbnail: "https://picsum.photos/200/300?random=1",
-        webtoon_url: "https://webtoon.naver.com/tower_of_god",
-        publication_day: "2025-02-19",
-        platform: "naver",
-        serial_day: "mon",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:16:58.904Z",
-        updated_at: "2025-02-19T06:16:58.904Z",
-        tags: [
-          { id: 1, tag_name: "fantasy", category: "genre" },
-          { id: 2, tag_name: "adventure", category: "genre" },
-        ],
-      },
-      {
-        title: "The Boxer",
-        author: "JH",
-        thumbnail: "https://picsum.photos/200/300?random=2",
-        webtoon_url: "https://webtoon.naver.com/the_boxer",
-        publication_day: "2025-02-19",
-        platform: "naver",
-        serial_day: "tue",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:17:00.904Z",
-        updated_at: "2025-02-19T06:17:00.904Z",
-        tags: [
-          { id: 3, tag_name: "sports", category: "genre" },
-          { id: 4, tag_name: "drama", category: "genre" },
-        ],
-      },
-      {
-        title: "Omniscient Reader's Viewpoint",
-        author: "Sing N Song",
-        thumbnail: "https://picsum.photos/200/300?random=3",
-        webtoon_url: "https://webtoon.kakao.com/omniscient_reader",
-        publication_day: "2025-02-19",
-        platform: "kakao",
-        serial_day: "wed",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:17:02.904Z",
-        updated_at: "2025-02-19T06:17:02.904Z",
-        tags: [
-          { id: 5, tag_name: "fantasy", category: "genre" },
-          { id: 6, tag_name: "action", category: "genre" },
-        ],
-      },
-      {
-        title: "Lookism",
-        author: "Park Tae-jun",
-        thumbnail: "https://picsum.photos/200/300?random=4",
-        webtoon_url: "https://webtoon.kakaopage.com/lookism",
-        publication_day: "2025-02-19",
-        platform: "kakaopage",
-        serial_day: "thu",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:17:04.904Z",
-        updated_at: "2025-02-19T06:17:04.904Z",
-        tags: [
-          { id: 7, tag_name: "drama", category: "genre" },
-          { id: 8, tag_name: "action", category: "genre" },
-        ],
-      },
-      {
-        title: "Eleceed",
-        author: "Jeho Son & ZHENA",
-        thumbnail: "https://picsum.photos/200/300?random=5",
-        webtoon_url: "https://webtoon.naver.com/eleceed",
-        publication_day: "2025-02-19",
-        platform: "naver",
-        serial_day: "fri",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:17:06.904Z",
-        updated_at: "2025-02-19T06:17:06.904Z",
-        tags: [
-          { id: 9, tag_name: "action", category: "genre" },
-          { id: 10, tag_name: "fantasy", category: "genre" },
-        ],
-      },
-      {
-        title: "Solo Leveling",
-        author: "Chugong",
-        thumbnail: "https://picsum.photos/200/300?random=6",
-        webtoon_url: "https://webtoon.kakao.com/solo_leveling",
-        publication_day: "2025-02-19",
-        platform: "kakao",
-        serial_day: "sat",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:18:00.904Z",
-        updated_at: "2025-02-19T06:18:00.904Z",
-        tags: [
-          { id: 11, tag_name: "action", category: "genre" },
-          { id: 12, tag_name: "fantasy", category: "genre" },
-        ],
-      },
-      {
-        title: "The God of High School",
-        author: "Yongje Park",
-        thumbnail: "https://picsum.photos/200/300?random=7",
-        webtoon_url: "https://webtoon.kakaopage.com/god_of_highschool",
-        publication_day: "2025-02-19",
-        platform: "kakaopage",
-        serial_day: "sun",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:19:00.904Z",
-        updated_at: "2025-02-19T06:19:00.904Z",
-        tags: [
-          { id: 13, tag_name: "martial arts", category: "genre" },
-          { id: 14, tag_name: "action", category: "genre" },
-        ],
-      },
-      {
-        title: "Noblesse",
-        author: "Son Jeho & Lee Kwangsu",
-        thumbnail: "https://picsum.photos/200/300?random=8",
-        webtoon_url: "https://webtoon.naver.com/noblesse",
-        publication_day: "2025-02-19",
-        platform: "naver",
-        serial_day: "mon",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:20:00.904Z",
-        updated_at: "2025-02-19T06:20:00.904Z",
-        tags: [
-          { id: 15, tag_name: "fantasy", category: "genre" },
-          { id: 16, tag_name: "vampire", category: "genre" },
-        ],
-      },
-      {
-        title: "Sweet Home",
-        author: "Kim Carnby & Hwang Youngchan",
-        thumbnail: "https://picsum.photos/200/300?random=9",
-        webtoon_url: "https://webtoon.kakao.com/sweet_home",
-        publication_day: "2025-02-19",
-        platform: "kakao",
-        serial_day: "tue",
-        serialization_cycle: "1weeks",
-        created_at: "2025-02-19T06:21:00.904Z",
-        updated_at: "2025-02-19T06:21:00.904Z",
-        tags: [
-          { id: 17, tag_name: "horror", category: "genre" },
-          { id: 18, tag_name: "thriller", category: "genre" },
-        ],
-      },
-    ],
-  };
+  const { webtoons } = useWebtoonStore();
+  const data = webtoons;
+
+  const resetSearchState = useWebtoonStore((state) => state.resetSearchState);
+  // 컴포넌트 언마운트 시 검색 결과 초기화
+  // 컴포넌트가 마운트될 때의 초기 pathname을 저장
+  const pathname = usePathname();
+  const initialPathname = useRef(pathname);
+
+  useEffect(() => {
+    // pathname이 변경되면 GlobalSearchClient 페이지가 아니면 상태 초기화
+    if (pathname !== initialPathname.current) {
+      if (!pathname.includes("/global-search")) {
+        resetSearchState();
+      }
+    }
+  }, [pathname, resetSearchState]);
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("인기순");
@@ -209,7 +80,7 @@ export default function GlobalSearchClient() {
 
             {/* 검색 결과 - 카드 컴포넌트 */}
             <div className={clsx("flex gap-x-10 gap-y-7", s.search_result)}>
-              <PaginationList data={data.webtoons}>
+              <PaginationList data={data}>
                 {(webtoonData) =>
                   breakpoint === "mobile" ? (
                     <WebtoonCardMobile data={webtoonData} />
