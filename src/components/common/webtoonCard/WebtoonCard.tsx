@@ -11,8 +11,6 @@ import { dayMapping } from "@/lib/utils/korFomatter";
 import { useRouter } from "next/navigation";
 
 const WebtoonCard = ({ data }: { data: WebtoonData }) => {
-  // 임시 데이터
-  const tags = data.tags.map((tag) => tag.tag_name);
   const koreanDay = dayMapping[data.serial_day];
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -29,14 +27,14 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
       }}
     >
       {/* 웹툰 이미지 */}
-      <Image
+      {/* <Image
         src={data?.thumbnail}
         alt="웹툰 이미지"
         width={180}
         height={257}
         className="h-[170px] w-[100px] rounded-bl-2xl rounded-tl-2xl xl:h-[257px] xl:w-[180px]"
         priority
-      />
+      /> */}
 
       {/* 카드 컨테이너 */}
       <div
@@ -87,7 +85,7 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
           ) : data.platform === "postype" ? (
             <Image
               src="/postTypeSquare.png"
-              alt="포스트타입 로고"
+              alt="포스타입 로고"
               width={40}
               height={40}
               className="absolute right-0 rounded-tr-xl"
@@ -121,10 +119,10 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
             <div
               className={clsx(
                 "flex flex-wrap gap-1 overflow-y-auto",
-                "h-[100px]",
+                "h-[50px] xl:h-[100px]",
               )}
             >
-              {tags.map((tag, index) => (
+              {data.tags.map((tag, index) => (
                 <Tags key={index} tag={tag} />
               ))}
             </div>
