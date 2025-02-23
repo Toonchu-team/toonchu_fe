@@ -1,4 +1,5 @@
 "use server";
+
 import { userApi } from "@/lib/api/server/userApi";
 import { revalidatePath } from "next/cache";
 
@@ -9,7 +10,6 @@ export async function getUserAction() {
     if (!user) {
       return null;
     }
-    console.log("유저 fetch 정보(not zustand", user);
 
     return user;
   } catch (error) {

@@ -32,8 +32,7 @@ export default function ProfileEdit({ user }: { user: User }) {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    const nickNameToUpdate =
-      newNickName !== user.nick_name ? newNickName : user.nick_name;
+    const nickNameToUpdate = newNickName === "" ? user.nick_name : newNickName;
 
     try {
       await profileUpdateAction(nickNameToUpdate, selectedImageFile);
@@ -99,17 +98,18 @@ export default function ProfileEdit({ user }: { user: User }) {
           className="absolute inset-0 h-full w-full cursor-pointer overflow-hidden opacity-0"
           onChange={handleImageChange}
         />
-        <p className="text-xs font-bold">
-          이미지 크기는 5MB를 초과할 수 없어요.
-        </p>
       </fieldset>
-
+      <p className="text-xs font-bold">
+        이미지 크기는 <span className="text-main-red">5MB</span>를 초과할 수
+        없어요.
+      </p>
       <fieldset className="flex w-full flex-col items-center">
         <legend className="sr-only">닉네임 변경</legend>
         <div className="w-full">
           <p className="font-bold">새 닉네임</p>
           <p className="text-xs font-bold">
-            닉네임은 최대 16자까지 입력할 수 있어요.
+            닉네임은 <span className="text-main-red">최대 16자</span>까지 입력할
+            수 있어요.
           </p>
           <input
             type="text"

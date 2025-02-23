@@ -32,6 +32,10 @@ export const userApi = {
         },
       );
 
+      // if (!response.ok) {
+      //   redirect("/login");
+      // }
+
       if (!response.ok) {
         throw new Error("로그인 유저 정보 찾기 실패");
       }

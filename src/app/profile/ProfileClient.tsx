@@ -15,7 +15,6 @@ export default function ProfileClient({ user }: ProfileClientProps) {
   const isEditing = useProfileStore((state) => state.isEditing);
 
   useEffect(() => {
-    console.log("여기", user);
     return () => {
       setIsEditing(false);
     };
