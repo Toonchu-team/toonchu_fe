@@ -36,9 +36,9 @@ export const userApi = {
         throw new Error("로그인 유저 정보 찾기 실패");
       }
 
-      const data = await response.json();
+      const user = await response.json();
 
-      return data;
+      return user;
     } catch (error) {
       console.error("getLoginUser 오류:", error);
       return null;

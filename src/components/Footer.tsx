@@ -129,19 +129,19 @@ export default function Footer() {
       </div>
       <div className="flex w-full flex-col items-center justify-center sm:flex-row">
         <Link
-          className="text-nowrap border-r-0 border-main-text px-2 pb-2 underline-offset-8 hover:text-black hover:underline sm:border-r-[1px] sm:px-4 sm:pb-0"
+          className="text-nowrap border-r-0 border-main-text px-2 pb-2 underline-offset-8 hover:text-black sm:border-r-[1px] sm:px-4 sm:pb-0 sm:hover:underline"
           href="/privacy"
         >
           개인정보 처리방침
         </Link>
         <Link
-          className="mb-2 text-nowrap border-y-[1px] border-r-0 border-main-text px-2 py-2 underline-offset-8 hover:text-black hover:underline sm:mb-0 sm:border-y-0 sm:border-r-[1px] sm:px-4 sm:py-0 sm:pb-0"
+          className="mb-2 text-nowrap border-y-[1px] border-r-0 border-main-text px-2 py-2 underline-offset-8 hover:text-black sm:mb-0 sm:border-y-0 sm:border-r-[1px] sm:px-4 sm:py-0 sm:pb-0 sm:hover:underline"
           href="/terms"
         >
           사이트 이용약관
         </Link>
         <Link
-          className="text-nowrap px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="text-nowrap px-2 underline-offset-8 hover:text-black sm:px-4 sm:hover:underline"
           href="https://form.typeform.com/to/ASObDg8w"
         >
           😺태그에게 피드백 보내기

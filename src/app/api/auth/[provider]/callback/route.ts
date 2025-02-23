@@ -13,9 +13,6 @@ export async function GET(request: Request) {
     );
   }
 
-  console.log("provider: ", provider);
-  console.log("code: ", code);
-
   try {
     const { access_token, refresh_token, user } =
       await userApi.handleSocialLogin(provider, code);
@@ -44,6 +41,7 @@ export async function GET(request: Request) {
     console.log("리다이렉트 직전");
     console.log("user(백엔드응답): ", user);
     console.log("access_token(백엔드응답): ", access_token);
+    console.log("refresh_token(백엔드응답): ", refresh_token);
 
     // 리다이렉트
     return response;
