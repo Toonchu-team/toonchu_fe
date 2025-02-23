@@ -3,7 +3,7 @@ export type SocialProvider = "google" | "naver" | "kakao";
 export interface User {
   id: number;
   email: string;
-  nick_name?: string;
+  nick_name: string;
   profile_image?: string;
   provider: SocialProvider;
   is_hidden?: boolean;
