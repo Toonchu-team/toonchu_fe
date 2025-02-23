@@ -8,10 +8,6 @@ import { Heart } from "lucide-react";
 import { WebtoonData } from "./type";
 
 const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
-  console.log(data);
-  // 임시 데이터
-  const tags = data.tags.map((tag) => tag.tag_name);
-
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   return (
@@ -22,14 +18,14 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
       )}
     >
       {/* 웹툰 이미지 */}
-      <Image
+      {/* <Image
         src={data && data.thumbnail}
         alt="웹툰 이미지"
         width={300}
         height={216}
         className="h-[216px] rounded-xl object-cover"
         priority
-      />
+      /> */}
 
       {/* 즐겨찾기 버튼 */}
       <div className="absolute right-0 h-10 w-10 rounded-tr-xl bg-[#968E82] bg-opacity-70">
@@ -72,7 +68,7 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
         ) : data.platform === "postype" ? (
           <Image
             src="/postypeSquare.png"
-            alt="포스트타입 로고"
+            alt="포스타입 로고"
             width={40}
             height={40}
             className="absolute left-0 rounded-tl-xl"
@@ -109,7 +105,7 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
               "h-[72px] gap-1",
             )}
           >
-            {tags.map((tag, index) => (
+            {data.tags.map((tag, index) => (
               <Tags key={index} tag={tag} />
             ))}
           </div>
