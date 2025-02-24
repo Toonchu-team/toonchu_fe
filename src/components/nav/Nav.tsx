@@ -12,7 +12,6 @@ export default async function Nav() {
   if (access_token) {
     try {
       user = await userApi.getLoginUser();
-      console.log("user(Nav.tsx): ", user);
     } catch (error) {
       console.error("유저 정보 가져오기 실패:", error);
     }
