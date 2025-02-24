@@ -1,6 +1,5 @@
 import { AuthResponse } from "@/lib/types/auth";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 const getAccessToken = async () => {
   const cookieStore = await cookies();

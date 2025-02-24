@@ -1,5 +1,3 @@
-import { getUserAction } from "@/lib/actions/authActions";
-import { redirect } from "next/navigation";
 import NavClient from "./NavClient";
 import { cookies } from "next/headers";
 import { userApi } from "@/lib/api/server/userApi";
