@@ -28,7 +28,7 @@ export interface WebtoonRegisterRequest {
     webtoon_url: string;
     publication_day: string;
     platform: string;
-    serial_day: string;
+    serial_day: SerialDay[];
     serialization_cycle: string;
     created_at: string;
     updated_at: string;
