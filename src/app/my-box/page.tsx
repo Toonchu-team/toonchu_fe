@@ -16,9 +16,15 @@ const FavoritesList = dynamic(
 
 export default function MyBox() {
   const { user } = useAuthStore();
-  console.log(user); // 디버깅용
   const [activeTab, setActiveTab] = useState(0);
   const tabs = ["찜 목록", "최근 본 목록", "작품 등록", "등록 신청한 작품"];
+
+  // 사용자 프로필 이미지 경로
+  const profileImage = user?.profile_image || "/images/brand-character/default-profile.png";
+  // 사용자 닉네임 (없을 경우 기본값 표시)
+  const nickname = user?.nick_name || "NICKNAME";
+  // 사용자 이메일 (없을 경우 기본값 표시)
+  const email = user?.email || "nickname@gmail.com";
 
   return (
     <main className="min-h-screen bg-white">
@@ -29,7 +35,7 @@ export default function MyBox() {
           <div className="mx-auto flex max-w-4xl translate-y-[48%] items-center gap-6 px-4">
             <div className="relative h-[120px] w-[120px] overflow-hidden rounded-full border-4 border-white bg-white">
               <Image
-                src={"/images/brand-character/default-profile.png"}
+                src={profileImage}
                 alt="프로필 이미지"
                 className="object-cover"
                 sizes="130px"
@@ -39,9 +45,9 @@ export default function MyBox() {
             </div>
             <div className="flex flex-col gap-3">
               <p className="text-xl font-bold text-white">
-                NICKNAME(@123456789)
+                {nickname}
               </p>
-              <p className="font-bold text-[#DEB887]">{"nickname@gmail.com"}</p>
+              <p className="font-bold text-[#DEB887]">{email}</p>
             </div>
           </div>
         </div>
