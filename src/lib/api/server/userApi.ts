@@ -80,7 +80,6 @@ export const userApi = {
 
   handleLogout: async (): Promise<void> => {
     "use server";
-    const access_token = await getAccessToken();
     const refresh_token = await getRefreshToken();
 
     const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {

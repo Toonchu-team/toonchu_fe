@@ -14,8 +14,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    const { access_token, refresh_token, user } =
-      await userApi.handleSocialLogin(provider, code);
+    const { access_token, refresh_token } = await userApi.handleSocialLogin(
+      provider,
+      code,
+    );
 
     const response = NextResponse.redirect(new URL("/", request.url));
 
