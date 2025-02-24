@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     response.cookies.set("access_token", access_token, {
       httpOnly: true,
       path: "/",
-      maxAge: 60 * 30, // 30분
+      maxAge: 60 * 60, // 1시간
     });
     response.cookies.set("refresh_token", refresh_token, {
       httpOnly: true,
