@@ -510,7 +510,7 @@ export default async function Privacy() {
         <p>메인 페이지로 돌아가기</p>
       </Link>
       {/* API 테스트시 활성화 */}
-      {access_token && <TestBtn oldAt={access_token} />}
+      <TestBtn oldAt={access_token ?? null} />
     </div>
   );
 }

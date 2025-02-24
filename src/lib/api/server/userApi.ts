@@ -32,14 +32,7 @@ export const userApi = {
         },
       );
 
-      // if (!response.ok) {
-      //   redirect("/login");
-      // }
-
-      if (!response.ok) {
-        throw new Error("로그인 유저 정보 찾기 실패");
-      }
-
+      console.log("getLoginUser 정보", response);
       const user = await response.json();
 
       return user;
@@ -171,6 +164,8 @@ export const userApi = {
       },
     );
 
+    console.log(response);
+
     if (!response.ok) {
       throw new Error("프로필 수정 실패-userApi");
     }
@@ -197,6 +192,8 @@ export const userApi = {
           },
         },
       );
+
+      console.log("새로운 access_token 발급 요청시 BE응답: ", response);
 
       if (!response.ok) {
         throw new Error("새로운 access_token 발급 실패");

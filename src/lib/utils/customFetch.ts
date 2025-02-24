@@ -37,7 +37,7 @@ export async function customFetch(
         cookieStore.set("access_token", newAccessToken, {
           httpOnly: true,
           path: "/",
-          maxAge: 60 * 30,
+          maxAge: 30, // 30분 (추후 수정) 60 * 30
         });
 
         console.log("Retrying original request with new access token...");

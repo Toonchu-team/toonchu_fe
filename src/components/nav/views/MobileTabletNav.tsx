@@ -1,6 +1,5 @@
 "use client";
 
-import useAuthStore from "@/stores/authStore";
 import { AlignJustifyIcon, LogInIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,9 +8,9 @@ import { useState } from "react";
 import BottomSlideUpMenu from "@/components/common/BottomSlideUpMenu";
 import useProfileStore from "@/stores/profileStore";
 import TagDropdownMobile from "@/components/tagDropdown/TagDropdownMobile";
+import { User } from "@/lib/types/auth";
 
-export default function MobileTabletNav() {
-  const user = useAuthStore((state) => state.user);
+export default function MobileTabletNav({ user }: { user: User | null }) {
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
   const pathname = usePathname();

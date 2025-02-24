@@ -2,7 +2,7 @@
 
 import { testATAPI } from "@/lib/actions/authActions";
 
-export default function TestBtn({ oldAt }: { oldAt: string }) {
+export default function TestBtn({ oldAt }: { oldAt: string | null }) {
   const handleTest = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("테스트 버튼 클릭");
@@ -12,7 +12,7 @@ export default function TestBtn({ oldAt }: { oldAt: string }) {
       const response = await testATAPI();
 
       console.log("AT 재발급 성공 - TestButton:");
-      console.log(response);
+      console.log("새로 발급받은 Access Token (BE 응답): ", response);
     } catch (error) {
       console.error("프로필 업데이트 실패:", error);
     } finally {
