@@ -4,20 +4,23 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Info, PlusIcon, X, Camera } from "lucide-react";
 import { clsx } from "clsx";
+import { registerWebtoon } from '@/lib/api/server/webtoonApi';
+import { Platform, SerialDay, SerializationCycle, WebtoonRegisterRequest } from "@/lib/types/webtoon";
 
 function WebtoonRegisterForm() {
-  const [thumbnail, setThumbnail] = useState<string>("");
+  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [thumbnailPreview, setThumbnailPreview] = useState<string>("");
   const [authors, setAuthors] = useState<string[]>([""]);
-  const [selectedDays, setSelectedDays] = useState<string[]>([]);
-  const [cycle, setCycle] = useState<string>("");
+  const [selectedDays, setSelectedDays] = useState<SerialDay[]>(["mon"]);
+  const [cycle, setCycle] = useState<SerializationCycle>("1weeks");
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [platform] = useState<Platform>("naver");
 
   interface FormData {
     title: string;
-    authors: string[];
     webtoon_url: string;
     publication_day: string;
-    serial_day: string[];
-    serialization_cycle: string;
+    is_new: boolean;
     tags: {
       genre: string[];
       matter: string[];
@@ -34,11 +37,9 @@ function WebtoonRegisterForm() {
 
   const [formData, setFormData] = useState<FormData>({
     title: "",
-    authors: [""],
     webtoon_url: "",
     publication_day: "",
-    serial_day: [],
-    serialization_cycle: "",
+    is_new: true,
     tags: {
       genre: [],
       matter: [],
@@ -53,32 +54,7 @@ function WebtoonRegisterForm() {
     }
   });
 
-  const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      // 파일 크기 체크 (5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert("파일 용량은 5MB 이하여야 합니다.");
-        return;
-      }
-  
-      // 이미지 가로/세로 비율 체크
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = document.createElement('img');
-        img.onload = () => {
-          if (img.width > img.height) {
-            alert("세로형 이미지를 업로드 해 주세요.");
-            return;
-          }
-          setThumbnail(e.target?.result as string);
-        };
-        img.src = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
+  // 작가 관련 핸들러
   const addAuthorField = () => {
     setAuthors([...authors, ""]);
   };
@@ -95,6 +71,57 @@ function WebtoonRegisterForm() {
     setAuthors(newAuthors);
   };
 
+  // 이미지 업로드 핸들러
+  const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert("파일 용량은 5MB 이하여야 합니다.");
+        return;
+      }
+  
+      const img = document.createElement('img');
+      const objectUrl = URL.createObjectURL(file);
+      
+      img.onload = () => {
+        if (img.width > img.height) {
+          alert("세로형 이미지를 업로드 해 주세요.");
+          URL.revokeObjectURL(objectUrl);
+          return;
+        }
+        setThumbnail(file);
+        setThumbnailPreview(objectUrl);
+      };
+      img.src = objectUrl;
+    }
+  };
+
+  // 연재 요일 선택 핸들러
+  const handleDaySelect = (day: SerialDay | "매일") => {
+    if (isCompleted) return;
+  
+    if (day === "매일") {
+      setSelectedDays(["mon", "tue", "wed", "thu", "fri", "sat", "sun"]);
+    } else {
+      const isSelected = selectedDays.includes(day as SerialDay);
+      if (isSelected) {
+        setSelectedDays(selectedDays.filter(d => d !== day));
+      } else {
+        setSelectedDays([...selectedDays, day as SerialDay]);
+      }
+    }
+  };
+
+  // 완결 상태 관리
+  const handleCompletedChange = () => {
+    setIsCompleted(!isCompleted);
+    if (!isCompleted) {
+      setSelectedDays(["mon"]); // 배열로 변경
+      setCycle("1weeks");
+    }
+  };
+
+  // 태그 관련 핸들러
   const handleTagChange = (category: keyof FormData["tags"], value: string) => {
     setFormData(prev => ({
       ...prev,
@@ -105,38 +132,68 @@ function WebtoonRegisterForm() {
     }));
   };
 
+  // 유효성 검사
   const isFormValid = () => {
+    const hasValidAuthors = authors.some(author => author.trim() !== "");
+    const combinedAuthorsLength = authors.filter(author => author.trim()).join(", ").length;
+
+    if (combinedAuthorsLength > 100) {
+      return false;
+    }
+
+    if (isCompleted) {
+      return (
+        thumbnail &&
+        formData.title &&
+        hasValidAuthors &&
+        formData.webtoon_url &&
+        formData.publication_day
+      );
+    }
+    
     return (
       thumbnail &&
       formData.title &&
-      authors.some(author => author.trim() !== "") &&
+      hasValidAuthors &&
       formData.webtoon_url &&
       formData.publication_day &&
-      selectedDays.length > 0 &&
+      selectedDays &&
       cycle
     );
   };
 
+  // 제출 핸들러
   const handleSubmit = async () => {
-    const requestData = {
-      title: formData.title,
-      author: authors.filter(author => author.trim() !== "").join(", "),
-      thumbnail,
-      webtoon_url: formData.webtoon_url,
-      publication_day: formData.publication_day,
-      platform: "naver", // 현재는 네이버만
-      serial_day: selectedDays.map(day => day.toLowerCase()).filter(day => ["mon", "tue", "wed", "thu", "fri", "sat", "sun"].includes(day)),
-      serialization_cycle: cycle,
-      tags: Object.entries(formData.tags).map(([category, tags]) => 
-        tags.map(tag => ({
-          tag_name: tag,
-          category: category
-        }))
-      ).flat()
-    };
-
-    console.log("Request Data:", requestData);
-    // API 연동 예정
+    try {
+      if (!thumbnail) return;
+  
+      const requestData: WebtoonRegisterRequest = {
+        title: formData.title,
+        author: authors.filter(a => a.trim()).join(", "),
+        thumbnail: thumbnail,
+        webtoon_url: formData.webtoon_url,
+        publication_day: formData.publication_day,
+        platform,
+        serial_day: isCompleted ? ["mon"] : selectedDays,
+        serialization_cycle: isCompleted ? "1weeks" : cycle,
+        is_new: formData.is_new,
+        is_completed: isCompleted,
+        is_approved: "pending",
+        tags: Object.entries(formData.tags)
+          .map(([category, tags]) => 
+            tags.map(tag => ({
+              tag_name: tag,
+              category: category
+            }))
+          ).flat()
+      };
+  
+      const response = await registerWebtoon(requestData);
+      console.log("등록 성공:", response);
+      
+    } catch (error) {
+      console.error("등록 실패:", error);
+    }
   };
 
   return (
@@ -149,7 +206,7 @@ function WebtoonRegisterForm() {
           <div className="relative w-[120px] h-[180px]">
             {thumbnail ? (
               <Image 
-                src={thumbnail} 
+                src={thumbnailPreview} 
                 alt="표지 미리보기"
                 className="rounded-md object-cover" 
                 width={120}
@@ -258,8 +315,7 @@ function WebtoonRegisterForm() {
       </div>
 
       {/* 연재 주기 */}
-      <div className="flex flex-col gap-2">
-        <label className="font-bold text-main-text">연재 주기 *</label>
+      {!isCompleted && (
         <div className="flex flex-col gap-4">
           {/* 연재 주기 선택 */}
           <div className="flex flex-wrap items-center gap-2">
@@ -273,96 +329,55 @@ function WebtoonRegisterForm() {
             ].map(({ label, value }) => (
               <button
                 key={value}
-                disabled={selectedDays.includes("완결")}
                 className={clsx(
                   "rounded-md px-4 py-2 text-sm",
-                  selectedDays.includes("완결") 
-                    ? "cursor-not-allowed bg-gray-300 text-gray-500"
-                    : cycle === value
-                      ? "bg-main-yellow text-white"
-                      : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
+                  cycle === value
+                    ? "bg-main-yellow text-white"
+                    : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
                 )}
-                onClick={() => setCycle(value)}
+                onClick={() => setCycle(value as SerializationCycle)}
               >
                 {label}
               </button>
             ))}
-            {/* 구분선 */}
-            <div className="h-8 w-px bg-main-grey"></div>
-            {/* 완결 버튼 */}
-            <button
-              className={clsx(
-                "rounded-md px-4 py-2 text-sm",
-                selectedDays.includes("완결")
-                  ? "bg-main-yellow text-white"
-                  : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
-              )}
-              onClick={() => {
-                if (selectedDays.includes("완결")) {
-                  setSelectedDays([]);
-                  setCycle("1weeks"); // 완결 해제 시 매주로 돌아감
-                } else {
-                  setSelectedDays(["완결"]);
-                  setCycle(""); // 완결 선택 시 주기 선택 초기화
-                }
-              }}
-            >
-              완결
-            </button>
           </div>
 
-          {/* 요일 선택 - 매주/격주일 때만 보이도록 */}
+          {/* 요일 선택 */}
           {(cycle === "1weeks" || cycle === "2weeks") && (
             <div className="flex flex-wrap gap-2">
-              {["월", "화", "수", "목", "금", "토", "일", "매일"].map((day) => (
+              {[
+                { label: "월", value: "mon" } as const,  // as const를 추가하여 타입을 명확히 지정
+                { label: "화", value: "tue" } as const,
+                { label: "수", value: "wed" } as const,
+                { label: "목", value: "thu" } as const,
+                { label: "금", value: "fri" } as const,
+                { label: "토", value: "sat" } as const,
+                { label: "일", value: "sun" } as const,
+                { label: "매일", value: "매일" } as const,
+              ].map(({ label, value }) => (
                 <button
-                  key={day}
-                  disabled={selectedDays.includes("완결")}
+                  key={value}
                   className={clsx(
                     "rounded-md px-4 py-2 text-sm",
-                    selectedDays.includes("완결")
-                      ? "cursor-not-allowed bg-gray-300 text-gray-500"
-                      : selectedDays.includes(day)
+                    value === "매일" 
+                      ? selectedDays.length === 7
+                        ? "bg-main-yellow text-white"
+                        : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
+                      : selectedDays.includes(value as SerialDay)  // 여기에 타입 assertion 추가
                         ? "bg-main-yellow text-white"
                         : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
                   )}
-                  onClick={() => {
-                    if (selectedDays.includes("완결")) return;
-
-                    if (day === "매일") {
-                      if (selectedDays.includes("매일")) {
-                        setSelectedDays([]);
-                      } else {
-                        setCycle("1weeks"); // 매일 선택 시 매주로 강제 설정
-                        setSelectedDays([...["월", "화", "수", "목", "금", "토", "일"], "매일"]);
-                      }
-                    } else {
-                      if (selectedDays.includes(day)) {
-                        const newDays = selectedDays.filter(d => d !== day && d !== "매일");
-                        setSelectedDays(newDays);
-                      } else {
-                        const newDays = [...selectedDays, day];
-                        const hasAllWeekdays = ["월", "화", "수", "목", "금", "토", "일"].every(d => 
-                          newDays.includes(d) || d === day
-                        );
-                        if (hasAllWeekdays) {
-                          newDays.push("매일");
-                          setCycle("1weeks"); // 모든 요일 선택으로 인한 매일 선택 시에도 매주로 강제 설정
-                        }
-                        setSelectedDays(newDays);
-                      }
-                    }
-                  }}
+                  onClick={() => handleDaySelect(value as SerialDay | "매일")}  // 여기에도 타입 assertion 추가
                 >
-                  {day}
+                  {label}
                 </button>
               ))}
             </div>
           )}
         </div>
-      </div>
+      )}
 
-      {/* Tags 입력 */}
+      {/* 태그 입력 */}
       <div className="flex flex-col gap-6">
         {[
           { label: "장르", field: "genre", placeholder: "판타지, 로맨스판타지 등" },
