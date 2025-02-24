@@ -17,10 +17,8 @@ export async function GET(request: Request) {
     const { access_token, refresh_token, user } =
       await userApi.handleSocialLogin(provider, code);
 
-    // Access Token과 Refresh Token을 쿠키에 저장
     const response = NextResponse.redirect(new URL("/", request.url));
 
-    // CORS 설정 (개발 환경에서는 필요)
     response.headers.set(
       "Access-Control-Allow-Origin",
       process.env.NEXT_PUBLIC_BASE_URL || "*",
@@ -38,12 +36,6 @@ export async function GET(request: Request) {
       maxAge: 60 * 60 * 24, // 1일
     });
 
-    console.log("리다이렉트 직전");
-    console.log("user(백엔드응답): ", user);
-    console.log("access_token(백엔드응답): ", access_token);
-    console.log("refresh_token(백엔드응답): ", refresh_token);
-
-    // 리다이렉트
     return response;
   } catch (error) {
     console.error(error);

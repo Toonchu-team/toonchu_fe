@@ -25,8 +25,7 @@ export default function MobileTabletNav({ user }: { user: User | null }) {
     setIsMenuOpen(false);
   };
 
-  const toggleMenu = (e: React.MouseEvent) => {
-    console.log(e); // 디버깅용
+  const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 

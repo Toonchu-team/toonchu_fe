@@ -18,7 +18,9 @@ export default function ProfileEdit({ user }: { user: User }) {
 
   const profileImage =
     previewImage ||
-    user?.profile_image ||
+    (user?.profile_image !== ""
+      ? user?.profile_image
+      : "/images/brand-character/default-profile.png") ||
     "/images/brand-character/default-profile.png";
 
   const handleCancel = () => {
