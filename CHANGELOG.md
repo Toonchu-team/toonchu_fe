@@ -403,19 +403,18 @@
 ### :mag: Preview
 
 - **소셜 로그인/로그아웃 동작**
-<div align=center>
-  소셜 로그인 동작 GIF 이미지 추가 예정
-</div>
+
+<img src='https://github.com/user-attachments/assets/eef80baf-9ef4-4bc4-b2d9-fec866505041'/>
+<img src='https://github.com/user-attachments/assets/2e50096b-8f8e-4dcb-b45e-74e81e260e66'/>
 
 - **회원탈퇴 동작**
-<div align=center>
-  회원탈퇴 동작 GIF 이미지 추가 예정
-</div>
+
+<img src='https://github.com/user-attachments/assets/7287196d-1e0c-4546-ba61-4c6d414a7fdb'/>
 
 - **프로필조회/변경 동작**
-<div align=center>
-  프로필조회/변경 동작 GIF 이미지 추가 예정
-</div>
+  
+<img src='https://github.com/user-attachments/assets/fe330be6-db15-42b1-845f-b0ed55fa92ad'/>
+<img src='https://github.com/user-attachments/assets/19ffea95-837e-494e-a291-2afbb4e51fb8'/>
 
 - **개인정보 처리방침 페이지**
 

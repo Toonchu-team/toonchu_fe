@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { HomeIcon } from "lucide-react";
-import TestBtn from "./TestButton";
-import { cookies } from "next/headers";
 
 export default async function Privacy() {
-  const cookieStore = await cookies();
-  const access_token = cookieStore.get("access_token")?.value;
-
   return (
     <div className="heightWithoutNav flex flex-col items-center gap-7 pb-10 text-main-text">
       <h2 className="page-title">개인정보 처리방침</h2>
@@ -509,8 +504,6 @@ export default async function Privacy() {
         <HomeIcon size={20} className="text-main-text group-hover:text-black" />
         <p>메인 페이지로 돌아가기</p>
       </Link>
-      {/* API 테스트시 활성화 */}
-      <TestBtn oldAt={access_token ?? null} />
     </div>
   );
 }

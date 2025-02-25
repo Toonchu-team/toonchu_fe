@@ -41,7 +41,6 @@ export default function Withdrawal() {
       await withdrawalAction(userNickName);
       window.location.href = "/";
       logout();
-      console.log("zustand 유저 상태 : ", user);
       router.push("/");
     } catch (error) {
       console.error("로그아웃 에러:", error);
@@ -58,10 +57,9 @@ export default function Withdrawal() {
           width={120}
           height={120}
         />
-        {/* 반응형 구현 방식 확정 후 작업 예정*/}
         <section className="flex w-[280px] flex-col gap-1 bg-white font-bold">
           <p>
-            {user?.nick_name}아,
+            {user?.nick_name},
             <br />
             진짜 진짜 탈퇴할거냥...?
           </p>
@@ -123,7 +121,7 @@ export default function Withdrawal() {
       >
         <ModalTitle>회원 탈퇴</ModalTitle>
         <ModalContent>
-          <p>{userNickName}아..</p>
+          <p>{userNickName}...</p>
           <p>이제 정말 마지막이다냥..</p>
           <p>
             정말로 <span className="text-main-red">탈퇴</span>할꺼냥...?

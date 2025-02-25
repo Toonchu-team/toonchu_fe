@@ -20,7 +20,6 @@ const useAuthStore = create<AuthState>((set) => ({
       window.location.href = "/";
     } catch (error) {
       console.error("Logout error:", error);
-      // 추후 에러 페이지 생성
     }
   },
 }));
