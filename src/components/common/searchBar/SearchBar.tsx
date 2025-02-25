@@ -9,7 +9,14 @@ import useWebtoonStore from "@/stores/webtoonStore";
 
 const SearchBar = ({ type }: { type?: string }) => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
-  const providers = ["전체", "네이버", "카카오", "카카오페이지", "포스타입"];
+  const providers = [
+    "전체",
+    "네이버",
+    "카카오",
+    "카카오페이지",
+    "포스타입",
+    "그 외",
+  ];
 
   const router = useRouter();
   const {
@@ -24,11 +31,19 @@ const SearchBar = ({ type }: { type?: string }) => {
 
   // 검색 버튼 클릭 시 실행
   const searchHandler = () => {
-    globalSearch(selectedProvider, selectedTag, selectedTerm);
+    if (!selectedProvider) globalSearch("전체", selectedTag, selectedTerm);
+    else globalSearch(selectedProvider, selectedTag, selectedTerm);
 
     // 통합 검색의 경우 통합 검색 페이지로 이동
     if (type === "header") {
       router.push("/global-search");
+    }
+  };
+
+  // 엔터키 입력 이벤트 처리
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      searchHandler();
     }
   };
 
@@ -61,6 +76,7 @@ const SearchBar = ({ type }: { type?: string }) => {
           elements={providers}
           option={selectedProvider ? selectedProvider : "전체"}
           setOption={setSelectedProvider}
+          type="prov"
         />
         {/* 태그 입력 */}
         <div className={clsx(containerClass, "h-8 w-[230px]")}>
@@ -70,6 +86,7 @@ const SearchBar = ({ type }: { type?: string }) => {
             placeholder="태그를 입력하라냥"
             value={selectedTag ? selectedTag : ""}
             onChange={(e) => setSelectedTag(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           {selectedTag && (
             <X
@@ -87,6 +104,7 @@ const SearchBar = ({ type }: { type?: string }) => {
             placeholder="검색어를 입력하라냥"
             value={selectedTerm ? selectedTerm : ""}
             onChange={(e) => setSelectedTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           {selectedTerm && (
             <X

@@ -18,14 +18,14 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
       )}
     >
       {/* 웹툰 이미지 */}
-      {/* <Image
-        src={data && data.thumbnail}
+      <img
+        src={data?.thumbnail}
         alt="웹툰 이미지"
-        width={300}
-        height={216}
+        width="300"
+        height="216"
         className="h-[216px] rounded-xl object-cover"
-        priority
-      /> */}
+        loading="eager" // priority 대신 loading="eager"를 사용해 즉시 로드
+      />
 
       {/* 즐겨찾기 버튼 */}
       <div className="absolute right-0 h-10 w-10 rounded-tr-xl bg-[#968E82] bg-opacity-70">
@@ -102,7 +102,7 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
           <div
             className={clsx(
               "flex flex-wrap justify-center overflow-y-auto",
-              "h-[72px] gap-1",
+              "h-[50px] gap-1 xl:h-[72px]",
             )}
           >
             {data.tags.map((tag, index) => (

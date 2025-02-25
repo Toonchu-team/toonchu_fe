@@ -1,6 +1,4 @@
 export const engDayMapping: Record<string, string> = {
-  전체: "all",
-  매일: "everyday",
   월: "mon",
   화: "tue",
   수: "wed",
@@ -17,9 +15,17 @@ export const engStatusMapping: Record<string, string> = {
 };
 
 export const engProviderMapping: Record<string, string> = {
-  전체: "others",
+  전체: "all",
   카카오: "kakao",
   카카오페이지: "kakaopage",
   네이버: "naver",
   포스타입: "postype",
+  "그 외": "others",
+};
+
+export const engSortMapping: Record<string, string> = {
+  인기순: "popular",
+  조회순: "view",
+  등록순: "created",
+  최신순: "latest",
 };

@@ -68,6 +68,7 @@ export default function GlobalSearchClient() {
                     elements={sortArray}
                     option={sort}
                     setOption={setSort}
+                    type="prov"
                   />
                 ) : (
                   <Dropdown
@@ -76,6 +77,7 @@ export default function GlobalSearchClient() {
                     elements={sortArray}
                     option={sort}
                     setOption={setSort}
+                    type="prov"
                   />
                 )}
               </div>

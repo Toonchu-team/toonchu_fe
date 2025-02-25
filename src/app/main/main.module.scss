@@ -19,6 +19,10 @@
     @apply w-[704px] lg:h-[400px] xl:h-auto xl:w-[1121px];
   }
 
+  .popular_webtoon_text {
+    @apply md:text-base xl:text-xl;
+  }
+
   .popular_webtoon_swiper {
     @apply w-full pt-14;
   }
@@ -31,7 +35,7 @@
   }
 
   .webtoon_text {
-    @apply origin-left;
+    @apply origin-left md:text-base xl:text-xl;
   }
 
   .webtoon_pagination {
@@ -42,7 +46,11 @@
 .tablet,
 .desktop {
   .webtoon_container {
-    @apply h-[900px] w-[704px] xl:h-auto xl:w-[1121px];
+    @apply h-auto w-[704px] xl:w-[1121px];
+  }
+
+  .webtoon_text {
+    @apply md:text-base xl:text-xl;
   }
 
   .webtoon_pagination {

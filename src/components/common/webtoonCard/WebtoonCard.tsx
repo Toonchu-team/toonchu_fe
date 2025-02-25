@@ -11,7 +11,12 @@ import { dayMapping } from "@/lib/utils/korFomatter";
 import { useRouter } from "next/navigation";
 
 const WebtoonCard = ({ data }: { data: WebtoonData }) => {
-  const koreanDay = dayMapping[data.serial_day];
+  const dayOrder = ["월", "화", "수", "목", "금", "토", "일"];
+
+  const koreanDay = data.serial_day
+    .map((serial_day) => dayMapping[serial_day])
+    .sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
+    .join(", ");
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const router = useRouter();
@@ -20,21 +25,21 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
     <div
       className={clsx(
         "flex transition-transform duration-300",
-        "h-[170px] w-[540px] drop-shadow-xl xl:h-[257px]",
+        "h-[170px] max-w-[540px] drop-shadow-xl xl:h-[257px]",
       )}
       onClick={() => {
         router.push(data.webtoon_url);
       }}
     >
       {/* 웹툰 이미지 */}
-      {/* <Image
+      <img
         src={data?.thumbnail}
         alt="웹툰 이미지"
-        width={180}
-        height={257}
+        width="180"
+        height="257"
         className="h-[170px] w-[100px] rounded-bl-2xl rounded-tl-2xl xl:h-[257px] xl:w-[180px]"
-        priority
-      /> */}
+        loading="eager" // priority 대신 loading="eager"를 사용해 즉시 로드
+      />
 
       {/* 카드 컨테이너 */}
       <div
