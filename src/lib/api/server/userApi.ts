@@ -55,7 +55,7 @@ export const userApi = {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/`, // URL without code parameter
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
