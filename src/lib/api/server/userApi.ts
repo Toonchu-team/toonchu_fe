@@ -22,10 +22,6 @@ export const userApi = {
     "use server";
     const access_token = await getAccessToken();
 
-    if (!access_token) {
-      return null;
-    }
-
     try {
       const response = await fetch(
         `${process.env.SERVER_URL}/users/me/profile/update/`,
@@ -36,17 +32,10 @@ export const userApi = {
         },
       );
 
-      if (!response.ok) {
-        if (response.status === 401) {
-          console.warn("인증 실패: access_token이 유효하지 않음");
-          return null;
-        }
-        throw new Error("로그인 유저 정보 찾기 실패");
-      }
+      console.log("getLoginUser 정보", response);
+      const user = await response.json();
 
-      const data = await response.json();
-
-      return data;
+      return user;
     } catch (error) {
       console.error("getLoginUser 오류:", error);
       return null;
@@ -63,8 +52,6 @@ export const userApi = {
     }
 
     try {
-      console.log("백엔드에게 주기 직전 code 형태 : ", code);
-
       const response = await fetch(
         `${process.env.SERVER_URL}/users/login/${provider}/`,
         {
@@ -79,14 +66,11 @@ export const userApi = {
       );
 
       if (!response.ok) {
-        const errorData = await response.text();
-        console.error("Backend error response:", errorData);
         throw new Error("소셜 로그인 인증 실패");
       }
 
-      console.log("로그인 BE응답 :", response);
       const data = await response.json();
-      // console.log("BE응답 :", data);
+
       return data;
     } catch (error) {
       console.error("소셜 로그인 인증 실패 :", error);
@@ -96,10 +80,7 @@ export const userApi = {
 
   handleLogout: async (): Promise<void> => {
     "use server";
-    const access_token = await getAccessToken();
     const refresh_token = await getRefreshToken();
-    console.log("access_token - userApi(handleLogout): ", access_token);
-    console.log("refresh_token - userApi(handleLogout): ", refresh_token);
 
     const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
       method: "POST",
@@ -112,13 +93,11 @@ export const userApi = {
       }),
     });
 
-    console.log("response-handleLogout(userApi) :", response);
-
     if (!response.ok) {
       throw new Error("로그아웃 실패-userAPi");
     }
 
-    deleteAuthCookies(); // 쿠키 삭제
+    deleteAuthCookies();
   },
 
   handleWithdrawal: async (nick_name: string): Promise<void> => {
@@ -145,15 +124,12 @@ export const userApi = {
       throw new Error("회원탈퇴 실패");
     }
 
-    deleteAuthCookies(); // 쿠키 삭제
+    deleteAuthCookies();
   },
 
   profileUpdate: async (nick_name: string, profile_image: File | null) => {
     "use server";
     const access_token = await getAccessToken();
-
-    console.log("nick_name: ", nick_name);
-    console.log("profile_image 파일 형태: ", profile_image);
 
     const formData = new FormData();
     formData.append("nick_name", nick_name);

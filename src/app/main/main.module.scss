@@ -5,7 +5,7 @@
   }
 
   .popular_webtoon_text {
-    @apply scale-[60%] text-center;
+    @apply text-center;
   }
 
   .popular_webtoon_swiper {
@@ -16,7 +16,11 @@
 .tablet,
 .desktop {
   .popular_webtoon_container {
-    @apply h-[300px] w-[1121px] scale-[60%] lg:h-[400px] lg:scale-75 xl:h-auto xl:scale-100;
+    @apply w-[704px] lg:h-[400px] xl:h-auto xl:w-[1121px];
+  }
+
+  .popular_webtoon_text {
+    @apply md:text-base xl:text-xl;
   }
 
   .popular_webtoon_swiper {
@@ -31,7 +35,7 @@
   }
 
   .webtoon_text {
-    @apply origin-left scale-[60%];
+    @apply origin-left md:text-base xl:text-xl;
   }
 
   .webtoon_pagination {
@@ -42,10 +46,14 @@
 .tablet,
 .desktop {
   .webtoon_container {
-    @apply h-[900px] w-[1121px] origin-top scale-[60%] transform lg:h-[1150px] lg:scale-75 xl:h-auto xl:scale-100;
+    @apply h-auto w-[704px] xl:w-[1121px];
+  }
+
+  .webtoon_text {
+    @apply md:text-base xl:text-xl;
   }
 
   .webtoon_pagination {
-    @apply flex-wrap justify-center gap-x-10 gap-y-7 pt-14;
+    @apply flex-wrap justify-center gap-x-10 gap-y-7 pt-10 xl:pt-14;
   }
 }

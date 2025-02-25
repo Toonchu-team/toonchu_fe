@@ -7,8 +7,9 @@ import { RefObject, useEffect, useRef, useState } from "react";
 import TagDropdown from "@/components/tagDropdown/TagDropdown";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import Image from "next/image";
+import { User } from "@/lib/types/auth";
 
-export default function DesktopNav() {
+export default function DesktopNav({ user }: { user: User | null }) {
   const currentPath = usePathname();
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
 
@@ -86,7 +87,7 @@ export default function DesktopNav() {
             </Link>
           </li>
         </ul>
-        <ProfileMenu />
+        <ProfileMenu user={user || null} />
       </nav>
     </>
   );

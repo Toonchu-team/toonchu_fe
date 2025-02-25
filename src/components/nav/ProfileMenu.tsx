@@ -4,14 +4,25 @@ import useAuthStore from "@/stores/authStore";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { RefObject, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon, LogInIcon } from "lucide-react";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useProfileStore from "@/stores/profileStore";
-import { logoutAction } from "@/lib/actions/authActions";
+import { User } from "@/lib/types/auth";
 
-export default function ProfileMenu() {
-  const { user, logout } = useAuthStore();
+const HIDDEN_NICKNAMES = [
+  "코가 짧은 코숏",
+  "야비한 아비시니안",
+  "하나 둘 샴",
+  "렉걸린 렉돌",
+  "가깝고도 먼치킨",
+  "스코티쉬 플립",
+  "손병호게임 숙호티씨 접어",
+];
+
+export default function ProfileMenu({ user }: { user: User | null }) {
+  const { logout } = useAuthStore();
+
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
 
   const [isDropdown, setIsDropdown] = useState(false);
@@ -21,7 +32,9 @@ export default function ProfileMenu() {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
-  const nickName = user ? user.nick_name : "닉네임을 설정해주세요.";
+  const nickName = user?.nick_name || "";
+  const isHiddenNickname = HIDDEN_NICKNAMES.includes(nickName); // 히든 닉네임일 경우 CSS 효과 처리
+
   const thumbnailImage =
     (user && user.profile_image) ||
     "/images/brand-character/default-profile.png";
@@ -36,21 +49,18 @@ export default function ProfileMenu() {
     router.push("/profile");
   };
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setIsDropdown(false);
-    try {
-      await logoutAction();
-      logout();
-      router.push("/");
-    } catch (error) {
-      console.error("로그아웃 에러:", error);
-    }
+    logout();
+    router.push("/");
   };
 
   useOutsideClick({
     ref: dropdownRef as RefObject<HTMLElement>,
     callback: () => setIsDropdown(false),
   });
+
+  useEffect(() => {}, [user]); // user 상태가 변경될 때마다 리렌더링
 
   return user ? (
     <div className="relative flex items-center gap-2">
@@ -64,7 +74,11 @@ export default function ProfileMenu() {
           onClick={() => setIsEditing(false)}
         />
       </Link>
-      <p>{nickName}</p>
+      <p
+        className={`${isHiddenNickname ? "animate-gradient bg-gradient-custom bg-clip-text text-transparent" : ""}`}
+      >
+        {nickName}
+      </p>
       <button onClick={handleDropdown}>
         {isDropdown ? (
           <ChevronUpIcon
@@ -81,7 +95,7 @@ export default function ProfileMenu() {
       {isDropdown && (
         <div
           ref={dropdownRef}
-          className="absolute left-16 top-10 w-28 overflow-hidden rounded-md border-[1px] border-main-text bg-white shadow-sm shadow-main-grey"
+          className="absolute right-0 top-10 w-28 overflow-hidden rounded-md border-[1px] border-main-text bg-white shadow-sm shadow-main-grey"
         >
           <button
             onClick={handleClickProfile}

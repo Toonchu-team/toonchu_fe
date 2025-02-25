@@ -36,6 +36,15 @@
   .page-title {
     @apply my-7 text-2xl font-bold;
   }
+  .policy-ol-container {
+    @apply text-wrap pl-8 font-nanumsquare;
+  }
+  .policy-item-decimal {
+    @apply list-decimal;
+  }
+  .policy-link {
+    @apply border-b-[1px] border-transparent pb-1 hover:border-black hover:text-black;
+  }
 }
 
 @layer utilities {
@@ -115,4 +124,46 @@
 
 .swiper-button-disabled {
   opacity: 0.3 !important;
+}
+
+/* 애니메이션 - 로딩바 */
+@keyframes loading-bar {
+  0% {
+    width: 0%;
+  }
+  33% {
+    width: 33%;
+  }
+  66% {
+    width: 66%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animation-loading-bar {
+  animation: loading-bar infinite 600ms linear;
+}
+
+/* 애니메이션 - 텍스트 그라데이션 */
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient-animation 2s linear infinite;
+  background-size: 300%;
+}
+
+.bg-gradient-custom {
+  background-image: linear-gradient(to right, #efc071, #968e82);
 }

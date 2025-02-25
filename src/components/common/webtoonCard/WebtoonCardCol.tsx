@@ -5,24 +5,9 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import Tags from "../tag/Tags";
 import { Heart } from "lucide-react";
+import { WebtoonData } from "./type";
 
-const WebtoonCardCol = () => {
-  // 임시 데이터
-  const tags = [
-    "오컬트판타지",
-    "동양",
-    "크리처",
-    "스릴러",
-    "현대물",
-    "스릴러",
-    "현대물",
-    "현대물",
-    "현대물",
-    "현대물",
-    "현대물",
-    "2019_지상최대공모전",
-  ];
-
+const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   return (
@@ -33,13 +18,13 @@ const WebtoonCardCol = () => {
       )}
     >
       {/* 웹툰 이미지 */}
-      <Image
-        src="/image.png"
+      <img
+        src={data?.thumbnail}
         alt="웹툰 이미지"
-        width={300}
-        height={216}
+        width="300"
+        height="216"
         className="h-[216px] rounded-xl object-cover"
-        priority
+        loading="eager" // priority 대신 loading="eager"를 사용해 즉시 로드
       />
 
       {/* 즐겨찾기 버튼 */}
@@ -55,13 +40,45 @@ const WebtoonCardCol = () => {
       </div>
 
       {/* 배급사 로고 */}
-      <Image
-        src="/naverSquare.png"
-        alt="네이버 로고"
-        width={40}
-        height={40}
-        className="absolute left-0 rounded-tl-xl"
-      />
+      {data ? (
+        data.platform === "naver" ? (
+          <Image
+            src="/naverSquare.png"
+            alt="네이버 로고"
+            width={40}
+            height={40}
+            className="absolute left-0 rounded-tl-xl"
+          />
+        ) : data.platform === "kakao" ? (
+          <Image
+            src="/kakaoSquare.png"
+            alt="카카오 로고"
+            width={40}
+            height={40}
+            className="absolute left-0 rounded-tl-xl"
+          />
+        ) : data.platform === "kakaopage" ? (
+          <Image
+            src="/kakaopageSquare.png"
+            alt="카카오페이지 로고"
+            width={40}
+            height={40}
+            className="absolute left-0 rounded-tl-xl"
+          />
+        ) : data.platform === "postype" ? (
+          <Image
+            src="/postypeSquare.png"
+            alt="포스타입 로고"
+            width={40}
+            height={40}
+            className="absolute left-0 rounded-tl-xl"
+          />
+        ) : (
+          <div className="absolute left-0 flex h-[40px] w-[40px] items-center justify-center rounded-lg rounded-tl-xl bg-bg-yellow-01">
+            <p className="text-xs text-main-text">준비중</p>
+          </div>
+        )
+      ) : null}
 
       {/* 카드 컨텐츠 */}
       <div
@@ -73,21 +90,23 @@ const WebtoonCardCol = () => {
         <div className="relative flex flex-col items-center gap-4 p-2">
           {/* 제목 및 작가 */}
           <div className="flex w-[85%] flex-col items-center gap-1 pt-2">
-            <p className="line-clamp-2 text-center text-lg">
-              미래의 골동품 가게
+            <p className="line-clamp-2 text-center text-sm xl:text-lg">
+              {data && data.title}
             </p>
-            <p className="text-sm text-main-text">구아진</p>
+            <p className="text-xs text-main-text xl:text-sm">
+              {data && data.author}
+            </p>
           </div>
 
           {/* 태그 */}
           <div
             className={clsx(
               "flex flex-wrap justify-center overflow-y-auto",
-              "h-[72px] gap-1",
+              "h-[50px] gap-1 xl:h-[72px]",
             )}
           >
-            {tags.map((tag, index) => (
-              <Tags key={index} tag={tag} col={false} />
+            {data.tags.map((tag, index) => (
+              <Tags key={index} tag={tag} />
             ))}
           </div>
         </div>

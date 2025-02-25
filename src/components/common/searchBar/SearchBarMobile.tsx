@@ -4,14 +4,42 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { X, Search } from "lucide-react";
 import DropdownMobile from "../dropdown/DropdownMobile";
+import { useRouter } from "next/navigation";
+import useWebtoonStore from "@/stores/webtoonStore";
 
-const SearchBarMobile = () => {
+const SearchBarMobile = ({ type }: { type?: string }) => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
-  const providers = ["전체", "네이버", "카카오", "카카오페이지"];
-  const [provider, setProvider] = useState<string>("전체");
-  const [searchTag, setSearchTag] = useState<string>("");
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const apiUrl = "api/webtoon/search";
+  const providers = [
+    "전체",
+    "네이버",
+    "카카오",
+    "카카오페이지",
+    "포스타입",
+    "그 외",
+  ];
+  const router = useRouter();
+
+  // store의 상태와 액션을 가져옵니다.
+  const {
+    globalSearch,
+    selectedProvider,
+    selectedTag,
+    selectedTerm,
+    setSelectedProvider,
+    setSelectedTag,
+    setSelectedTerm,
+  } = useWebtoonStore();
+
+  // 검색 버튼 클릭 시 실행
+  const searchHandler = () => {
+    if (!selectedProvider) globalSearch("전체", selectedTag, selectedTerm);
+    else globalSearch(selectedProvider, selectedTag, selectedTerm);
+
+    // 통합 검색의 경우 통합 검색 페이지로 이동
+    if (type === "header") {
+      router.push("/global-search");
+    }
+  };
 
   // TailwindCSS 클래스 정리
   const inputClass = "pl-2 text-main-text text-[10px] focus:outline-none";
@@ -29,15 +57,7 @@ const SearchBarMobile = () => {
       {/* 검색 버튼 */}
       <button
         className="absolute flex h-4 w-5 items-center justify-center self-end rounded-r-xl bg-main-yellow pr-0.5"
-        onClick={() => {
-          const queryString = `provider=${provider}${searchTag ? `&tag=${searchTag}` : ""}${searchTerm ? `&term=${searchTerm}` : ""}`;
-          console.log(`${apiUrl}?${queryString}`);
-
-          // 검색창 초기화
-          setProvider("전체");
-          setSearchTag("");
-          setSearchTerm("");
-        }}
+        onClick={searchHandler}
       >
         <Search color="#FFF" size={12} />
       </button>
@@ -49,8 +69,9 @@ const SearchBarMobile = () => {
           openDropdown={openDropdown}
           setOpenDropdown={setOpenDropdown}
           elements={providers}
-          option={provider}
-          setOption={setProvider}
+          option={selectedProvider ? selectedProvider : "전체"}
+          setOption={setSelectedProvider}
+          type="prov"
         />
 
         {/* 태그 입력 */}
@@ -59,14 +80,14 @@ const SearchBarMobile = () => {
             type="text"
             className={clsx(inputClass, "w-[85%]")}
             placeholder="태그를 입력하라냥"
-            value={searchTag}
-            onChange={(e) => setSearchTag(e.target.value)}
+            value={selectedTag || ""}
+            onChange={(e) => setSelectedTag(e.target.value)}
           />
-          {searchTag && (
+          {selectedTag && (
             <X
               className={clearIconClass}
               size={11}
-              onClick={() => setSearchTag("")}
+              onClick={() => setSelectedTag("")}
             />
           )}
         </div>
@@ -77,14 +98,14 @@ const SearchBarMobile = () => {
             type="text"
             className={clsx(inputClass, "w-[85%]")}
             placeholder="검색어를 입력하라냥"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={selectedTerm || ""}
+            onChange={(e) => setSelectedTerm(e.target.value)}
           />
-          {searchTerm && (
+          {selectedTerm && (
             <X
               className={clearIconClass}
               size={11}
-              onClick={() => setSearchTerm("")}
+              onClick={() => setSelectedTerm("")}
             />
           )}
         </div>

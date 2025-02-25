@@ -2,10 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const official_email = "toonchu.official@gmail.com";
+  const subject = "툰츄 문의하기";
+  const body =
+    "안녕하세요, 툰츄입니다. 문의사항을 남겨주시면 빠르게 답변드리겠습니다.";
+
+  const mailtoLink = `mailto:${official_email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
   return (
     <footer className="mt-40 flex h-fit min-h-96 w-full min-w-[320px] shrink-0 flex-col gap-4 bg-gradient-to-b from-white to-main-yellow px-mobile pb-20 text-sm text-main-text md:px-tablet md:text-base lg:px-52">
       <div className="mt-20 flex flex-col justify-between gap-4 md:flex-row">
         <div className="w-full md:w-2/3">
+          <Image
+            src="/images/logo/logo-eng.png"
+            alt="툰츄 로고 이미지"
+            width={150}
+            height={56}
+            className="mb-4"
+          />
           <p>상호명 : 툰츄</p>
           <p>대표번호 : 010-7310-7587</p>
           <p>이메일 주소 : toonchu.official@gmail.com</p>
@@ -16,17 +30,21 @@ export default function Footer() {
           <p>개인정보관리책임자 : 김 규태</p>
           <p>호스팅제공자 : 네이버 클라우드 플랫폼</p>
         </div>
-        <div className="mb-10 flex h-fit w-full flex-col items-start justify-center md:mb-0 md:w-1/3 md:items-end">
+        <div className="mb-10 flex h-fit w-full flex-col items-start justify-center md:mb-0 md:w-fit md:items-center">
           <Link
-            className="w-fit shrink-0 rounded-full bg-gradient-to-r from-bg-yellow-01 to-bg-grey-01 px-10 py-2 font-bold shadow-lg transition-transform duration-200 ease-in-out hover:scale-105"
+            className="w-fit shrink-0 rounded-full bg-gradient-to-r from-bg-yellow-01 to-bg-grey-01 px-10 py-2 font-bold shadow-lg transition-transform duration-200 ease-in-out hover:text-black"
             href="/login"
           >
             툰츄 회원가입
           </Link>
           <ul className="flex items-center gap-2 px-4 py-4">
-            {/* 툰츄 - X, 인스타그램, 트위치, 메일 URL 필요*/}
             <li>
-              <Link href="#">
+              <Link
+                href="https://x.com/toonchuofficial"
+                aria-label="툰츄 X 플랫폼 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="25"
                   height="25"
@@ -40,7 +58,12 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link
+                href="https://www.instagram.com/toonchu_official/"
+                aria-label="툰츄 인스타그램 플랫폼 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="27"
                   height="27"
@@ -54,7 +77,12 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link
+                href="https://chzzk.naver.com/822381620fc9834c12b78efc2eb96042"
+                aria-label="툰츄 치지직 플랫폼 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="25"
                   height="25"
@@ -68,7 +96,12 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <a
+                href={mailtoLink}
+                aria-label="툰츄 이메일 보내기 링크"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <svg
                   width="25"
                   height="25"
@@ -79,7 +112,7 @@ export default function Footer() {
                 >
                   <path d="M64 112c-8.8 0-16 7.2-16 16l0 22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1l0-22.1c0-8.8-7.2-16-16-16L64 112zM48 212.2L48 384c0 8.8 7.2 16 16 16l384 0c8.8 0 16-7.2 16-16l0-171.8L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64l384 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 448c-35.3 0-64-28.7-64-64L0 128z" />
                 </svg>
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
@@ -94,18 +127,24 @@ export default function Footer() {
           className="absolute bottom-[-3px] right-4 md:right-10"
         />
       </div>
-      <div className="flex w-full items-center justify-center">
+      <div className="flex w-full flex-col items-center justify-center sm:flex-row">
         <Link
-          className="text-nowrap border-r-[1px] border-main-text px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="text-nowrap border-r-0 border-main-text px-2 pb-2 underline-offset-8 hover:text-black sm:border-r-[1px] sm:px-4 sm:pb-0 sm:hover:underline"
           href="/privacy"
         >
           개인정보 처리방침
         </Link>
         <Link
-          className="text-nowrap px-2 underline-offset-8 hover:text-black hover:underline sm:px-4"
+          className="mb-2 text-nowrap border-y-[1px] border-r-0 border-main-text px-2 py-2 underline-offset-8 hover:text-black sm:mb-0 sm:border-y-0 sm:border-r-[1px] sm:px-4 sm:py-0 sm:pb-0 sm:hover:underline"
           href="/terms"
         >
           사이트 이용약관
+        </Link>
+        <Link
+          className="text-nowrap px-2 underline-offset-8 hover:text-black sm:px-4 sm:hover:underline"
+          href="https://form.typeform.com/to/ASObDg8w"
+        >
+          😺태그에게 피드백 보내기
         </Link>
       </div>
       <p className="w-full py-4 text-center text-xs text-main-text">
