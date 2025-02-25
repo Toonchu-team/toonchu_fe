@@ -53,9 +53,9 @@ export const userApi = {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/?code=${code}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
