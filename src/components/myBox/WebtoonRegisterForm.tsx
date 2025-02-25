@@ -275,14 +275,16 @@ function WebtoonRegisterForm() {
         console.log("등록 성공:", response);
         setIsSuccess(true);
         resetForm();
-      } catch (error: any) {
+      } catch (error: Error | unknown) {
         console.error("등록 실패:", error);
-        setError(error.message || "작품 등록에 실패했습니다. 다시 시도해주세요.");
+        const errorMessage = error instanceof Error ? error.message : '작품 등록에 실패했습니다';
+        setError(errorMessage);
       }
       
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       console.error("폼 제출 오류:", error);
-      setError(error.message || "작품 등록에 실패했습니다. 다시 시도해주세요.");
+      const errorMessage = error instanceof Error ? error.message : '작품 등록에 실패했습니다';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
