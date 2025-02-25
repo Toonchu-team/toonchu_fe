@@ -67,7 +67,7 @@ export const userApi = {
       console.log("백엔드에게 주기 직전 code 형태 : ", code);
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/?code=${code}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/?code=${code}`, // URL 수정 테스트
         {
           method: "GET",
           headers: {
