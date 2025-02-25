@@ -24,7 +24,7 @@ export const userApi = {
 
     try {
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/me/profile/update/`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/profile/update/`,
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -81,16 +81,19 @@ export const userApi = {
     "use server";
     const refresh_token = await getRefreshToken();
 
-    const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/logout/`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh_token,
+        }),
       },
-      body: JSON.stringify({
-        refresh_token,
-      }),
-    });
+    );
 
     if (!response.ok) {
       throw new Error("로그아웃 실패-userAPi");
@@ -105,7 +108,7 @@ export const userApi = {
     const access_token = await getAccessToken();
 
     const response = await fetch(
-      `${process.env.SERVER_URL}/users/me/profile/withdraw/`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/profile/withdraw/`,
       {
         method: "DELETE",
         credentials: "include",
@@ -138,7 +141,7 @@ export const userApi = {
     }
 
     const response = await fetch(
-      `${process.env.SERVER_URL}/users/me/profile/update/`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/profile/update/`,
       {
         method: "PATCH",
         credentials: "include",
@@ -164,7 +167,7 @@ export const userApi = {
 
     try {
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/token/refresh/`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/token/refresh/`,
         {
           method: "POST",
           credentials: "include",
