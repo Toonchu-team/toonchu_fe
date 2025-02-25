@@ -133,9 +133,7 @@ export default function MyRequestedList() {
   const WebtoonDetailModal = ({ webtoon }: { webtoon: RequestedWebtoon }) => {
     // 날짜를 보기 좋은 형태로 변환
     const formattedPublicationDay = formatDate(webtoon.publication_day);
-    const formattedCreatedAt = formatDate(webtoon.created_at);
-    const formattedUpdatedAt = formatDate(webtoon.updated_at);
-
+    
     // 연재 요일을 한글로 변환
     const serialDayText = Array.isArray(webtoon.serial_day)
       ? webtoon.serial_day.map(day => dayMapping[day]).join(', ')
@@ -151,6 +149,18 @@ export default function MyRequestedList() {
         case 'month': return '월간';
         default: return cycle;
       }
+    };
+
+    // 연재 주기와 요일을 결합
+    const getScheduleText = () => {
+      const cycle = getCycleText(webtoon.serialization_cycle);
+      
+      // 월간인 경우 요일 정보 생략
+      if (cycle === '월간') {
+        return cycle;
+      }
+      
+      return `${cycle} ${serialDayText}요일`;
     };
 
     // 플랫폼 텍스트 변환
@@ -190,40 +200,18 @@ export default function MyRequestedList() {
       }
     };
 
-    // 상태에 따른 배경색 지정
-    const getStatusBgColor = (status: 'pending' | 'approved' | 'rejected') => {
-      switch(status) {
-        case 'pending': return 'bg-yellow-100';
-        case 'approved': return 'bg-green-100';
-        case 'rejected': return 'bg-red-100';
-        default: return 'bg-gray-100';
-      }
-    };
-
-    // 상태에 따른 텍스트 색상 지정
-    const getStatusTextColor = (status: 'pending' | 'approved' | 'rejected') => {
-      switch(status) {
-        case 'pending': return 'text-yellow-700';
-        case 'approved': return 'text-green-700';
-        case 'rejected': return 'text-red-700';
-        default: return 'text-gray-700';
-      }
-    };
-
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm" onClick={closeModal}>
         <div 
-          className="relative max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-xl bg-white shadow-2xl" 
+          className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-white shadow-2xl" 
           onClick={e => e.stopPropagation()}
         >
-          <div className="p-6">
-            {/* 헤더 영역 */}
-            <div className="mb-6 flex items-center justify-between">
+          <div className="p-6 md:p-12">
+            {/* 헤더 영역 - 제목 및 상태 */}
+            <div className="mb-8 flex items-center justify-between">
               <h2 className="text-2xl font-bold">{webtoon.title}</h2>
               <div className="flex items-center gap-3">
-                <div className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusBgColor(webtoon.is_approved)} ${getStatusTextColor(webtoon.is_approved)}`}>
-                  {webtoon.is_approved === 'pending' ? '승인 대기' : webtoon.is_approved === 'approved' ? '승인됨' : '반려됨'}
-                </div>
+                <Status status={webtoon.is_approved} />
                 <button 
                   className="rounded-full bg-gray-100 p-1.5 text-gray-500 transition-all hover:bg-gray-200"
                   onClick={closeModal}
@@ -234,10 +222,10 @@ export default function MyRequestedList() {
             </div>
             
             {/* 기본 정보 영역 */}
-            <div className="mb-8 flex flex-col md:flex-row md:gap-6">
+            <div className="mb-10 flex flex-col md:flex-row md:gap-8">
               {/* 썸네일 */}
-              <div className="mb-4 md:mb-0">
-                <div className="relative aspect-[3/4] w-[140px] overflow-hidden rounded-lg shadow-md">
+              <div className="mb-6 md:mb-0 flex-shrink-0 mx-auto md:mx-0">
+                <div className="relative aspect-[3/4] w-[180px] overflow-hidden rounded-lg shadow-md">
                   <Image
                     src={webtoon.thumbnail}
                     alt={webtoon.title}
@@ -247,15 +235,16 @@ export default function MyRequestedList() {
                 </div>
               </div>
               
-              {/* 웹툰 정보 */}
+              {/* 웹툰 정보 - 그리드 레이아웃으로 변경 */}
               <div className="flex-grow">
-                <div className="mb-4 flex items-center gap-2">
-                  <span className="text-lg font-medium">{webtoon.author}</span>
-                  <span className="text-sm text-gray-500">작가</span>
-                </div>
-                
-                <div className="mb-6 grid grid-cols-1 gap-y-4 md:grid-cols-2 md:gap-x-8">
-                  {/* 플랫폼 정보 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6">
+                  {/* 작가, 연재 시작일 */}
+                  <div>
+                    <p className="text-sm text-gray-500">작가</p>
+                    <p className="font-medium">{webtoon.author}</p>
+                  </div>
+                  
+                  {/* 플랫폼 */}
                   <div>
                     <p className="text-sm text-gray-500">플랫폼</p>
                     <p className="font-medium">{getPlatformText(webtoon.platform)}</p>
@@ -267,34 +256,16 @@ export default function MyRequestedList() {
                     <p className="font-medium">{formattedPublicationDay}</p>
                   </div>
                   
-                  {/* 연재 요일 */}
+                  {/* 연재 주기/요일 */}
                   <div>
-                    <p className="text-sm text-gray-500">연재 요일</p>
-                    <p className="font-medium">{serialDayText}</p>
-                  </div>
-                  
-                  {/* 연재 주기 */}
-                  <div>
-                    <p className="text-sm text-gray-500">연재 주기</p>
-                    <p className="font-medium">{getCycleText(webtoon.serialization_cycle)}</p>
-                  </div>
-                  
-                  {/* 신작 여부 */}
-                  <div>
-                    <p className="text-sm text-gray-500">신작 여부</p>
-                    <p className="font-medium">{webtoon.is_new ? '신작' : '아님'}</p>
-                  </div>
-                  
-                  {/* 완결 여부 */}
-                  <div>
-                    <p className="text-sm text-gray-500">완결 여부</p>
-                    <p className="font-medium">{webtoon.is_completed ? '완결' : '연재중'}</p>
+                    <p className="text-sm text-gray-500">연재 주기 / 요일</p>
+                    <p className="font-medium">{getScheduleText()}</p>
                   </div>
                 </div>
                 
                 {/* 링크 정보 */}
-                <div className="rounded-lg bg-gray-50 p-3">
-                  <p className="mb-1 text-sm text-gray-500">웹툰 링크</p>
+                <div className="mt-6 rounded-lg bg-gray-50 p-4">
+                  <p className="mb-2 text-sm text-gray-500">웹툰 링크</p>
                   <a 
                     href={webtoon.webtoon_url} 
                     target="_blank" 
@@ -308,16 +279,16 @@ export default function MyRequestedList() {
             </div>
             
             {/* 태그 정보 */}
-            <div className="mb-6">
-              <h3 className="mb-4 text-lg font-medium">태그 정보</h3>
-              <div className="flex flex-col gap-4 rounded-lg bg-gray-50 p-4">
+            <div className="mb-8">
+              <h3 className="mb-5 text-lg font-medium">태그</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 rounded-lg bg-gray-50 p-6">
                 {Object.keys(groupedTags).length > 0 ? (
                   Object.keys(groupedTags).map(category => (
-                    <div key={category} className="flex flex-wrap items-start gap-2">
-                      <span className="whitespace-nowrap rounded-md bg-gray-200 px-2 py-1 text-sm font-medium">
+                    <div key={category} className="flex items-start gap-3">
+                      <span className="whitespace-nowrap rounded-md bg-gray-200 px-3 py-1.5 text-sm font-medium">
                         {getCategoryText(category)}
                       </span>
-                      <div className="flex flex-wrap gap-1">
+                      <div className="flex flex-wrap gap-2 flex-1">
                         {groupedTags[category].map((tag, index) => (
                           <span 
                             key={index} 
@@ -330,22 +301,16 @@ export default function MyRequestedList() {
                     </div>
                   ))
                 ) : (
-                  <p className="text-gray-500">등록된 태그가 없습니다.</p>
+                  <p className="text-gray-500 col-span-2">등록된 태그가 없습니다</p>
                 )}
               </div>
             </div>
             
             {/* 등록 정보 푸터 */}
-            <div className="mt-6 border-t border-gray-200 pt-4">
-              <div className="flex flex-col justify-between gap-2 text-sm text-gray-500 md:flex-row">
-                <div className="flex items-center gap-1">
-                  <span>등록 신청일:</span>
-                  <span className="font-medium">{formattedCreatedAt}</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span>최종 업데이트:</span>
-                  <span className="font-medium">{formattedUpdatedAt}</span>
-                </div>
+            <div className="mt-10 border-t border-gray-200 pt-5">
+              <div className="flex items-center justify-end gap-1 text-sm text-gray-500">
+                <span>등록 신청일:</span>
+                <span className="font-medium">{formatDate(webtoon.created_at)}</span>
               </div>
             </div>
           </div>
