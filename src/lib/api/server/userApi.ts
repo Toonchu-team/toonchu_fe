@@ -62,31 +62,25 @@ export const userApi = {
     if (!code) {
       throw new Error("Authorization code 찾기 실패.");
     }
-
+  
     try {
-      console.log("백엔드에게 주기 직전 code 형태 : ", code);
-
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/?code=${code}`, // URL 수정 테스트
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/`, // URL without code parameter
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            code,
-          }),
-        },
+          body: JSON.stringify({ code }),
+        }
       );
-
+  
       if (!response.ok) {
-        console.log("Backend error response", response);
         throw new Error("소셜 로그인 인증 실패");
       }
-
-      console.log("로그인 BE응답 :", response);
+  
       const data = await response.json();
-      // console.log("BE응답 :", data);
+  
       return data;
     } catch (error) {
       console.error("소셜 로그인 인증 실패 :", error);
