@@ -9,20 +9,25 @@ import { WebtoonData } from "./type";
 import { dayMapping } from "@/lib/utils/korFomatter";
 
 const WebtoonCardMobile = ({ data }: { data: WebtoonData }) => {
-  const koreanDay = dayMapping[data.serial_day];
+  const dayOrder = ["월", "화", "수", "목", "금", "토", "일"];
+
+  const koreanDay = data.serial_day
+    .map((serial_day) => dayMapping[serial_day])
+    .sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b))
+    .join(", ");
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   return (
     <div className="flex h-[120px] w-[339px] drop-shadow-lg">
-      {/* <Image
-        src={data && data.thumbnail}
-        alt="썸네일"
-        width={83}
-        height={120}
-        unoptimized
+      <img
+        src={data?.thumbnail}
+        alt="웹툰 이미지"
+        width="83"
+        height="120"
         className="rounded-bl-xl rounded-tl-xl"
-      /> */}
+      />
+
       <div className="border-1 relative flex w-[339px] flex-col rounded-br-xl rounded-tr-xl border bg-white">
         <Heart
           className="absolute right-10 top-2 cursor-pointer"

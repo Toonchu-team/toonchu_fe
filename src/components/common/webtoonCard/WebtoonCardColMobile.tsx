@@ -18,14 +18,14 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
       )}
     >
       {/* 웹툰 이미지 */}
-      {/* <Image
-        src={data && data.thumbnail}
+      <img
+        src={data?.thumbnail}
         alt="웹툰 이미지"
-        width={180}
-        height={129}
+        width="180"
+        height="129"
         className="h-[129px] rounded-md object-cover"
-        priority
-      /> */}
+        loading="eager" // priority 대신 loading="eager"를 사용해 즉시 로드
+      />
 
       {/* 즐겨찾기 버튼 */}
       <div className="absolute right-0 h-6 w-6 rounded-tr-md bg-[#968E82] bg-opacity-70">
