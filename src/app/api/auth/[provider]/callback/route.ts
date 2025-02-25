@@ -1,7 +1,7 @@
 import { userApi } from "@/lib/api/server/userApi";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: Request) {``
   const provider = request.url.split("/").slice(-2, -1)[0];
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
