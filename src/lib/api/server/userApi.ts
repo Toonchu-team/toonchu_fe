@@ -50,30 +50,32 @@ export const userApi = {
     if (!code) {
       throw new Error("Authorization code 찾기 실패.");
     }
-
+  
     try {
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/login/${provider}/?code=${code}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/`, // URL without code parameter
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-        },
+          body: JSON.stringify({ code }),
+        }
       );
-
+  
       if (!response.ok) {
         throw new Error("소셜 로그인 인증 실패");
       }
-
+  
       const data = await response.json();
-
+  
       return data;
     } catch (error) {
       console.error("소셜 로그인 인증 실패 :", error);
       throw new Error("소셜 로그인 인증 실패");
     }
   },
+  
 
   handleLogout: async (): Promise<void> => {
     "use server";
