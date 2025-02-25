@@ -10,6 +10,16 @@ interface ProfileDefaultProps {
   user: User;
 }
 
+const HIDDEN_NICKNAMES = [
+  "코가 짧은 코숏",
+  "야비한 아비시니안",
+  "하나 둘 샴",
+  "렉걸린 렉돌",
+  "가깝고도 먼치킨",
+  "스코티쉬 플립",
+  "손병호게임 숙호티씨 접어",
+];
+
 export default function ProfileDefault({ user }: ProfileDefaultProps) {
   const logout = useAuthStore((state) => state.logout);
   const setIsEditing = useProfileStore((state) => state.setIsEditing);
@@ -48,6 +58,7 @@ export default function ProfileDefault({ user }: ProfileDefaultProps) {
 
   const providerText = providerName[user.provider as keyof typeof providerName];
 
+  const isHiddenNickname = HIDDEN_NICKNAMES.includes(user.nick_name);
   return (
     <>
       <h2 className="page-title">내 프로필</h2>
@@ -59,7 +70,11 @@ export default function ProfileDefault({ user }: ProfileDefaultProps) {
         height={130}
       />
       <section className="flex flex-col items-center gap-1">
-        <h3 className="font-bold">{user.nick_name}</h3>
+        <h3
+          className={`${isHiddenNickname ? "animate-gradient bg-gradient-custom bg-clip-text font-bold text-transparent" : ""}`}
+        >
+          {user.nick_name}
+        </h3>
         <p className="text-xs">({user.email})</p>
         <div
           className={`mt-2 flex h-fit w-fit items-center gap-2 rounded-md border border-main-text px-2 py-1 shadow-md ${

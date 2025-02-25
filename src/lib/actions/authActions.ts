@@ -1,16 +1,17 @@
 "use server";
+
 import { userApi } from "@/lib/api/server/userApi";
 import { revalidatePath } from "next/cache";
 
 export async function getUserAction() {
   try {
-    const userData = await userApi.getLoginUser();
+    const user = await userApi.getLoginUser();
 
-    if (!userData) {
+    if (!user) {
       return null;
     }
 
-    return userData.user;
+    return user;
   } catch (error) {
     console.error("Get user error:", error);
     throw new Error("사용자 정보 가져오기 실패");

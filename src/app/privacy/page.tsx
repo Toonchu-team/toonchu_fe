@@ -504,8 +504,6 @@ export default async function Privacy() {
         <HomeIcon size={20} className="text-main-text group-hover:text-black" />
         <p>메인 페이지로 돌아가기</p>
       </Link>
-      {/* API 테스트시 활성화 */}
-      {/* <TestBtn oldAt={access_token} /> */}
     </div>
   );
 }

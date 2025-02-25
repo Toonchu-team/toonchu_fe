@@ -8,6 +8,6 @@ export default async function Profile() {
   if (!user) {
     redirect("/");
   }
-  console.log(user);
-  return <ProfileClient userData={user} />;
+
+  return <ProfileClient user={user} />;
 }
