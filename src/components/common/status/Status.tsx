@@ -1,9 +1,9 @@
 import React from "react";
 
 const STATUS_MAP = {
-  PENDING: { label: "등록 대기", bgColor: "bg-[#FFD695]" },
-  REGISTERED: { label: "등록 완료", bgColor: "bg-[#B2EBB0]" },
-  REJECTED: { label: "등록 불가", bgColor: "bg-[#FF9595]" }
+  pending: { label: "등록 대기", bgColor: "bg-[#FFD695]" },
+  approved: { label: "등록 완료", bgColor: "bg-[#B2EBB0]" },
+  rejected: { label: "등록 불가", bgColor: "bg-[#FF9595]" }
 } as const;
 
 type StatusType = keyof typeof STATUS_MAP;
