@@ -12,8 +12,8 @@ export interface WebtoonRegisterRequest {
   webtoon_url: string;
   publication_day: string;
   platform: RegisterPlatform;
-  serial_day: SerialDay[];
-  serialization_cycle: SerializationCycle;
+  serial_day: SerialDay[] | null; // null 허용
+  serialization_cycle: SerializationCycle | null; // null 허용
   is_new?: boolean;
   is_completed?: boolean;
   is_approved: 'pending';

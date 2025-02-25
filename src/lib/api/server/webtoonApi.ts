@@ -23,12 +23,21 @@ export async function registerWebtoon(data: WebtoonRegisterRequest) {
     formData.append('webtoon_url', data.webtoon_url);
     formData.append('publication_day', data.publication_day);
     formData.append('platform', data.platform);
-    formData.append('serialization_cycle', data.serialization_cycle);
     
-    // serial_day 배열 처리
-    data.serial_day.forEach((day) => {
-      formData.append('serial_day', day);
-    });
+    // serialization_cycle - null 처리 추가
+    if (data.serialization_cycle !== null) {
+      formData.append('serialization_cycle', data.serialization_cycle);
+    } else {
+      // 백엔드에서 필요한 경우 빈 문자열이나 특별한 값 전송
+      formData.append('serialization_cycle', '');
+    }
+    
+    // serial_day 배열 처리 - null 체크 추가
+    if (data.serial_day !== null) {
+      data.serial_day.forEach((day) => {
+        formData.append('serial_day', day);
+      });
+    }
     
     // 선택적 필드 추가
     if (data.is_new !== undefined) {
@@ -47,7 +56,7 @@ export async function registerWebtoon(data: WebtoonRegisterRequest) {
 
     console.log("webtoonApi.ts formData 요청 전");
 
-    const apiUrl = process.env.SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
     if (!apiUrl) {
       throw new Error("서버 URL이 설정되지 않았습니다.");
     }
