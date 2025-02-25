@@ -9,7 +9,14 @@ import useWebtoonStore from "@/stores/webtoonStore";
 
 const SearchBarMobile = ({ type }: { type?: string }) => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
-  const providers = ["전체", "네이버", "카카오", "카카오페이지", "포스타입"];
+  const providers = [
+    "전체",
+    "네이버",
+    "카카오",
+    "카카오페이지",
+    "포스타입",
+    "그 외",
+  ];
   const router = useRouter();
 
   // store의 상태와 액션을 가져옵니다.
@@ -25,7 +32,8 @@ const SearchBarMobile = ({ type }: { type?: string }) => {
 
   // 검색 버튼 클릭 시 실행
   const searchHandler = () => {
-    globalSearch(selectedProvider, selectedTag, selectedTerm);
+    if (!selectedProvider) globalSearch("전체", selectedTag, selectedTerm);
+    else globalSearch(selectedProvider, selectedTag, selectedTerm);
 
     // 통합 검색의 경우 통합 검색 페이지로 이동
     if (type === "header") {
@@ -63,6 +71,7 @@ const SearchBarMobile = ({ type }: { type?: string }) => {
           elements={providers}
           option={selectedProvider ? selectedProvider : "전체"}
           setOption={setSelectedProvider}
+          type="prov"
         />
 
         {/* 태그 입력 */}
