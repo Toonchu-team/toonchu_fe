@@ -1,5 +1,4 @@
 import { AuthResponse } from "@/lib/types/auth";
-import { customFetch } from "@/lib/utils/customFetch";
 import { cookies } from "next/headers";
 
 const getAccessToken = async () => {
@@ -23,13 +22,9 @@ export const userApi = {
     "use server";
     const access_token = await getAccessToken();
 
-    if (!access_token) {
-      return null;
-    }
-
     try {
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/me/profile/update/`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/profile/update/`,
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -37,17 +32,10 @@ export const userApi = {
         },
       );
 
-      if (!response.ok) {
-        if (response.status === 401) {
-          console.warn("인증 실패: access_token이 유효하지 않음");
-          return null;
-        }
-        throw new Error("로그인 유저 정보 찾기 실패");
-      }
+      console.log("getLoginUser 정보", response);
+      const user = await response.json();
 
-      const data = await response.json();
-
-      return data;
+      return user;
     } catch (error) {
       console.error("getLoginUser 오류:", error);
       return null;
@@ -78,9 +66,11 @@ export const userApi = {
       if (!response.ok) {
         throw new Error("소셜 로그인 인증 실패");
       }
-  
+
+
       const data = await response.json();
-  
+
+
       return data;
     } catch (error) {
       console.error("소셜 로그인 인증 실패 :", error);
@@ -90,29 +80,27 @@ export const userApi = {
 
   handleLogout: async (): Promise<void> => {
     "use server";
-    const access_token = await getAccessToken();
     const refresh_token = await getRefreshToken();
-    console.log("access_token - userApi(handleLogout): ", access_token);
-    console.log("refresh_token - userApi(handleLogout): ", refresh_token);
 
-    const response = await fetch(`${process.env.SERVER_URL}/users/me/logout/`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/logout/`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refresh_token,
+        }),
       },
-      body: JSON.stringify({
-        refresh_token,
-      }),
-    });
-
-    console.log("response-handleLogout(userApi) :", response);
+    );
 
     if (!response.ok) {
       throw new Error("로그아웃 실패-userAPi");
     }
 
-    deleteAuthCookies(); // 쿠키 삭제
+    deleteAuthCookies();
   },
 
   handleWithdrawal: async (nick_name: string): Promise<void> => {
@@ -120,8 +108,8 @@ export const userApi = {
 
     const access_token = await getAccessToken();
 
-    const response = await customFetch(
-      `${process.env.SERVER_URL}/users/me/profile/withdraw/`,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/profile/withdraw/`,
       {
         method: "DELETE",
         credentials: "include",
@@ -139,15 +127,12 @@ export const userApi = {
       throw new Error("회원탈퇴 실패");
     }
 
-    deleteAuthCookies(); // 쿠키 삭제
+    deleteAuthCookies();
   },
 
   profileUpdate: async (nick_name: string, profile_image: File | null) => {
     "use server";
     const access_token = await getAccessToken();
-
-    console.log("nick_name: ", nick_name);
-    console.log("profile_image 파일 형태: ", profile_image);
 
     const formData = new FormData();
     formData.append("nick_name", nick_name);
@@ -156,10 +141,8 @@ export const userApi = {
       formData.append("profile_image", profile_image);
     }
 
-    console.log("formData - userApi.ts: ", formData);
-
     const response = await fetch(
-      `${process.env.SERVER_URL}/users/me/profile/update/`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/users/me/profile/update/`,
       {
         method: "PATCH",
         credentials: "include",
@@ -185,7 +168,7 @@ export const userApi = {
 
     try {
       const response = await fetch(
-        `${process.env.SERVER_URL}/users/token/refresh/`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/token/refresh/`,
         {
           method: "POST",
           credentials: "include",

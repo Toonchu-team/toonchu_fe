@@ -39,8 +39,8 @@ export default function Withdrawal() {
   const handleConfirmWithdrawal = async () => {
     try {
       await withdrawalAction(userNickName);
+      window.location.href = "/";
       logout();
-      console.log("zustand 유저 상태 : ", user);
       router.push("/");
     } catch (error) {
       console.error("로그아웃 에러:", error);
@@ -57,10 +57,9 @@ export default function Withdrawal() {
           width={120}
           height={120}
         />
-        {/* 반응형 구현 방식 확정 후 작업 예정*/}
         <section className="flex w-[280px] flex-col gap-1 bg-white font-bold">
           <p>
-            {user?.nick_name}아,
+            {user?.nick_name},
             <br />
             진짜 진짜 탈퇴할거냥...?
           </p>
@@ -96,8 +95,8 @@ export default function Withdrawal() {
             <p className="flex items-start gap-1 text-main-grey">
               <Info size={14} className="flex-shrink-0" />
               <span className="text-xs font-bold">
-                계정 탈퇴 후 30일 동안 계정이 임시 보관되며, 이 기간 동안 로그인
-                시 탈퇴가 취소됩니다. 30일 이후에는 영구 삭제되어 복구가
+                계정 탈퇴 후 50일 동안 계정이 임시 보관되며, 이 기간 동안 로그인
+                시 탈퇴가 취소됩니다. 50일 이후에는 영구 삭제되어 복구가
                 불가능합니다.
               </span>
             </p>
@@ -122,7 +121,7 @@ export default function Withdrawal() {
       >
         <ModalTitle>회원 탈퇴</ModalTitle>
         <ModalContent>
-          <p>{userNickName}아..</p>
+          <p>{userNickName}...</p>
           <p>이제 정말 마지막이다냥..</p>
           <p>
             정말로 <span className="text-main-red">탈퇴</span>할꺼냥...?

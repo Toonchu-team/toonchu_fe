@@ -60,7 +60,7 @@
 
   // 카테고리
   .category_container {
-    @apply -z-10 gap-16 lg:gap-32;
+    @apply gap-16 lg:gap-32;
   }
 
   // 연재 카테고리
@@ -80,7 +80,7 @@
 
   // 정렬 드롭다운
   .dropdown_container {
-    @apply h-[800px] w-[704px] origin-top lg:h-[1010px] xl:h-auto xl:w-[1121px];
+    @apply h-[800px] w-[704px] lg:h-[1010px] xl:h-auto xl:w-[1121px];
   }
 
   .dropdown {
