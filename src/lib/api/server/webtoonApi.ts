@@ -12,8 +12,6 @@ export async function registerWebtoon(data: WebtoonRegisterRequest) {
 
   const access_token = await getAccessToken();
   
-  const baseUrl = process.env.SERVER_URL ?? 'http://211.188.54.19:8000';
-  
   const formData = new FormData();
     
   Object.entries(data).forEach(([key, value]) => {

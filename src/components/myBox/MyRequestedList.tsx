@@ -60,7 +60,7 @@ export default function MyRequestedList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 임시 데이터
-  const requestedWebtoons: RequestedWebtoon[] = Array.from({ length: 15 }, (_, index) => ({
+  const requestedWebtoons: RequestedWebtoon[] = Array.from({ length: 15 }, () => ({
     title: "미래의 골동품 가게",
     author: "구아진",
     thumbnail: "/image.png",
@@ -209,7 +209,7 @@ export default function MyRequestedList() {
           <div className="p-6 md:p-12">
             {/* 헤더 영역 - 제목 및 상태 */}
             <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-2xl font-bold">{webtoon.title}</h2>
+              <h2 className="text-xl font-bold">{webtoon.title}</h2>
               <div className="flex items-center gap-3">
                 <Status status={webtoon.is_approved} />
                 <button 
