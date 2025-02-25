@@ -208,7 +208,7 @@
 ## ✅ Week 2 (2주차)
 
 <details>
-  <summary>👤 조유원</summary>
+  <summary>👤 조유원 test</summary>
 
 ### ✅ Done
 
@@ -412,7 +412,7 @@
 <img src='https://github.com/user-attachments/assets/7287196d-1e0c-4546-ba61-4c6d414a7fdb'/>
 
 - **프로필조회/변경 동작**
-  
+
 <img src='https://github.com/user-attachments/assets/fe330be6-db15-42b1-845f-b0ed55fa92ad'/>
 <img src='https://github.com/user-attachments/assets/19ffea95-837e-494e-a291-2afbb4e51fb8'/>
 
