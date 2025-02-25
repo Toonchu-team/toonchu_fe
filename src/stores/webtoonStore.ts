@@ -154,7 +154,7 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
   categoryTags: async (category) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/tag?category=${category}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/tag?category=${category}`,
       );
       if (!res.ok)
         throw new Error(
@@ -175,7 +175,7 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
     try {
       const queryString = selectedTagIds.map((id) => `id=${id}`).join("&");
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/search/tag?${queryString}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/search/tag?${queryString}`,
       );
       if (!res.ok)
         throw new Error(
@@ -194,7 +194,7 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
     try {
       const queryString = selectedTagIds.map((id) => `id=${id}`).join("&");
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?${queryString}&sort=${sort}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/list?${queryString}&sort=${sort}`,
       );
 
       if (!res.ok)
@@ -213,7 +213,7 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
   daySearch: async (serial_day, serial_type) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?day=${serial_day}&status=${serial_type}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/list?day=${serial_day}&status=${serial_type}`,
       );
       if (!res.ok)
         throw new Error(
@@ -230,7 +230,7 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
   daySort: async (serial_day, serial_type, sort) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?day=${serial_day}&sort=${sort}&status=${serial_type}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/list?day=${serial_day}&sort=${sort}&status=${serial_type}`,
       );
 
       if (!res.ok)
@@ -248,7 +248,7 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
   etcSearch: async (serial_type) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?status=${serial_type}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/list?status=${serial_type}`,
       );
       if (!res.ok)
         throw new Error(
@@ -265,7 +265,7 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
   etcSort: async (sort, serial_type) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?sort=${sort}&status=${serial_type}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/list?sort=${sort}&status=${serial_type}`,
       );
 
       if (!res.ok)
