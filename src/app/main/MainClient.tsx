@@ -7,7 +7,7 @@ import WebtoonCardCol from "@/components/common/webtoonCard/WebtoonCardCol";
 import WebtoonCardColMobile from "@/components/common/webtoonCard/WebtoonCardColMobile";
 import PaginationList from "@/components/common/pagination/PaginationList";
 import WebtoonCard from "@/components/common/webtoonCard/WebtoonCard";
-import Header from "@/components/common/Header";
+import Header from "@/components/Header";
 import s from "./main.module.scss";
 import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile";
 import { useEffect } from "react";

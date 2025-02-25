@@ -1,7 +1,7 @@
 "use client";
 
 import useBreakpoint from "@/hooks/useBreakpoint";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import Dropdown from "@/components/common/dropdown/Dropdown";
 import PaginationList from "@/components/common/pagination/PaginationList";
@@ -11,19 +11,24 @@ import WebtoonCardMobile from "@/components/common/webtoonCard/WebtoonCardMobile
 import DropdownMobile from "@/components/common/dropdown/DropdownMobile";
 import useWebtoonStore from "@/stores/webtoonStore";
 import NoResults from "../noResults";
+import { usePathname } from "next/navigation";
 
 export default function TagSearchClient() {
   const { selectedTags, selectedTagIds, toggleTag, resetTag, webtoons } =
     useWebtoonStore();
   const resetSearchState = useWebtoonStore((state) => state.resetSearchState);
 
-  // 컴포넌트 언마운트 시 검색 결과 초기화
+  const pathname = usePathname();
+  const initialPathname = useRef(pathname);
+
   useEffect(() => {
-    return () => {
-      // 페이지를 떠날 때 상태 초기화
-      resetSearchState();
-    };
-  }, [resetSearchState]);
+    // pathname이 변경되면 tagSearch 페이지가 아니면 상태 초기화
+    if (pathname !== initialPathname.current) {
+      if (!pathname.includes("/tag-search")) {
+        resetSearchState();
+      }
+    }
+  }, [pathname, resetSearchState]);
 
   const breakpoint = useBreakpoint();
   const data = webtoons; // 검색 결과

@@ -1,0 +1,27 @@
+.container {
+  position: absolute;
+  left: 10%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.footprint {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  animation: fadeOut 3s infinite;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
