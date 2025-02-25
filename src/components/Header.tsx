@@ -1,10 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import clsx from "clsx";
-import ResponsiveSearchBar from "./searchBar/ResponsiveSearchBar";
+import ResponsiveSearchBar from "./common/searchBar/ResponsiveSearchBar";
+import FootprintAnimation from "./FootprintAnimation";
 
 export default function Header() {
   return (
-    <header className={clsx("w-full", "h-[420px] sm:h-[630px] lg:h-[800px]")}>
+    <header
+      className={clsx("relative w-full", "h-[420px] sm:h-[630px] lg:h-[800px]")}
+    >
+      <FootprintAnimation />
+
       {/* 상단 영역 */}
       <div
         className={clsx(

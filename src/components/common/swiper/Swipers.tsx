@@ -15,7 +15,7 @@ const Swipers: React.FC<SwipersProps> = ({ children }) => {
   return (
     <div className="relative mx-auto w-full overflow-visible">
       <Swiper
-        className="relative flex h-[370px] overflow-visible xl:h-[430px]"
+        className="relative flex h-[270px] overflow-visible md:h-[400px] xl:h-[430px]"
         slidesPerView={3}
         breakpoints={{
           0: { slidesPerView: 1 },

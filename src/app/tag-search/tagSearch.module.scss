@@ -44,7 +44,7 @@
 
   // 선택한 태그
   .selected_tag_container {
-    @apply -z-50 h-[70px] w-[600px] xl:h-[100px] xl:w-[870px];
+    @apply h-[70px] w-[600px] xl:h-[100px] xl:w-[870px];
   }
 
   .content_container {

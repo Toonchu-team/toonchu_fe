@@ -10,15 +10,15 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import useProfileStore from "@/stores/profileStore";
 import { User } from "@/lib/types/auth";
 
-// const HIDDEN_NICKNAMES = [
-//   "코가 짧은 코숏",
-//   "야비한 아비시니안",
-//   "하나 둘 샴",
-//   "렉걸린 렉돌",
-//   "가깝고도 먼치킨",
-//   "스코티쉬 플립",
-//   "손병호게임 숙호티씨 접어",
-// ];
+const HIDDEN_NICKNAMES = [
+  "코가 짧은 코숏",
+  "야비한 아비시니안",
+  "하나 둘 샴",
+  "렉걸린 렉돌",
+  "가깝고도 먼치킨",
+  "스코티쉬 플립",
+  "손병호게임 숙호티씨 접어",
+];
 
 export default function ProfileMenu({ user }: { user: User | null }) {
   const { logout } = useAuthStore();
@@ -32,13 +32,9 @@ export default function ProfileMenu({ user }: { user: User | null }) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
 
-  // 닉네임
-  const nickName = user?.nick_name || "닉네임을 설정해주세요.";
-  // 닉네임이 숨겨진 닉네임인지 확인
-  // const isHiddenNickname = HIDDEN_NICKNAMES.includes(nickName);
-  // 숨겨진 닉네임인 경우, 닉네임을 숨김처리
+  const nickName = user?.nick_name || "";
+  const isHiddenNickname = HIDDEN_NICKNAMES.includes(nickName); // 히든 닉네임일 경우 CSS 효과 처리
 
-  // 프로필 사진
   const thumbnailImage =
     (user && user.profile_image) ||
     "/images/brand-character/default-profile.png";
@@ -64,8 +60,7 @@ export default function ProfileMenu({ user }: { user: User | null }) {
     callback: () => setIsDropdown(false),
   });
 
-  // user 상태가 변경될 때마다 리렌더링
-  useEffect(() => {}, [user]);
+  useEffect(() => {}, [user]); // user 상태가 변경될 때마다 리렌더링
 
   return user ? (
     <div className="relative flex items-center gap-2">
@@ -79,7 +74,11 @@ export default function ProfileMenu({ user }: { user: User | null }) {
           onClick={() => setIsEditing(false)}
         />
       </Link>
-      <p>{nickName}</p>
+      <p
+        className={`${isHiddenNickname ? "animate-gradient bg-gradient-custom bg-clip-text text-transparent" : ""}`}
+      >
+        {nickName}
+      </p>
       <button onClick={handleDropdown}>
         {isDropdown ? (
           <ChevronUpIcon
