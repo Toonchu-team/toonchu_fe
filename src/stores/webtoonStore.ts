@@ -30,7 +30,15 @@ interface WebtoonState {
     selectedTagIds: number[],
     selectedTags: string[],
   ) => Promise<void>; // 태그별 검색
+  tagSort: (selectedTagIds: number[], sort: string) => Promise<void>;
   daySearch: (serial_day: string, serial_type: string) => Promise<void>; // 연재별 검색
+  daySort: (
+    serial_day: string,
+    serial_type: string,
+    sort: string,
+  ) => Promise<void>;
+  etcSearch: (serial_type: string) => Promise<void>;
+  etcSort: (sort: string, serial_type: string) => Promise<void>;
 }
 
 const useWebtoonStore = create<WebtoonState>((set) => ({
@@ -103,7 +111,9 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
   // 전체 웹툰 목록 조회
   allWebtoons: async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/webtoons/request`,
+      );
       if (!res.ok)
         throw new Error(
           "웹툰 목록을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.",
@@ -151,7 +161,6 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
           "태그 목록을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.",
         );
       const data = await res.json();
-      console.log(data);
 
       set({ tagList: data });
     } catch (error) {
@@ -180,12 +189,85 @@ const useWebtoonStore = create<WebtoonState>((set) => ({
     }
   },
 
+  // 태그 - 드롭다운 정렬
+  tagSort: async (selectedTagIds, sort) => {
+    try {
+      const queryString = selectedTagIds.map((id) => `id=${id}`).join("&");
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?${queryString}&sort=${sort}`,
+      );
+
+      if (!res.ok)
+        throw new Error(
+          "웹툰 목록을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        );
+      const data = await res.json();
+
+      set({ webtoons: data });
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  },
+
   // 요일별 검색
   daySearch: async (serial_day, serial_type) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list/?day=${serial_day}&status=${serial_type}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?day=${serial_day}&status=${serial_type}`,
       );
+      if (!res.ok)
+        throw new Error(
+          "웹툰 목록을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        );
+      const data = await res.json();
+
+      set({ webtoons: data });
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  },
+
+  daySort: async (serial_day, serial_type, sort) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?day=${serial_day}&sort=${sort}&status=${serial_type}`,
+      );
+
+      if (!res.ok)
+        throw new Error(
+          "웹툰 목록을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        );
+      const data = await res.json();
+
+      set({ webtoons: data });
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  },
+
+  etcSearch: async (serial_type) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?status=${serial_type}`,
+      );
+      if (!res.ok)
+        throw new Error(
+          "웹툰 목록을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        );
+      const data = await res.json();
+
+      set({ webtoons: data });
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  },
+
+  etcSort: async (sort, serial_type) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}webtoons/list?sort=${sort}&status=${serial_type}`,
+      );
+
       if (!res.ok)
         throw new Error(
           "웹툰 목록을 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.",
