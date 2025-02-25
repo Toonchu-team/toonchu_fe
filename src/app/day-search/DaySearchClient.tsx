@@ -14,39 +14,40 @@ import { engDayMapping, engStatusMapping } from "@/lib/utils/engFomatter";
 import NoResults from "../noResults";
 
 export default function DaySearchClient() {
-  const { webtoons, daySearch } = useWebtoonStore();
+  const { webtoons, daySearch, etcSearch } = useWebtoonStore();
   const [selectedContent, setSelectedContent] = useState<string>("전체");
   const [selectedDay, setSelectedDay] = useState<string>("월");
 
   useEffect(() => {
-    daySearch(engDayMapping[selectedDay], engStatusMapping[selectedContent]);
+    if (selectedDay === "기타") {
+      etcSearch(engStatusMapping[selectedContent]);
+    } else {
+      daySearch(engDayMapping[selectedDay], engStatusMapping[selectedContent]);
+    }
   }, [
     selectedDay,
     selectedContent,
     setSelectedContent,
     setSelectedDay,
     daySearch,
+    etcSearch,
   ]);
 
   const breakpoint = useBreakpoint();
-  const data = webtoons;
+  const etcCycle = ["10days", "20days", "month", "etc"];
+  const data =
+    selectedDay === "기타"
+      ? webtoons.filter((webtoon) =>
+          etcCycle.includes(webtoon.serialization_cycle),
+        )
+      : webtoons;
 
   const contentCategories = ["전체", "신작", "완결"];
-  const dayCategories = [
-    "전체",
-    "매일",
-    "월",
-    "화",
-    "수",
-    "목",
-    "금",
-    "토",
-    "일",
-  ];
+  const dayCategories = ["월", "화", "수", "목", "금", "토", "일", "기타"];
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("인기순");
-  const sortArray = ["인기순", "등록순", "오래된순"];
+  const sortArray = ["인기순", "최신순", "조회순", "등록순"];
 
   return (
     <div className={s[breakpoint]}>
@@ -99,7 +100,7 @@ export default function DaySearchClient() {
           </div>
 
           <div className={clsx("flex flex-col", s.dropdown_container)}>
-            {webtoons.length !== 0 && (
+            {data.length !== 0 && (
               <div
                 className={`${s.dropdown} border-1-main-text self-start border px-2 py-1`}
               >
@@ -110,6 +111,9 @@ export default function DaySearchClient() {
                     elements={sortArray}
                     option={sort}
                     setOption={setSort}
+                    type={selectedDay !== "기타" ? "day" : "etc"}
+                    serial_day={engDayMapping[selectedDay]}
+                    serial_type={engStatusMapping[selectedContent]}
                   />
                 ) : (
                   <Dropdown
@@ -118,12 +122,15 @@ export default function DaySearchClient() {
                     elements={sortArray}
                     option={sort}
                     setOption={setSort}
+                    type="day"
+                    serial_day={engDayMapping[selectedDay]}
+                    serial_type={engStatusMapping[selectedContent]}
                   />
                 )}
               </div>
             )}
             {/* 검색 결과 - 카드 컴포넌트 */}
-            {webtoons.length === 0 && <NoResults />}
+            {data.length === 0 && <NoResults />}
             <div className={clsx("flex gap-x-10 gap-y-7", s.search_result)}>
               <PaginationList data={data}>
                 {(webtoonData) =>

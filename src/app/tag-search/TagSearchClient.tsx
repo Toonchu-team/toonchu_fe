@@ -35,7 +35,7 @@ export default function TagSearchClient() {
 
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("인기순");
-  const sortArray = ["인기순", "등록순", "오래된순"];
+  const sortArray = ["인기순", "최신순", "조회순", "등록순"];
 
   return (
     <div className={s[breakpoint]}>
@@ -105,6 +105,8 @@ export default function TagSearchClient() {
                     elements={sortArray}
                     option={sort}
                     setOption={setSort}
+                    type="tag"
+                    selectedTagIds={selectedTagIds}
                   />
                 ) : (
                   <Dropdown
@@ -113,6 +115,8 @@ export default function TagSearchClient() {
                     elements={sortArray}
                     option={sort}
                     setOption={setSort}
+                    type="tag"
+                    selectedTagIds={selectedTagIds}
                   />
                 )}
               </div>
