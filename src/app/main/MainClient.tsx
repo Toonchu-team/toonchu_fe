@@ -20,7 +20,7 @@ export default function MainClient() {
 
   useEffect(() => {
     allWebtoons();
-  }, []);
+  }, [allWebtoons]);
 
   // 메인에서는 검색 모두 초기화
   useEffect(() => {
