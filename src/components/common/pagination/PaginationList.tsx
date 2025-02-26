@@ -4,6 +4,7 @@ import { ReactNode, useState } from "react";
 import { Pagination, ThemeProvider } from "@mui/material";
 import theme from "./theme";
 import { WebtoonData } from "../webtoonCard/type";
+import { usePathname } from "next/navigation";
 
 interface PaginationsProps {
   children: (data: WebtoonData) => ReactNode;
@@ -18,8 +19,16 @@ const PaginationList: React.FC<PaginationsProps> = ({ children, data }) => {
   const endIndex = startIndex + itemsPerPage;
   const displayedItems = data.slice(startIndex, endIndex);
 
+  const pathname = usePathname();
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
+
+    if (pathname === "/") {
+      window.scrollTo({ top: 700, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (

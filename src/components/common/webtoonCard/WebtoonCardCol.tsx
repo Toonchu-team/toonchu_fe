@@ -6,13 +6,11 @@ import clsx from "clsx";
 import Tags from "../tag/Tags";
 import { Heart } from "lucide-react";
 import { WebtoonData } from "./type";
+import { useRouter } from "next/navigation";
 
 const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
-  console.log(data);
-  // 임시 데이터
-  const tags = data.tags.map((tag) => tag.tag_name);
-
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const router = useRouter();
 
   return (
     <div
@@ -20,15 +18,18 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
         "relative flex flex-col overflow-hidden",
         "h-auto w-[300px]",
       )}
+      onClick={() => {
+        router.push(data.webtoon_url);
+      }}
     >
       {/* 웹툰 이미지 */}
-      <Image
-        src={data && data.thumbnail}
+      <img
+        src={data?.thumbnail}
         alt="웹툰 이미지"
-        width={300}
-        height={216}
+        width="300"
+        height="216"
         className="h-[216px] rounded-xl object-cover"
-        priority
+        loading="eager" // priority 대신 loading="eager"를 사용해 즉시 로드
       />
 
       {/* 즐겨찾기 버튼 */}
@@ -39,7 +40,10 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
           stroke={isFavorite ? "#FF8B8B" : "white"}
           strokeWidth={1.5}
           fill={isFavorite ? "#FF8B8B" : "none"}
-          onClick={() => setIsFavorite((prev) => !prev)}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+            setIsFavorite((prev) => !prev);
+          }}
         />
       </div>
 
@@ -72,7 +76,7 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
         ) : data.platform === "postype" ? (
           <Image
             src="/postypeSquare.png"
-            alt="포스트타입 로고"
+            alt="포스타입 로고"
             width={40}
             height={40}
             className="absolute left-0 rounded-tl-xl"
@@ -106,10 +110,10 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
           <div
             className={clsx(
               "flex flex-wrap justify-center overflow-y-auto",
-              "h-[72px] gap-1",
+              "h-[50px] gap-1 xl:h-[72px]",
             )}
           >
-            {tags.map((tag, index) => (
+            {data.tags.map((tag, index) => (
               <Tags key={index} tag={tag} />
             ))}
           </div>

@@ -1,6 +1,8 @@
 import useOutsideClick from "@/hooks/useOutsideClick";
+import { engSortMapping } from "@/lib/utils/engFomatter";
+import useWebtoonStore from "@/stores/webtoonStore";
 import { ChevronDown } from "lucide-react";
-import React, { RefObject, useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 
 const DropdownMobile = ({
   openDropdown,
@@ -8,14 +10,46 @@ const DropdownMobile = ({
   elements,
   option,
   setOption,
+  type,
+  selectedTagIds,
+  serial_day,
+  serial_type,
 }: {
   openDropdown: boolean;
   setOpenDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   elements: string[];
   option: string;
-  setOption: React.Dispatch<React.SetStateAction<string>>;
+  setOption: (value: string) => void;
+  type: "day" | "tag" | "prov" | "etc";
+  selectedTagIds?: number[];
+  serial_day?: string;
+  serial_type?: string;
 }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const { tagSort, daySort, etcSort } = useWebtoonStore();
+
+  useEffect(() => {
+    if (type === "tag" && selectedTagIds) {
+      if (selectedTagIds.length !== 0) {
+        tagSort(selectedTagIds, engSortMapping[option]);
+      }
+    } else if (type === "day" && serial_day && serial_type) {
+      daySort(serial_day, serial_type, engSortMapping[option]);
+    } else if (type === "etc" && serial_type) {
+      etcSort(serial_type, engSortMapping[option]);
+    }
+  }, [
+    option,
+    setOption,
+    selectedTagIds,
+    tagSort,
+    daySort,
+    type,
+    serial_day,
+    serial_type,
+    etcSort,
+  ]);
 
   // 외부 클릭 감지 핸들러
   useOutsideClick({

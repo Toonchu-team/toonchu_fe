@@ -50,14 +50,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let userData = null;
+  let user = null;
   const cookieStore = await cookies();
   const access_token = cookieStore.get("access_token")?.value;
 
   if (access_token) {
     try {
-      userData = await userApi.getLoginUser();
-      console.log("user(layout.tsx): ", userData);
+      user = await userApi.getLoginUser();
+      console.log("user(layout.tsx): ", user);
     } catch (error) {
       console.error("유저 정보 가져오기 실패:", error);
     }
@@ -66,7 +66,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${nanumsquare.variable} ${lemonada.variable}`}>
       <body>
-        <AppInitializer userData={userData}>
+        <AppInitializer user={user}>
           <Nav />
           {children}
           <Footer />
