@@ -66,17 +66,15 @@ export const userApi = {
       if (!response.ok) {
         throw new Error("소셜 로그인 인증 실패");
       }
-
-
       const data = await response.json();
-
-
+      
       return data;
     } catch (error) {
       console.error("소셜 로그인 인증 실패 :", error);
       throw new Error("소셜 로그인 인증 실패");
     }
   },
+  
 
   handleLogout: async (): Promise<void> => {
     "use server";
