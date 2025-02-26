@@ -24,7 +24,7 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
   return (
     <div
       className={clsx(
-        "flex transition-transform duration-300",
+        "flex",
         "h-[170px] max-w-[540px] drop-shadow-xl xl:h-[257px]",
       )}
       onClick={() => {
@@ -37,7 +37,7 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
         alt="웹툰 이미지"
         width="180"
         height="257"
-        className="h-[170px] w-[100px] rounded-bl-2xl rounded-tl-2xl xl:h-[257px] xl:w-[180px]"
+        className="h-[170px] w-[100px] rounded-bl-2xl rounded-tl-2xl drop-shadow-xl xl:h-[257px] xl:w-[180px]"
         loading="eager" // priority 대신 loading="eager"를 사용해 즉시 로드
       />
 
