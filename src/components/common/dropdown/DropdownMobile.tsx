@@ -74,7 +74,7 @@ const DropdownMobile = ({
         />
       </div>
       {openDropdown && (
-        <div className="border-1 absolute top-7 z-50 flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
+        <div className="border-1 absolute top-7 z-[100] flex h-24 w-20 cursor-pointer flex-col rounded-md border bg-white">
           {elements.map((el, index) => (
             <div
               key={index}

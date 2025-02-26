@@ -7,6 +7,7 @@ export interface User {
   profile_image?: string;
   provider: SocialProvider;
   is_hidden?: boolean;
+  is_staff?: boolean;
   is_created?: string;
   is_updated?: string;
 }
