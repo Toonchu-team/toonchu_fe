@@ -41,7 +41,7 @@ const Dropdown = ({
           />
         </div>
         {openDropdown && (
-          <div className="border-1 absolute top-10 z-50 flex h-28 w-28 cursor-pointer flex-col rounded-xl border bg-white text-sm shadow-lg xl:h-32 xl:w-36 xl:text-base">
+          <div className="border-1 absolute top-10 z-[100] flex h-28 w-28 cursor-pointer flex-col rounded-xl border bg-white text-sm shadow-lg xl:h-32 xl:w-36 xl:text-base">
             {elements.map((el, index) => (
               <div
                 key={index}
