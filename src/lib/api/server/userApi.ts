@@ -55,7 +55,7 @@ export const userApi = {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login/${provider}/`, // URL without code parameter
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -66,9 +66,8 @@ export const userApi = {
       if (!response.ok) {
         throw new Error("소셜 로그인 인증 실패");
       }
-  
       const data = await response.json();
-  
+      
       return data;
     } catch (error) {
       console.error("소셜 로그인 인증 실패 :", error);

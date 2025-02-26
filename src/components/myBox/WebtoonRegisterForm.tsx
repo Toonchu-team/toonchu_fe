@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Info, PlusIcon, X, Camera } from "lucide-react";
 import { clsx } from "clsx";
 import { registerWebtoon } from '@/lib/api/server/webtoonApi';
-import { Platform, SerialDay, SerializationCycle, WebtoonRegisterRequest } from "@/lib/types/webtoon";
+import { RegisterPlatform, SerialDay, SerializationCycle, WebtoonRegisterRequest } from "@/lib/types/webtoon";
 import useBreakpoint from "@/hooks/useBreakpoint";
 
 function WebtoonRegisterForm() {
@@ -16,7 +16,7 @@ function WebtoonRegisterForm() {
   const [selectedDays, setSelectedDays] = useState<SerialDay[]>(["mon"]);
   const [cycle, setCycle] = useState<SerializationCycle>("1weeks");
   const [isCompleted, setIsCompleted] = useState(false);
-  const [platform] = useState<Platform>("naver");
+  const [platform, setPlatform] = useState<RegisterPlatform>("naver");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -58,6 +58,15 @@ function WebtoonRegisterForm() {
       etc: []
     }
   });
+
+  // 플랫폼 옵션
+  const platformOptions: { value: RegisterPlatform; label: string }[] = [
+    { value: "naver", label: "네이버" },
+    { value: "kakaopage", label: "카카오페이지" },
+    { value: "kakao", label: "카카오웹툰" },
+    { value: "postype", label: "포스타입" },
+    { value: "others", label: "기타" },
+  ];
 
   // 작가 관련 핸들러
   const addAuthorField = () => {
@@ -101,6 +110,20 @@ function WebtoonRegisterForm() {
     }
   };
 
+  // 연재 주기 선택 핸들러
+  const handleCycleChange = (newCycle: SerializationCycle) => {
+    if (newCycle !== '1weeks' && newCycle !== '2weeks') {
+      // 매주/격주가 아닌 경우(10일, 20일, 한달, 기타) 요일 선택은 필요 없음
+      setSelectedDays([]);
+    } else if (selectedDays.length === 0) {
+      // 매주/격주로 변경되고 현재 선택된 요일이 없으면 기본값 설정
+      setSelectedDays(['mon']); 
+    }
+    
+    // 상태 업데이트
+    setCycle(newCycle);
+  };
+
   // 연재 요일 선택 핸들러
   const handleDaySelect = (day: SerialDay | "매일") => {
     if (isCompleted) return;
@@ -120,9 +143,15 @@ function WebtoonRegisterForm() {
   // 완결 상태 관리
   const handleCompletedChange = () => {
     setIsCompleted(!isCompleted);
+    
     if (!isCompleted) {
-      setSelectedDays(["mon"]);
-      setCycle("1weeks");
+      // 완결 상태로 변경될 때 연재 요일과 주기 초기화
+      setSelectedDays([]); // 빈 배열로 설정
+      setCycle("1weeks"); // 여기서는 초기값 유지
+    } else {
+      // 미완결 상태로 변경될 때 기본값 복원
+      setSelectedDays(["mon"]); // 기본적으로 월요일 선택
+      setCycle("1weeks"); // 기본적으로 매주 선택
     }
   };
 
@@ -156,13 +185,18 @@ function WebtoonRegisterForm() {
       );
     }
     
+    // 매주/격주 주기일 때는 요일 선택이 필요하지만, 그 외 주기에서는 요일 선택이 필요 없음
+    const isValidDays = (cycle === "1weeks" || cycle === "2weeks") 
+      ? selectedDays.length > 0 
+      : true;
+    
     return (
       thumbnail &&
       formData.title &&
       hasValidAuthors &&
       formData.webtoon_url &&
       formData.publication_day &&
-      selectedDays.length > 0 &&
+      isValidDays && // 수정된 부분
       cycle
     );
   };
@@ -175,6 +209,7 @@ function WebtoonRegisterForm() {
     setSelectedDays(["mon"]);
     setCycle("1weeks");
     setIsCompleted(false);
+    setPlatform("naver");
     setFormData({
       title: "",
       webtoon_url: "",
@@ -203,8 +238,10 @@ function WebtoonRegisterForm() {
     setError(null);
     
     try {
-      if (!thumbnail) return;
-  
+      if (!thumbnail) {
+        throw new Error("썸네일 이미지가 필요합니다.");
+      }
+
       const requestData: WebtoonRegisterRequest = {
         title: formData.title,
         author: authors.filter(a => a.trim()).join(", "),
@@ -212,8 +249,10 @@ function WebtoonRegisterForm() {
         webtoon_url: formData.webtoon_url,
         publication_day: formData.publication_day,
         platform,
-        serial_day: isCompleted ? ["mon"] : selectedDays,
-        serialization_cycle: isCompleted ? "1weeks" : cycle,
+        serial_day: isCompleted || cycle === "10days" || cycle === "20days" || cycle === "month" || cycle === "etc" 
+          ? null 
+          : selectedDays,
+        serialization_cycle: isCompleted ? null : cycle, // 완결일 경우 null 전송
         is_new: formData.is_new,
         is_completed: isCompleted,
         is_approved: "pending",
@@ -225,15 +264,27 @@ function WebtoonRegisterForm() {
             }))
           ).flat()
       };
-  
-      const response = await registerWebtoon(requestData);
-      console.log("등록 성공:", response);
-      setIsSuccess(true);
-      resetForm();
+
+      console.log("작품 등록 요청 데이터:", {
+        ...requestData,
+        thumbnail: "File object" // 파일 객체는 로그에서 생략
+      });
+
+      try {
+        const response = await registerWebtoon(requestData);
+        console.log("등록 성공:", response);
+        setIsSuccess(true);
+        resetForm();
+      } catch (error: Error | unknown) {
+        console.error("등록 실패:", error);
+        const errorMessage = error instanceof Error ? error.message : '작품 등록에 실패했습니다';
+        setError(errorMessage);
+      }
       
-    } catch (error) {
-      console.error("등록 실패:", error);
-      setError("작품 등록에 실패했습니다. 다시 시도해주세요.");
+    } catch (error: Error | unknown) {
+      console.error("폼 제출 오류:", error);
+      const errorMessage = error instanceof Error ? error.message : '작품 등록에 실패했습니다';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -363,6 +414,22 @@ function WebtoonRegisterForm() {
         </div>
       </div>
 
+      {/* 플랫폼 */}
+      <div className="flex flex-col gap-2">
+        <label className="font-bold text-main-text">플랫폼 *</label>
+        <select
+          className="w-full rounded-md border border-main-text p-2 focus:border-main-yellow focus:outline-none"
+          value={platform}
+          onChange={(e) => setPlatform(e.target.value as RegisterPlatform)}
+        >
+          {platformOptions.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {/* 링크 */}
       <div className="flex flex-col gap-2">
         <label className="font-bold text-main-text">링크 *</label>
@@ -444,7 +511,7 @@ function WebtoonRegisterForm() {
                     ? "bg-main-yellow text-white"
                     : "bg-bg-grey-01 text-main-text hover:bg-bg-yellow-01/60"
                 )}
-                onClick={() => setCycle(value as SerializationCycle)}
+                onClick={() => handleCycleChange(value as SerializationCycle)}
               >
                 {label}
               </button>
