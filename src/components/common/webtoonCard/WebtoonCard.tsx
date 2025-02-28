@@ -8,7 +8,6 @@ import Tags from "../tag/Tags";
 import { Heart } from "lucide-react";
 import { WebtoonData } from "./type";
 import { dayMapping } from "@/lib/utils/korFomatter";
-import { useRouter } from "next/navigation";
 
 const WebtoonCard = ({ data }: { data: WebtoonData }) => {
   const dayOrder = ["월", "화", "수", "목", "금", "토", "일"];
@@ -19,17 +18,16 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
     .join(", ");
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const router = useRouter();
 
   return (
-    <div
+    <a
+      href={data.webtoon_url}
+      target="_blank"
+      rel="noopener noreferrer"
       className={clsx(
         "flex",
         "h-[170px] max-w-[540px] drop-shadow-xl xl:h-[257px]",
       )}
-      onClick={() => {
-        router.push(data.webtoon_url);
-      }}
     >
       {/* 웹툰 이미지 */}
       <img
@@ -56,7 +54,7 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
           strokeWidth={1.5}
           fill={isFavorite ? "#FF8B8B" : "none"}
           onClick={(e: React.MouseEvent) => {
-            e.stopPropagation();
+            e.preventDefault();
             setIsFavorite((prev) => !prev);
           }}
         />
@@ -111,8 +109,8 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
 
           {/* 웹툰 정보 */}
           <div className="flex flex-col gap-5">
-            <div>
-              <p className="line-clamp-2 text-sm xl:text-lg">
+            <div className="flex flex-col gap-1">
+              <p className="line-clamp-2 w-[150px] text-sm xl:w-auto xl:text-lg">
                 {data && data.title}
               </p>
               <p className="text-xs text-main-text xl:text-sm">
@@ -134,7 +132,7 @@ const WebtoonCard = ({ data }: { data: WebtoonData }) => {
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

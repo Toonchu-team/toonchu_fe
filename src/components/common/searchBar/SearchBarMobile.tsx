@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { X, Search } from "lucide-react";
 import DropdownMobile from "../dropdown/DropdownMobile";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useWebtoonStore from "@/stores/webtoonStore";
+import { engProviderMapping } from "@/lib/utils/engFomatter";
+import { provMapping } from "@/lib/utils/korFomatter";
 
 const SearchBarMobile = ({ type }: { type?: string }) => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
@@ -35,11 +37,49 @@ const SearchBarMobile = ({ type }: { type?: string }) => {
     if (!selectedProvider) globalSearch("전체", selectedTag, selectedTerm);
     else globalSearch(selectedProvider, selectedTag, selectedTerm);
 
+    // 현재 페이지의 쿼리스트링 생성
+    const params = new URLSearchParams();
+    params.set(
+      "provider",
+      engProviderMapping[selectedProvider ? selectedProvider : "전체"],
+    );
+    if (selectedTag) params.set("tag", selectedTag);
+    if (selectedTerm) params.set("term", selectedTerm);
+
+    // 현재 페이지 URL에 쿼리스트링 적용
+    router.replace(`/global-search?${params.toString()}`);
+
     // 통합 검색의 경우 통합 검색 페이지로 이동
     if (type === "header") {
-      router.push("/global-search");
+      router.push(`/global-search?${params.toString()}`);
     }
   };
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const providerParam = searchParams.get("provider");
+    const tagParam = searchParams.get("tag");
+    const termParam = searchParams.get("term");
+
+    if (providerParam)
+      setSelectedProvider(provMapping[providerParam] || "전체");
+    setSelectedTag(tagParam || "");
+    setSelectedTerm(termParam || "");
+
+    if (providerParam)
+      globalSearch(
+        provMapping[providerParam] || "전체",
+        tagParam || "",
+        termParam || "",
+      );
+  }, [
+    searchParams,
+    setSelectedProvider,
+    setSelectedTag,
+    setSelectedTerm,
+    globalSearch,
+  ]);
 
   // TailwindCSS 클래스 정리
   const inputClass = "pl-2 text-main-text text-[10px] focus:outline-none";

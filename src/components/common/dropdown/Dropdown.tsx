@@ -79,7 +79,7 @@ const Dropdown = ({
           <div
             className={clsx(
               "border-1 absolute top-10 z-50 flex w-28 cursor-pointer flex-col rounded-xl border bg-white text-sm shadow-lg xl:w-36 xl:text-base",
-              `h-32 ${type === "prov" ? "xl:h-44" : "xl:h-40"}`,
+              `h-36 ${type === "prov" ? "xl:h-44" : "xl:h-40"}`,
             )}
           >
             {elements.map((el, index) => (
