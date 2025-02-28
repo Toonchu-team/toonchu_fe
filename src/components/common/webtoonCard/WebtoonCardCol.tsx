@@ -6,21 +6,19 @@ import clsx from "clsx";
 import Tags from "../tag/Tags";
 import { Heart } from "lucide-react";
 import { WebtoonData } from "./type";
-import { useRouter } from "next/navigation";
 
 const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const router = useRouter();
 
   return (
-    <div
+    <a
+      href={data.webtoon_url}
+      target="_blank"
+      rel="noopener noreferrer"
       className={clsx(
         "relative flex flex-col overflow-hidden",
         "h-auto w-[300px]",
       )}
-      onClick={() => {
-        router.push(data.webtoon_url);
-      }}
     >
       {/* 웹툰 이미지 */}
       <img
@@ -41,6 +39,7 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
           strokeWidth={1.5}
           fill={isFavorite ? "#FF8B8B" : "none"}
           onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
             e.stopPropagation();
             setIsFavorite((prev) => !prev);
           }}
@@ -119,7 +118,7 @@ const WebtoonCardCol = ({ data }: { data: WebtoonData }) => {
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

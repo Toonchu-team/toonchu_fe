@@ -19,7 +19,7 @@ const Tags = ({ tag }: { tag: Tag }) => {
         `xl:h-[34px]`,
       )}
       onClick={(e: React.MouseEvent) => {
-        e.stopPropagation();
+        e.preventDefault();
         toggleTag(tag.tag_name, tag.id); // selectedTags 업데이트 및 호출
 
         if (selectedTags.length === 0) {
